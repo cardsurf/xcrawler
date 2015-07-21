@@ -36,14 +36,6 @@ class TestPage(unittest.TestCase):
         self.page.extract_pages()
         number_times_page_constructor_called = mock_page_class.call_count        
         self.assertEquals(number_times_page_constructor_called, len(urls))
-        
-    @mock.patch('xcrawler.core.page.urllib2')
-    @mock.patch('xcrawler.core.page.etree')
-    def test_fetch_content(self, mock_etree_module, mock_urllib2_module):
-        mock_page_content = mock.Mock("<html><br>Page title</br></html>")
-        mock_etree_module.HTML.return_value = mock_page_content
-        self.page.fetch_content()
-        self.assertEquals(self.page.content, mock_page_content)
 
     def test_xpath(self):
         mock_page_content = mock.Mock()

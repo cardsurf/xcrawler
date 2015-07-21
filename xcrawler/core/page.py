@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-import urllib2
 from lxml import etree
 from urlparse import urlparse
 
@@ -50,14 +49,6 @@ class Page():
             page = Page(self.config, url, next_page_scraper)
             pages.append(page)
         return pages
-        
-    def fetch_content(self):
-        request_timeout = self.config.request_timeout
-        http_header={'User-Agent' : "Urllib Browser"}
-        http_request = urllib2.Request(self.url, headers=http_header) 
-        content = urllib2.urlopen(http_request, timeout=request_timeout).read()   
-        unicode_parser = etree.HTMLParser(encoding="utf-8")
-        self.content = etree.HTML(content, parser=unicode_parser)
 
     def xpath(self, path):
         path = self.decode_path_to_unicode_object(path)

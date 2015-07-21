@@ -3,8 +3,9 @@ from __future__ import print_function
 import threading
 import urllib2
 import time
-from httplib import BadStatusLine
 import socket
+from httplib import BadStatusLine
+from lxml import etree
 
 class PageProcessor(threading.Thread):
     """Thread used to fetch a web page content.
@@ -29,7 +30,7 @@ class PageProcessor(threading.Thread):
         
     def process_page(self, page):
         try:
-            page.fetch_content()
+            page.content = self.fetch_content(page)
             self.put_extracted_items_in_queue(page)
             self.put_extracted_pages_in_queue(page)  
         except urllib2.URLError, exception:
@@ -41,6 +42,15 @@ class PageProcessor(threading.Thread):
         except BaseException, exception:
             self.handle_base_exception(page, exception)
             raise
+    
+    def fetch_content(self, page):
+        request_timeout = self.config.request_timeout
+        http_header={'User-Agent' : "Urllib Browser"}
+        http_request = urllib2.Request(page.url, headers=http_header) 
+        content = urllib2.urlopen(http_request, timeout=request_timeout).read()   
+        unicode_parser = etree.HTMLParser(encoding="utf-8")
+        content_tree = etree.HTML(content, parser=unicode_parser)
+        return content_tree
 
     def handle_url_error_exception(self, page, exception):
         print("URLError exception while processing page: " + page.url)

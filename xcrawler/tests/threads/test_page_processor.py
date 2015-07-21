@@ -21,13 +21,27 @@ class TestPageProcessor(unittest.TestCase):
         mock_time_function.assert_called_once_with(self.page_processor.config.fetch_delay)
    
     @mock.patch.object(xcrawler.PageProcessor, 'put_extracted_items_in_queue') 
-    @mock.patch.object(xcrawler.PageProcessor, 'put_extracted_pages_in_queue') 
-    def test_process_page(self, mock_put_extracted_pages_in_queue, mock_put_extracted_items_in_queue):
+    @mock.patch.object(xcrawler.PageProcessor, 'put_extracted_pages_in_queue')
+    @mock.patch.object(xcrawler.PageProcessor, 'fetch_content') 
+    def test_process_page(self, mock_fetch_content,
+                          mock_put_extracted_pages_in_queue, mock_put_extracted_items_in_queue):
+        mock_fetch_content.return_value = "<html><br>Page title</br></html>"
         mock_page = mock.Mock()
         self.page_processor.process_page(mock_page)
+        self.assertEquals(mock_page.content, mock_fetch_content.return_value)
+        mock_fetch_content.assert_called_once_with(mock_page)
         mock_put_extracted_pages_in_queue.assert_called_once_with(mock_page)
         mock_put_extracted_items_in_queue.assert_called_once_with(mock_page)      
     
+    @mock.patch('xcrawler.threads.page_processor.urllib2')
+    @mock.patch('xcrawler.threads.page_processor.etree')
+    def test_fetch_content(self, mock_etree_module, mock_urllib2_module):
+        mock_page = mock.Mock()
+        mock_page.url = "http://mockurl.mock"
+        mock_etree_module.HTML.return_value = "<html><br>Page title</br></html>"
+        mock_page.content = self.page_processor.fetch_content(mock_page)
+        self.assertEquals(mock_page.content, mock_etree_module.HTML.return_value)
+
     @mock.patch('__builtin__.print')
     def test_handle_url_error_exception(self, mock_print_function):
         mock_page = mock.Mock()
