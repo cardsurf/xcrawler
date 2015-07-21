@@ -11,7 +11,6 @@ class Page():
     """Crawler representation of a web page.
     
     Attributes:
-        config (Config): Crawler configuration.
         url (str): Web page url.
         scraper (PageScraper): Page scraper used to extracted data and urls from a web page.
         content (Element): Web page content represented as Element object.
@@ -19,8 +18,7 @@ class Page():
         domain (str): Web page domain name.
     """
     
-    def __init__(self, config, url, page_scraper, content = None):
-        self.config = config
+    def __init__(self, url, page_scraper, content = None):
         self.url = url   
         self.scraper = page_scraper
         self.content = content
@@ -46,7 +44,7 @@ class Page():
         
         pages = []
         for url in urls:
-            page = Page(self.config, url, next_page_scraper)
+            page = Page(url, next_page_scraper)
             pages.append(page)
         return pages
 

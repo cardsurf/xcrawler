@@ -40,7 +40,7 @@ class WorkExecutor():
         page_scraper = crawler.get_first_page_scraper()
         
         for url in start_urls:
-            page = Page(self.config, url, page_scraper)
+            page = Page(url, page_scraper)
             self.page_queue.put(page)
 
     def wait_until_work_is_done(self):

@@ -10,8 +10,7 @@ class TestPage(unittest.TestCase):
     def setUp(self):
         url = "http://test.com/index1.html"
         scraper = mock_factory.create_mock_page_scraper()
-        config = mock_factory.create_mock_config()
-        self.page = xcrawler.Page(config, url, scraper)
+        self.page = xcrawler.Page(url, scraper)
         
     @mock.patch('xcrawler.core.page.urlparse')
     def test_get_domain(self, mock_urlparse_module):
