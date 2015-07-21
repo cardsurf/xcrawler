@@ -26,28 +26,7 @@ if __name__ == "__main__":
     test_modules = get_all_modules("..", "test_*.py")
     for module in test_modules:
         suite.addTest(loader.loadTestsFromModule(module))
-        
+
     #print suite.countTestCases()
     unittest.TextTestRunner(verbosity=2).run(suite)
- 
-
-
-
-
-'''
-
-import unittest
-def build_all_tests_suite_discover():
-    start_dir = ".."
-    pattern = "test_*.py"
-    suite = unittest.TestLoader().discover(start_dir, pattern)
-    return suite
-     
-if __name__ == "__main__":
-    suite = build_all_tests_suite_discover()
-    print suite.countTestCases()
-    unittest.TextTestRunner(verbosity=2).run(suite)
-    
-'''
-
 

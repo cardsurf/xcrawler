@@ -39,19 +39,14 @@ class ItemWriter(object):
     def write_item_variables_to_output_file(self, item):
         variables = vars(item)
         values = dict_utils.get_list_of_values_sorted_by_keys(variables)
-        #values = variables.values()
         values = string_utils.list_convert_string_to_unicode(values)
         self.writer.writerow(values)
-        #s = u"ąęźóę".encode("utf-8")
-        #self.writer.writerow(values)
-        #self.writer.writerow([unicode(s).encode("utf-8") for s in values])
 
     def open_output_file(self, output_file_name):
         self.output_file_name = output_file_name
         self.output_file = open(self.output_file_name, "wb", )
         self.writer = csv.writer(self.output_file, delimiter=' ', quotechar='"', quoting=csv.QUOTE_ALL, lineterminator='\n') 
-        
-        
+
     def close_output_file(self):
         self.output_file.close()
         
