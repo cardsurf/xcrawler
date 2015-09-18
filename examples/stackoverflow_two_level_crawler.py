@@ -20,7 +20,7 @@ class FirstLevelPageScraper(xcrawler.PageScraper):
         urls = [page.domain + related_url for related_url in related_urls]
         return urls 
     
-class LastLevelPageScraper(xcrawler.PageScraper):
+class SecondLevelPageScraper(xcrawler.PageScraper):
     def __init__(self):
         self.first_level_scraper = FirstLevelPageScraper()
         
@@ -29,10 +29,9 @@ class LastLevelPageScraper(xcrawler.PageScraper):
 
 
 start_urls = ["http://stackoverflow.com/questions/16622802/center-image-within-div"]
-page_scrapers = [FirstLevelPageScraper(), LastLevelPageScraper()]
+page_scrapers = [FirstLevelPageScraper(), SecondLevelPageScraper()]
 
 crawler = xcrawler.XCrawler(start_urls, page_scrapers)
-crawler.config.output_mode = xcrawler.Config.OUTPUT_MODE_FILE
 crawler.config.output_file_name = "stackoverflow_crawler_output.csv"
 
 crawler.run()
