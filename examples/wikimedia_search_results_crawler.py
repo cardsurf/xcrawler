@@ -29,8 +29,6 @@ page_scrapers = [WikimediaPageScraper()]
 crawler = xcrawler.XCrawler(start_urls, page_scrapers)
 crawler.config.output_file_name = "wikimedia_search_results_output.csv"
 
-print "start"
 crawler.run()
-print "end"
 
 

@@ -24,17 +24,6 @@ page_scrapers = [WikipediaPageScraper()]
 crawler = xcrawler.XCrawler(start_urls, page_scrapers)
 crawler.config.output_file_name = "wikipedia_related_topics_output.csv"
 
-print "start"
 crawler.run()
-print "end"
-
-
-
-
-
-#https://en.wikipedia.org/wiki/Statistics
-#https://commons.wikimedia.org/w/index.php?title=Special:Search&search=water&fulltext=Search&profile=default
-
-
 
 

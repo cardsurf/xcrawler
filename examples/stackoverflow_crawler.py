@@ -35,9 +35,4 @@ crawler = xcrawler.XCrawler(start_urls, page_scrapers)
 crawler.config.output_mode = xcrawler.Config.OUTPUT_MODE_FILE
 crawler.config.output_file_name = "stackoverflow_crawler_output.csv"
 
-print "start"
 crawler.run()
-print "end"
-
-
-    
