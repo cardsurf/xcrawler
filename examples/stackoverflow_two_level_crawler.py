@@ -36,3 +36,4 @@ crawler.config.output_mode = xcrawler.Config.OUTPUT_MODE_FILE
 crawler.config.output_file_name = "stackoverflow_crawler_output.csv"
 
 crawler.run()
+
