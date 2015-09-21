@@ -5,12 +5,12 @@ from config import Config
 from ..threads.work_executor import WorkExecutor
 
 class XCrawler(object):
-    """Multi-threaded web crawler.
+    """A multi-threaded web crawler.
     
     Attributes:
-        start_urls (List[str]): list of urls to be visited by a crawler.
-        page_scrapers (List[PageScraper]): list of page scrapers used to extract data and urls from web pages.
-        config (Config): crawler configuration.
+        start_urls (List[str]): the list of urls to be visited by a crawler.
+        page_scrapers (List[PageScraper]): the list of page scrapers used to extract data and urls from web pages.
+        config (Config): the configuration of a crawler.
     """
     
     def __init__(self, start_urls, page_scrapers):

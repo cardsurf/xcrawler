@@ -6,7 +6,7 @@ from item_processor import ItemProcessor
 from ..core.page import Page
 
 class WorkExecutor():
-    """Manages process of visiting web pages.
+    """Manages a process of visiting web pages.
     
     """
     

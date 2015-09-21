@@ -8,7 +8,7 @@ from httplib import BadStatusLine
 from lxml import etree
 
 class PageProcessor(threading.Thread):
-    """Thread used to fetch a web page content.
+    """A thread used to fetch a content of a web page.
     
     """
     

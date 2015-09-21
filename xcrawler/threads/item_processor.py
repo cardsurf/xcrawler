@@ -6,7 +6,7 @@ from xcrawler.core.config import Config
 from xcrawler.files.item_writer import ItemWriter
 
 class ItemProcessor(threading.Thread):
-    """Thread that process data extracted from web pages.
+    """A thread that processes data extracted from web pages.
     
     """
     

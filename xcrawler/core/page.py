@@ -8,14 +8,14 @@ from urlparse import urlparse
 from xpath_result_extractor import XPathResultExtractor
 
 class Page():
-    """Crawler representation of a web page.
+    """A representation of a web page.
     
     Attributes:
-        url (str): Web page url.
-        scraper (PageScraper): Page scraper used to extracted data and urls from a web page.
-        content (Element): Web page content represented as Element object.
+        url (str): the url of a web page.
+        scraper (PageScraper): the PageScraper used to extract data and urls from a web page.
+        content (Element): the content of a web page represented as Element object.
             More information about Element object: http://effbot.org/zone/element.htm
-        domain (str): Web page domain name.
+        domain (str): The domain name of a web page.
     """
     
     def __init__(self, url, page_scraper, content = None):

@@ -1,14 +1,14 @@
 
 class Config(object):
-    """Crawler configuration.
+    """A configuration of a crawler.
     
     Attributes:
-        output_file_name (str): Name of the output file.
-        output_mode (str): Crawler output mode.
-        number_of_threads (int): Number of threads used to fetch web pages.
-        fetch_delay (float): Thread idle time in seconds after receiving a response from the server
-            and before sending a next request to the server.
-        request_timeout (float): Maximum time in seconds to receive a response from the server.
+        output_file_name (str): the name of an output file.
+        output_mode (str): the output mode of a crawler.
+        number_of_threads (int): the number of threads used to fetch web pages.
+        fetch_delay (float): idle time of a thread in seconds after receiving a response from a server
+            and before sending a next request to a server.
+        request_timeout (float): maximum time in seconds to receive a response from a server.
     """
     
     OUTPUT_MODE_FILE = 'FILE'

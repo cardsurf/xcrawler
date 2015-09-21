@@ -1,7 +1,7 @@
 
 
 class XPathResultExtractor(object):
-    """Extracts data from XPath expression result.
+    """Extracts data from a result of XPath expression.
 
     """
 

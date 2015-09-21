@@ -2,32 +2,32 @@
 from ..pythonutils import type_utils
 
 class PageScraper():
-    """User-defined page scraper which extracts data and urls from a web page.
+    """A user-defined page scraper that extracts data and urls from a web page.
     
-    User defines how to extract data and urls from a web page using methods:
+    A user defines how to extract data and urls from a web page using the following methods:
         `extract_items`: defines how to extract data from a web page.
-        `extract_urls`: defines how to extract urls for a web page.
+        `extract_urls`: defines how to extract urls from a web page.
     """
 
     def extract_items(self, page):
         """
         This method is optional.
-        In this method user defines how to extract data from a web page.
-        :param page: instance of a Page class which contains web page data.
-        :returns: list of data objects or a single object.
+        In this method a user defines how to extract data from a web page.
+        :param page: the instance of Page that contains web page data.
+        :returns: a list of data objects or a single object.
             These objects should contain data extracted from a web page.
-            Example: list of strings, list of custom data objects or single string.
+            Example: a list of strings, a list of custom data objects or a single string.
         """
         return []
      
     def extract_urls(self, page):
         """
         This method is optional.
-        In this method user defines how to extract urls for a web page.
-        A web page may contain urls to other pages, that needs to be visited to extract data.
-        Crawler will visit extracted urls one by one.
-        :param page: instance of a Page class which contains web page data.
-        :returns: list of strings or single string. 
+        In this method a user defines how to extract urls from a web page.
+        A web page may contain urls to other web pages that need to be visited to extract data.
+        A Crawler will visit extracted urls one by one.
+        :param page: the instance of Page that contains web page data.
+        :returns: a list of strings or a single string.
             These strings should be urls to be visited by a crawler. 
         """
         return []

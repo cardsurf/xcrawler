@@ -6,7 +6,7 @@ from ..pythonutils import string_utils
 from ..pythonutils import dict_utils
 
 class ItemWriter(object):
-    """Writes data extracted from web pages to the output file.
+    """Writes data extracted from web pages to an output file.
     
     """
     def __init__(self):
