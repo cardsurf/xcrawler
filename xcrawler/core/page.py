@@ -30,10 +30,7 @@ class Page():
             parsed_uri = urlparse(self.url)
             self.__domain = '{uri.scheme}://{uri.netloc}'.format(uri=parsed_uri)
         return self.__domain
-    
-    def set_content(self, content):
-        self.content = content
-    
+
     def extract_items(self):
         items = self.scraper.extract_items_list(self)
         return items
