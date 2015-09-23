@@ -23,10 +23,12 @@ class WorkExecutor():
     def spawn_page_queue_threads(self):
         for _ in range (self.config.number_of_threads):
             t = PageProcessor(self.config, self.page_queue, self.item_queue)
+            t.daemon = True
             t.start()
             
     def spawn_item_queue_thread(self):
             self.item_processor = ItemProcessor(self.config, self.item_queue)
+            self.item_processor.daemon = True
             self.item_processor.start()
         
     def execute_work(self, crawler):
