@@ -36,13 +36,14 @@ class TestPage(unittest.TestCase):
         number_times_page_constructor_called = mock_page_class.call_count        
         self.assertEquals(number_times_page_constructor_called, len(urls))
 
-    def test_xpath(self):
+    @mock.patch('xcrawler.core.page.FallbackList')
+    def test_xpath(self, fallback_list_class):
         mock_page_content = mock.Mock()
-        mock_page_content.xpath.return_value = ["mock_result1", "mock_result2", "mock_result3"]
         self.page.content = mock_page_content
+        fallback_list_class.return_value = ["mock_result1", "mock_result2", "mock_result3"]
         mock_path = '//div[@class="header_blue"])'
         result = self.page.xpath(mock_path)
-        self.assertEquals(result,mock_page_content.xpath.return_value) 
+        self.assertEquals(result, fallback_list_class.return_value)
   
     @mock.patch.object(xcrawler.Page, 'xpath')
     @mock.patch('xcrawler.core.page.XPathResultExtractor') 

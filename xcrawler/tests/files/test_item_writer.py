@@ -117,5 +117,4 @@ class TestItemWriter(unittest.TestCase):
         
         self.item_writer.output_file.close.assert_called_once_with()
         
-        
-        
+

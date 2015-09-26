@@ -6,6 +6,8 @@ from lxml import etree
 from urlparse import urlparse
 
 from xpath_result_extractor import XPathResultExtractor
+from ..collections.fallback_list import FallbackList
+
 
 class Page():
     """A representation of a web page.
@@ -47,9 +49,10 @@ class Page():
 
     def xpath(self, path):
         path = self.decode_path_to_unicode_object(path)
-        result = self.content.xpath(path)      
+        result = self.content.xpath(path)
+        result = FallbackList(result)
         return result
-    
+
     def decode_path_to_unicode_object(self, path, errors = 'strict'):
         try:
             path = unicode(path, 'utf-8', errors=errors)
@@ -86,5 +89,4 @@ class Page():
      
     def __str__(self):
         return etree.tostring(self.content)
-    
-        
+
