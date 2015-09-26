@@ -10,11 +10,12 @@ class WikipediaPageScraper(xcrawler.PageScraper):
     def extract_items(self, page):
         names = page.xpath("//div[@class='div-col columns column-count column-count-2']/ul[1]/li/a/text()")
         urls = page.xpath("//div[@class='div-col columns column-count column-count-2']/ul[1]/li/a/@href")
+
         topics = []
         for i in range (0, len(names)):
             topic = RelatedTopic()
-            topic.name = names[i]
-            topic.url = urls[i]
+            topic.name = names.get(i, default="NoName")
+            topic.url = urls.get(i)
             topics.append(topic)
         return topics
 

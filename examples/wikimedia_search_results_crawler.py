@@ -12,12 +12,13 @@ class WikimediaPageScraper(xcrawler.PageScraper):
         titles = page.xpath("//ul[@class='mw-search-results']/li/div[1]/a/@title")
         urls = page.xpath("//ul[@class='mw-search-results']/li/div[1]/a/@href")
         data = page.xpath("//ul[@class='mw-search-results']/li/div[3]/text()")
+
         items = []
         for i in range (0, len(titles)):
             item = WikimediaItem()
-            item.title = titles[i]
-            item.url = urls[i]
-            item.data = data[i]
+            item.title = titles.get(i, default="NoTitle")
+            item.url = urls.get(i)
+            item.data = data.get(i)
             items.append(item)
         return items
 

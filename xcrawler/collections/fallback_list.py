@@ -4,10 +4,10 @@ class FallbackList(list):
 
     """
 
-    def get(self, index, default_value="None"):
+    def get(self, index, default="None"):
         try:
             result = self[index]
         except IndexError:
-            result = default_value
+            result = default
         return result
 
