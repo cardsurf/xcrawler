@@ -1,4 +1,6 @@
 
+from collections.fallback_list import FallbackList
+
 from core.page_scraper import PageScraper
 from core.xcrawler import XCrawler
 from core.config import Config

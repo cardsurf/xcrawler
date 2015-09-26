@@ -25,7 +25,7 @@ class TestWorkExecutor(unittest.TestCase):
     @mock.patch('xcrawler.threads.work_executor.ItemProcessor') 
     def test_spawn_item_queue_thread(self, item_processor_class):
         item_processor = item_processor_class.return_value
-        self.work_executor.spawn_item_queue_thread()  
+        self.work_executor.spawn_item_queue_thread()
         self.assertEquals(item_processor.start.call_count, 1)
                 
     @mock.patch('xcrawler.threads.work_executor.Page')   
