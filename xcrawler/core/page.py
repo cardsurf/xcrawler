@@ -5,7 +5,6 @@ from __future__ import print_function
 from lxml import etree
 from urlparse import urlparse
 
-from xpath_result_extractor import XPathResultExtractor
 from ..collections.fallback_list import FallbackList
 
 
@@ -65,28 +64,6 @@ class Page():
             raise
         return path
 
-    def xpath_index(self, path, index, index_error_value = None):
-        result = self.xpath(path)
-        result = XPathResultExtractor.xpath_result_get_index(result, index, index_error_value)
-        return result
-
-    def xpath_first(self, path, index_error_value = None):
-        return self.xpath_index(path, 0, index_error_value)
-
-    def xpath_last(self, path, index_error_value = None):
-        return self.xpath_index(path, -1, index_error_value)
-    
-    def xpath_index_strip(self, path, index, index_error_value = None, strip_pattern = None):
-        result = self.xpath_index(path, index, index_error_value = None)
-        result = XPathResultExtractor.xpath_result_strip(result, strip_pattern)
-        return result
-    
-    def xpath_first_strip(self, path, index_error_value = None, strip_pattern = None):
-        return self.xpath_index_strip(path, 0, index_error_value, strip_pattern)
-    
-    def xpath_last_strip(self, path, index_error_value  = None, strip_pattern = None):
-        return self.xpath_index_strip(path, -1, index_error_value, strip_pattern)
-     
     def __str__(self):
         return etree.tostring(self.content)
 

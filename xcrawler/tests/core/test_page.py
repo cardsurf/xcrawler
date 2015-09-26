@@ -44,64 +44,7 @@ class TestPage(unittest.TestCase):
         mock_path = '//div[@class="header_blue"])'
         result = self.page.xpath(mock_path)
         self.assertEquals(result, fallback_list_class.return_value)
-  
-    @mock.patch.object(xcrawler.Page, 'xpath')
-    @mock.patch('xcrawler.core.page.XPathResultExtractor') 
-    def test_xpath_index(self, mock_xpath_result_extractor_module, mock_xpath):
-        self.page.xpath.return_value = ["mock_result1", "mock_result2", "mock_result3"]
-        mock_xpath_result_extractor_module.xpath_result_get_index.return_value = "mock_result2"
-        mock_path = '//div[@class="header_blue"])'
-        mock_index = 1
-        mock_index_error_value = "Unknown"
-        result = self.page.xpath_index(mock_path, mock_index, mock_index_error_value)
-        self.assertEquals(result, mock_xpath_result_extractor_module.xpath_result_get_index.return_value) 
-  
-    @mock.patch.object(xcrawler.Page, 'xpath_index')  
-    def test_xpath_first(self, mock_xpath_index):
-        self.page.xpath_index.return_value = "mock_result1"
-        mock_path = '//div[@class="header_blue"])'
-        mock_index_error_value = "Unknown"
-        result = self.page.xpath_first(mock_path, mock_index_error_value)
-        self.assertEquals(result, self.page.xpath_index.return_value)
-  
-    @mock.patch.object(xcrawler.Page, 'xpath_index')  
-    def test_xpath_last(self, mock_xpath_index):
-        self.page.xpath_index.return_value = "mock_result3"
-        mock_path = '//div[@class="header_blue"])'
-        mock_index_error_value = "Unknown"
-        result = self.page.xpath_last(mock_path, mock_index_error_value)
-        self.assertEquals(result, self.page.xpath_index.return_value)
-        
-    @mock.patch.object(xcrawler.Page, 'xpath_index')
-    @mock.patch('xcrawler.core.page.XPathResultExtractor') 
-    def test_xpath_index_strip(self, mock_xpath_result_extractor_module, mock_xpath_index):
-        mock_xpath_index.return_value = " mock_result2    "
-        mock_xpath_result_extractor_module.xpath_result_strip.return_value = "mock_result2"
-        mock_path = '//div[@class="header_blue"])'
-        mock_index = 1
-        mock_index_error_value = "Unknown"
-        mock_strip_pattern = "None"
-        result = self.page.xpath_index_strip(mock_path, mock_index, mock_index_error_value, mock_strip_pattern)
-        self.assertEquals(result, mock_xpath_result_extractor_module.xpath_result_strip.return_value) 
-    
-    @mock.patch.object(xcrawler.Page, 'xpath_index_strip')  
-    def test_xpath_first_strip(self, mock_xpath_index_strip):
-        self.page.xpath_index_strip.return_value = "mock_result1"
-        mock_path = '//div[@class="header_blue"])'
-        mock_index_error_value = "Unknown"
-        mock_strip_pattern = "None"
-        result = self.page.xpath_first_strip(mock_path, mock_index_error_value, mock_strip_pattern)
-        self.assertEquals(result, self.page.xpath_index_strip.return_value)
-  
-    @mock.patch.object(xcrawler.Page, 'xpath_index_strip')  
-    def test_extract_last_strip(self, mock_xpath_index_strip):
-        self.page.xpath_index_strip.return_value = "mock_result3"
-        mock_path = '//div[@class="header_blue"])'
-        mock_index_error_value = "Unknown"
-        mock_strip_pattern = "None"
-        result = self.page.xpath_last_strip(mock_path, mock_index_error_value, mock_strip_pattern)
-        self.assertEquals(result, self.page.xpath_index_strip.return_value)
-        
+
     @mock.patch('__builtin__.unicode')
     def test_decode_path_to_unicode_object_no_exception(self, mock_unicode_function):
         path = "path"

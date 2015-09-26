@@ -5,7 +5,6 @@ from core.page_scraper import PageScraper
 from core.xcrawler import XCrawler
 from core.config import Config
 from core.page import Page
-from core.xpath_result_extractor import XPathResultExtractor
 
 from threads.work_executor import WorkExecutor
 from threads.item_processor import ItemProcessor
