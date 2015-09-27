@@ -30,6 +30,10 @@ def replace_none_with_empty_string(o):
     return o
 
 
+def list_convert_object_to_string(list_objects):
+    return [str(o) for o in list_objects]
+
+
 def list_convert_string_to_unicode(string_list):
     return [convert_string_to_unicode(s) for s in string_list]
 

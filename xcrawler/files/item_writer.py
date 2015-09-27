@@ -40,6 +40,7 @@ class ItemWriter(object):
     def write_item_variables_to_output_file(self, item):
         variables = vars(item)
         values = dict_utils.get_list_of_values_sorted_by_keys(variables)
+        values = string_utils.list_convert_object_to_string(values)
         values = string_utils.list_convert_string_to_utf8(values)
         self.writer.writerow(values)
 
