@@ -12,7 +12,7 @@ class WikipediaPageScraper(xcrawler.PageScraper):
         urls = page.xpath("//div[@class='div-col columns column-count column-count-2']/ul[1]/li/a/@href")
 
         topics = []
-        for i in range (0, len(names)):
+        for i in range(0, len(names)):
             topic = RelatedTopic()
             topic.name = names.get(i, fallback="NoName")
             topic.url = urls.get(i)

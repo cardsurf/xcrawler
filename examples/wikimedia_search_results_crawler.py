@@ -1,6 +1,7 @@
 
 import xcrawler
 
+
 class WikimediaItem(object):
     def __init__(self):
         self.title = None
@@ -14,7 +15,7 @@ class WikimediaPageScraper(xcrawler.PageScraper):
         data = page.xpath("//ul[@class='mw-search-results']/li/div[3]/text()")
 
         items = []
-        for i in range (0, len(titles)):
+        for i in range(0, len(titles)):
             item = WikimediaItem()
             item.title = titles.get(i, fallback="NoTitle")
             item.url = urls.get(i)
@@ -23,7 +24,7 @@ class WikimediaPageScraper(xcrawler.PageScraper):
         return items
 
 start_urls = []
-for i in range (1,6):
+for i in range(1,6):
     start_urls.append("https://commons.wikimedia.org/w/index.php?title=Special:Search&limit=20&offset=" + str(i*20) + "&profile=default&search=water")
 page_scrapers = [WikimediaPageScraper()]
 

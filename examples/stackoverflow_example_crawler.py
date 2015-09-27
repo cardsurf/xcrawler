@@ -1,6 +1,7 @@
 
 import xcrawler
 
+
 class Scraper(xcrawler.PageScraper):
     def extract_items(self, page):
         related_questions = page.xpath("//div[@class='module sidebar-related']//a[@class='question-hyperlink']/text()")
