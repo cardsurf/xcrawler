@@ -31,4 +31,4 @@ class Config(object):
         if value in [Config.OUTPUT_MODE_PRINT, Config.OUTPUT_MODE_FILE,
                      Config.OUTPUT_MODE_NONE]:      
             self.__output_mode = value
-            
+

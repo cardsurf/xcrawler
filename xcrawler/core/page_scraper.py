@@ -1,6 +1,7 @@
 
 from ..pythonutils import type_utils
 
+
 class PageScraper():
     """A user-defined page scraper that extracts data and urls from a web page.
     

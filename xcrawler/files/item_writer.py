@@ -5,6 +5,7 @@ import csv
 from ..pythonutils import string_utils
 from ..pythonutils import dict_utils
 
+
 class ItemWriter(object):
     """Writes data extracted from web pages to an output file.
     
@@ -49,4 +50,4 @@ class ItemWriter(object):
 
     def close_output_file(self):
         self.output_file.close()
-        
+

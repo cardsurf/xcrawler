@@ -5,6 +5,7 @@ from page_processor import PageProcessor
 from item_processor import ItemProcessor
 from ..core.page import Page
 
+
 class WorkExecutor():
     """Manages a process of visiting web pages.
     
@@ -48,4 +49,4 @@ class WorkExecutor():
     def wait_until_work_is_done(self):
         self.page_queue.join()
         self.item_queue.join()
-        
+

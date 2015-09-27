@@ -7,6 +7,7 @@ import socket
 from httplib import BadStatusLine
 from lxml import etree
 
+
 class PageProcessor(threading.Thread):
     """A thread used to fetch a content of a web page.
     
@@ -77,5 +78,4 @@ class PageProcessor(threading.Thread):
         extracted_items = page.extract_items()
         for item in extracted_items:
             self.items_queue.put(item)
-            
-            
+

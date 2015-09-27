@@ -4,6 +4,7 @@ from config import Config
 
 from ..threads.work_executor import WorkExecutor
 
+
 class XCrawler(object):
     """A multi-threaded web crawler.
     
@@ -46,4 +47,4 @@ class XCrawler(object):
     
     
     
-    
+
