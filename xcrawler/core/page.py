@@ -24,14 +24,14 @@ class Page():
         self.url = url   
         self.scraper = page_scraper
         self.content = content
-        self.__domain = None
+        self.__domain_name = None
 
     @property
-    def domain(self):
-        if self.__domain == None:
+    def domain_name(self):
+        if self.__domain_name == None:
             parsed_uri = urlparse(self.url)
-            self.__domain = '{uri.scheme}://{uri.netloc}'.format(uri=parsed_uri)
-        return self.__domain
+            self.__domain_name = '{uri.scheme}://{uri.netloc}'.format(uri=parsed_uri)
+        return self.__domain_name
 
     def extract_items(self):
         items = self.scraper.extract_items_list(self)

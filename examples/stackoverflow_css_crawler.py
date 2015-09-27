@@ -12,7 +12,7 @@ class StackOverflowItem(object):
 class UrlScraper(xcrawler.PageScraper):
     def extract_urls(self, page):
         relative_urls = page.css_attr(".question-summary h3 a", "href")
-        urls = [page.domain + relative_url for relative_url in relative_urls]
+        urls = [page.domain_name + relative_url for relative_url in relative_urls]
         return urls
 
 class ItemScraper(xcrawler.PageScraper):

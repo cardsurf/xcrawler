@@ -13,14 +13,14 @@ class TestPage(unittest.TestCase):
         self.page = xcrawler.Page(url, scraper)
         
     @mock.patch('xcrawler.core.page.urlparse')
-    def test_get_domain(self, mock_urlparse_module):
+    def test_get_domain_name(self, mock_urlparse_module):
         mock_parsed_url = mock.Mock()
         mock_parsed_url.scheme = 'http'
         mock_parsed_url.netloc = 'test.com'
         mock_parsed_url.path ='/index=1.html'
         mock_urlparse_module.return_value = mock_parsed_url
-        domain = self.page.domain
-        self.assertEquals(domain, "http://test.com")
+        domain_name = self.page.domain_name
+        self.assertEquals(domain_name, "http://test.com")
         
     def test_extract_items(self):
         mock_items_list = mock.Mock()
