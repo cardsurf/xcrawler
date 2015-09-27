@@ -3,6 +3,7 @@
 
 from __future__ import print_function
 from lxml import etree
+from lxml.cssselect import CSSSelector
 from urlparse import urlparse
 
 from ..collections.fallback_list import FallbackList
@@ -51,6 +52,33 @@ class Page():
         result = self.content.xpath(path)
         result = FallbackList(result)
         return result
+
+    def css(self, path):
+        path = self.decode_path_to_unicode_object(path)
+        selector = CSSSelector(path)
+        result = selector(self.content)
+        result = FallbackList(result)
+        return result
+
+    def css_text(self, path):
+        result = self.css(path)
+        result = self.convert_elements_to_text(result)
+        return result
+
+    def convert_elements_to_text(self, list_elements):
+        for i, element in enumerate(list_elements):
+            list_elements[i] = etree.tostring(element, method="text", encoding="UTF-8")
+        return list_elements
+
+    def css_attr(self, path, attribute_name):
+        result = self.css(path)
+        result = self.convert_elements_to_attribute(result, attribute_name)
+        return result
+
+    def convert_elements_to_attribute(self, list_elements, attribute_name):
+        for i, element in enumerate(list_elements):
+            list_elements[i] = element.attrib[attribute_name]
+        return list_elements
 
     def decode_path_to_unicode_object(self, path, errors = 'strict'):
         try:
