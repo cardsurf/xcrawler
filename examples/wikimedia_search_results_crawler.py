@@ -24,7 +24,7 @@ class WikimediaPageScraper(xcrawler.PageScraper):
         return items
 
 start_urls = []
-for i in range(1,6):
+for i in range(1, 6):
     start_urls.append("https://commons.wikimedia.org/w/index.php?title=Special:Search&limit=20&offset=" + str(i*20) + "&profile=default&search=water")
 page_scrapers = [WikimediaPageScraper()]
 

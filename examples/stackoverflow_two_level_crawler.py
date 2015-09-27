@@ -20,7 +20,7 @@ class FirstLevelPageScraper(xcrawler.PageScraper):
 
     def extract_urls(self, page):
         related_urls = page.xpath("//div[@class='module sidebar-related']//a[@class='question-hyperlink']/@href")
-        urls = [page.domain_name + related_url for related_url in related_urls]
+        urls = [page.domain + related_url for related_url in related_urls]
         return urls 
 
 class SecondLevelPageScraper(xcrawler.PageScraper):
