@@ -6,6 +6,7 @@ import Queue
 import xcrawler
 from xcrawler.tests.mock import mock_factory
 
+
 class TestPageProcessor(unittest.TestCase):
     
     def setUp(self):
@@ -90,5 +91,5 @@ class TestPageProcessor(unittest.TestCase):
         mock_extracted_items = [mock.Mock()] * 10
         mock_page.extract_items.return_value = mock_extracted_items
         self.page_processor.put_extracted_items_in_queue(mock_page)
-        self.assertEquals(self.page_processor.items_queue.put.call_count, len(mock_extracted_items))    
-        
+        self.assertEquals(self.page_processor.items_queue.put.call_count, len(mock_extracted_items))
+

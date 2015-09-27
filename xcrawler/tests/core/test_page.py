@@ -5,6 +5,7 @@ import mock
 from xcrawler.tests.mock import mock_factory
 import xcrawler
 
+
 class TestPage(unittest.TestCase):
 
     def setUp(self):

@@ -5,6 +5,7 @@ import csv
 
 import xcrawler
 
+
 class TestItemWriter(unittest.TestCase):
 
     def setUp(self):

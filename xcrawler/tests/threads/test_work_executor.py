@@ -49,4 +49,3 @@ class TestWorkExecutor(unittest.TestCase):
         self.assertEquals(mock_wait_until_work_is_done.call_count, 1)
         self.assertEquals(self.work_executor.item_processor.close_output_file_if_needed.call_count, 1)                  
         
-    

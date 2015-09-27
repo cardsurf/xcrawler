@@ -6,6 +6,7 @@ import Queue
 import xcrawler
 from xcrawler.tests.mock import mock_factory
 
+
 class TestItemProcessor(unittest.TestCase):
 
     def setUp(self):

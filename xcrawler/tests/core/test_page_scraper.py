@@ -5,6 +5,7 @@ import mock
 import xcrawler
 from xcrawler.tests.mock import mock_factory
 
+
 class TestPageScraper(unittest.TestCase):
 
     def setUp(self):
@@ -75,4 +76,4 @@ class TestPageScraper(unittest.TestCase):
         self.assertEquals(scraper, mock_page_scraper)
 
     
-    
+
