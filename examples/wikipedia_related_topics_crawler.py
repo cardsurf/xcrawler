@@ -14,7 +14,7 @@ class WikipediaPageScraper(xcrawler.PageScraper):
         topics = []
         for i in range (0, len(names)):
             topic = RelatedTopic()
-            topic.name = names.get(i, default="NoName")
+            topic.name = names.get(i, fallback="NoName")
             topic.url = urls.get(i)
             topics.append(topic)
         return topics

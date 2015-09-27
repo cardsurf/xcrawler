@@ -18,7 +18,7 @@ class UrlScraper(xcrawler.PageScraper):
 class ItemScraper(xcrawler.PageScraper):
     def extract_items(self, page):
         item = StackOverflowItem()
-        item.title = page.css_text("h1 a").get(0, default="NoTitle")
+        item.title = page.css_text("h1 a").get(0, fallback="NoTitle")
         item.votes = page.css_text(".question .vote-count-post").get(0).strip()
         item.tags = page.css_text(".question .post-tag").get(0)
         item.url = page.url

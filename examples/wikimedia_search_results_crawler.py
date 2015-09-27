@@ -16,7 +16,7 @@ class WikimediaPageScraper(xcrawler.PageScraper):
         items = []
         for i in range (0, len(titles)):
             item = WikimediaItem()
-            item.title = titles.get(i, default="NoTitle")
+            item.title = titles.get(i, fallback="NoTitle")
             item.url = urls.get(i)
             item.data = data.get(i)
             items.append(item)

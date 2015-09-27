@@ -13,14 +13,14 @@ class TestFallbackList(unittest.TestCase):
 
     def test_get_valid_index(self):
         index = 0
-        default_value = None
+        fallback = "FallbackValue"
         string = self.list_strings[0]
-        result = self.fallback_list.get(index, default_value)
+        result = self.fallback_list.get(index, fallback)
         self.assertEquals(result, string)
 
     def test_get_invalid_index(self):
         index = len(self.fallback_list) + 1
-        default_value = None
-        result = self.fallback_list.get(index, default_value)
-        self.assertEquals(result, default_value)
+        fallback = "FallbackValue"
+        result = self.fallback_list.get(index, fallback)
+        self.assertEquals(result, fallback)
 
