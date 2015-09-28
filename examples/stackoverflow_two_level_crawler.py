@@ -9,7 +9,7 @@ class StackOverflowItem:
 
 
 class QuestionsUrlsScraper(PageScraper):
-    def extract_items(self, page):
+    def extract(self, page):
         related_questions = page.xpath("//div[@class='module sidebar-related']//a[@class='question-hyperlink']/text()")
         items = []
         for related_question in related_questions:
@@ -19,7 +19,7 @@ class QuestionsUrlsScraper(PageScraper):
             items.append(item)
         return items
 
-    def extract_urls(self, page):
+    def visit(self, page):
         related_urls = page.xpath("//div[@class='module sidebar-related']//a[@class='question-hyperlink']/@href")
         return [Page(page.domain_name + related_url, QuestionsOnlyScraper()) for related_url in related_urls]
 
@@ -28,8 +28,8 @@ class QuestionsOnlyScraper(PageScraper):
     def __init__(self):
         self.items_urls_scraper = QuestionsUrlsScraper()
 
-    def extract_items(self, page):
-        return self.items_urls_scraper.extract_items(page)
+    def extract(self, page):
+        return self.items_urls_scraper.extract(page)
 
 
 start_pages = [Page("http://stackoverflow.com/questions/16622802/center-image-within-div", QuestionsUrlsScraper())]

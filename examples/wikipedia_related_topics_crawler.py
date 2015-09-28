@@ -9,7 +9,7 @@ class RelatedTopic:
 
 
 class WikipediaScraper(PageScraper):
-    def extract_items(self, page):
+    def extract(self, page):
         names = page.xpath("//div[@class='div-col columns column-count column-count-2']/ul[1]/li/a/text()")
         urls = page.xpath("//div[@class='div-col columns column-count column-count-2']/ul[1]/li/a/@href")
 

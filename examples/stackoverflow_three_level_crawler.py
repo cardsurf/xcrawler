@@ -13,13 +13,13 @@ class StackOverflowItem:
 
 
 class TagsScraper(PageScraper):
-    def extract_urls(self, page):
+    def visit(self, page):
         top_three_urls = page.xpath("//a[@class='post-tag']/@href")[0:3]
         return [Page(page.domain_name + url, TagQuestionsScraper()) for url in top_three_urls]
 
 
 class TagQuestionsScraper(PageScraper):
-    def extract_items(self, page):
+    def extract(self, page):
         item = StackOverflowItem()
         item.description = "A web page with tagged questions"
         item.url = page.url
@@ -27,13 +27,13 @@ class TagQuestionsScraper(PageScraper):
         item.related_tags = page.xpath("//div[@class='module js-gps-related-tags']//div[not(@*)]/a/text()")
         return item
 
-    def extract_urls(self, page):
+    def visit(self, page):
         two_latest_urls = page.xpath("//a[@class='question-hyperlink']/@href")[0:2]
         return [Page(page.domain_name + url, QuestionPageScraper()) for url in two_latest_urls]
 
 
 class QuestionPageScraper(PageScraper):
-    def extract_items(self, page):
+    def extract(self, page):
         item = StackOverflowItem()
         item.description = "A web page with question details"
         item.url = page.url

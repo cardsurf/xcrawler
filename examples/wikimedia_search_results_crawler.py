@@ -10,7 +10,7 @@ class WikimediaItem:
 
 
 class WikimediaPageScraper(PageScraper):
-    def extract_items(self, page):
+    def extract(self, page):
         titles = page.xpath("//ul[@class='mw-search-results']/li/div[1]/a/@title")
         urls = page.xpath("//ul[@class='mw-search-results']/li/div[1]/a/@href")
         data = page.xpath("//ul[@class='mw-search-results']/li/div[3]/text()")

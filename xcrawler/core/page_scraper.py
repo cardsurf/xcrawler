@@ -10,7 +10,7 @@ class PageScraper:
         `extract_urls`: defines how to extract urls from a web page.
     """
 
-    def extract_items(self, page):
+    def extract(self, page):
         """
         This method is optional.
         In this method a user defines how to extract data from a web page.
@@ -21,7 +21,7 @@ class PageScraper:
         """
         return []
      
-    def extract_urls(self, page):
+    def visit(self, page):
         """
         This method is optional.
         In this method a user defines how to extract urls from a web page.
@@ -33,11 +33,11 @@ class PageScraper:
         return []
 
     def extract_items_list(self, page):
-        items = self.extract_items(page)
+        items = self.extract(page)
         return type_utils.convert_to_list_if_single_object(items)
     
     def extract_pages_list(self, page):
-        pages = self.extract_urls(page)
+        pages = self.visit(page)
         return type_utils.convert_to_list_if_single_object(pages)
 
 

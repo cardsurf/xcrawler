@@ -3,7 +3,7 @@ from xcrawler import XCrawler, Page, PageScraper
 
 
 class Scraper(PageScraper):
-    def extract_items(self, page):
+    def extract(self, page):
         related_questions = page.xpath("//div[@class='module sidebar-related']//a[@class='question-hyperlink']/text()")
         return related_questions
 
