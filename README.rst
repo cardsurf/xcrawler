@@ -12,7 +12,7 @@ Features
 Installation
 ------------
 #. Install Python 2.7
-#. Install xcrawler:
+#. Install xcrawler
 
 ::
 
@@ -21,8 +21,8 @@ Usage
 -----
 | Data and urls are extracted from a web page by a page scraper.
 | To extract data and urls from a web page use the following methods:
-| ``extract``: returns data extracted from a web page
-| ``visit``: returns next Pages to be visited
+| ``extract`` returns data extracted from a web page
+| ``visit`` returns next Pages to be visited
 | 
 | A crawler can be configured before crawling web pages. A user can configure such settings of the crawler as:
 * the number of threads used to visit web pages
