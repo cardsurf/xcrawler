@@ -5,22 +5,24 @@ A multi-threaded, open source web crawler
 Features
 ---------
 * Use multiple threads to visit web pages
-* Extract data from visited web pages using XPath expressions
-* Extract urls from visited web pages and visit extracted urls
+* Extract web page data using XPath expressions or CSS selectors
+* Extract urls from a web page and visit extracted urls
 * Write extracted data to an output file
 
 Installation
 ------------
 #. Install Python 2.7
-#. Install lxml library: ``pip install lxml``
-#. Install xcrawler:  ``pip install xcrawler``
+#. Install xcrawler:
 
+::
+
+    pip install xcrawler
 Usage
 -----
 | Data and urls are extracted from a web page by a page scraper.
 | To extract data and urls from a web page use the following methods:
-| ``extract_items``: defines how to extract data from a web page
-| ``extract_urls``: defines how to extract urls from a web page
+| ``extract``: returns data extracted from a web page
+| ``visit``: returns next Pages to be visited
 | 
 | A crawler can be configured before crawling web pages. A user can configure such settings of the crawler as:
 * the number of threads used to visit web pages
@@ -28,29 +30,64 @@ Usage
 * the request timeout
 | To run the crawler call:
 | ``crawler.run()``
-
-Example
--------
+|
+| Examples how to use xcrawler can be found at: https://github.com/cardsurf/xcrawler/tree/master/examples
+XPath Example
+-------------
 .. code:: python
 
-    import xcrawler
+    from xcrawler import XCrawler, Page, PageScraper
 
-    class Scraper(xcrawler.PageScraper):
-        def extract_items(self, page):
+
+    class Scraper(PageScraper):
+        def extract(self, page):
             related_questions = page.xpath("//div[@class='module sidebar-related']//a[@class='question-hyperlink']/text()")
             return related_questions
 
-    start_urls = ["http://stackoverflow.com/questions/16622802/center-image-within-div"]
-    page_scrapers = [Scraper()]
-    crawler = xcrawler.XCrawler(start_urls, page_scrapers)
 
+    start_pages = [Page("http://stackoverflow.com/questions/16622802/center-image-within-div", Scraper())]
+    crawler = XCrawler(start_pages)
     crawler.config.output_file_name = "stackoverflow_example_crawler_output.csv"
     crawler.config.number_of_threads = 3
-
     crawler.run()
 
-For more complex examples visit: https://github.com/cardsurf/xcrawler/tree/master/examples
 
+CSS Example
+-------------
+.. code:: python
+
+    from xcrawler import XCrawler, Page, PageScraper
+
+
+    class StackOverflowItem:
+        def __init__(self):
+            self.title = None
+            self.votes = None
+            self.tags = None
+            self.url = None
+
+
+    class QuestionUrlsScraper(PageScraper):
+        def visit(self, page):
+            question_urls = page.css_attr(".question-summary h3 a", "href")
+            return [Page(page.domain_name + question_url, QuestionScraper()) for question_url in question_urls]
+
+
+    class QuestionScraper(PageScraper):
+        def extract(self, page):
+            item = StackOverflowItem()
+            item.title = page.css_text("h1 a")[0]
+            item.votes = page.css_text(".question .vote-count-post")[0].strip()
+            item.tags = page.css_text(".question .post-tag")[0]
+            item.url = page.url
+            return item
+
+
+    start_pages = [Page("http://stackoverflow.com/questions?sort=votes", QuestionUrlsScraper())]
+    crawler = XCrawler(start_pages)
+    crawler.config.output_file_name = "stackoverflow_css_crawler_output.csv"
+    crawler.config.number_of_threads = 3
+    crawler.run()
 
 Documentation
 --------------
