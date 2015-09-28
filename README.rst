@@ -69,8 +69,8 @@ CSS Example
 
     class UrlsScraper(PageScraper):
         def visit(self, page):
-            links = page.css_attr(".question-summary h3 a", "href")
-            urls = page.to_urls(links)
+            hrefs = page.css_attr(".question-summary h3 a", "href")
+            urls = page.to_urls(hrefs)
             return [Page(url, QuestionScraper()) for url in urls]
 
 
@@ -90,7 +90,6 @@ CSS Example
     crawler.config.output_file_name = "stackoverflow_css_crawler_output.csv"
     crawler.config.number_of_threads = 3
     crawler.run()
-
 
 Documentation
 --------------

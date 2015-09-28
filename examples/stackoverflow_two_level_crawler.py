@@ -20,8 +20,8 @@ class QuestionAndUrlsScraper(PageScraper):
         return items
 
     def visit(self, page):
-        links = page.xpath("//div[@class='module sidebar-related']//a[@class='question-hyperlink']/@href")
-        urls = page.to_urls(links)
+        hrefs = page.xpath("//div[@class='module sidebar-related']//a[@class='question-hyperlink']/@href")
+        urls = page.to_urls(hrefs)
         return [Page(url, QuestionsOnlyScraper()) for url in urls]
 
 

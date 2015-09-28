@@ -14,8 +14,8 @@ class StackOverflowItem:
 
 class TagsScraper(PageScraper):
     def visit(self, page):
-        links = page.xpath("//a[@class='post-tag']/@href")[0:3]
-        urls = page.to_urls(links)
+        hrefs = page.xpath("//a[@class='post-tag']/@href")[0:3]
+        urls = page.to_urls(hrefs)
         return [Page(url, TagQuestionsScraper()) for url in urls]
 
 
@@ -29,8 +29,8 @@ class TagQuestionsScraper(PageScraper):
         return item
 
     def visit(self, page):
-        links = page.xpath("//a[@class='question-hyperlink']/@href")[0:2]
-        urls = page.to_urls(links)
+        hrefs = page.xpath("//a[@class='question-hyperlink']/@href")[0:2]
+        urls = page.to_urls(hrefs)
         return [Page(url, QuestionPageScraper()) for url in urls]
 
 

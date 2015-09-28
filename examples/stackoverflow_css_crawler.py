@@ -12,8 +12,8 @@ class StackOverflowItem:
 
 class UrlsScraper(PageScraper):
     def visit(self, page):
-        links = page.css_attr(".question-summary h3 a", "href")
-        urls = page.to_urls(links)
+        hrefs = page.css_attr(".question-summary h3 a", "href")
+        urls = page.to_urls(hrefs)
         return [Page(url, QuestionScraper()) for url in urls]
 
 
