@@ -12,11 +12,9 @@ Features
 Installation
 ------------
 #. Install Python 2.7
-#. Install xcrawler
+#. Install lxml library: ``pip install lxml``
+#. Install xcrawler:  ``pip install xcrawler``
 
-::
-
-    pip install xcrawler
 Usage
 -----
 | Data and urls are extracted from a web page by a page scraper.
