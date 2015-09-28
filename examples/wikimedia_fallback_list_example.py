@@ -47,6 +47,6 @@ for i in range(1, 3):
     start_pages.append(page)
 
 crawler = XCrawler(start_pages)
-crawler.config.output_file_name = "wikimedia_fallback_list_output.csv"
+crawler.config.output_file_name = "wikimedia_fallback_list_example_output.csv"
 crawler.run()
 

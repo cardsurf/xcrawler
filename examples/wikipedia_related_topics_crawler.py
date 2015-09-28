@@ -24,7 +24,7 @@ class WikipediaScraper(PageScraper):
 
 start_pages = [ Page("https://en.wikipedia.org/wiki/Arithmetic", WikipediaScraper()) ]
 crawler = XCrawler(start_pages)
-crawler.config.output_file_name = "wikipedia_related_topics_output.csv"
+crawler.config.output_file_name = "wikipedia_related_topics_crawler_output.csv"
 crawler.run()
 
 

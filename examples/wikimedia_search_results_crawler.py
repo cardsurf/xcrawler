@@ -32,7 +32,7 @@ for i in range(1, 6):
     start_pages.append(page)
 
 crawler = XCrawler(start_pages)
-crawler.config.output_file_name = "wikimedia_search_results_output.csv"
+crawler.config.output_file_name = "wikimedia_search_results_crawler_output.csv"
 crawler.run()
 
 
