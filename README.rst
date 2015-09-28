@@ -67,10 +67,11 @@ CSS Example
             self.url = None
 
 
-    class QuestionUrlsScraper(PageScraper):
+    class UrlsScraper(PageScraper):
         def visit(self, page):
-            question_urls = page.css_attr(".question-summary h3 a", "href")
-            return [Page(page.domain_name + question_url, QuestionScraper()) for question_url in question_urls]
+            links = page.css_attr(".question-summary h3 a", "href")
+            urls = page.to_urls(links)
+            return [Page(url, QuestionScraper()) for url in urls]
 
 
     class QuestionScraper(PageScraper):
@@ -83,11 +84,13 @@ CSS Example
             return item
 
 
-    start_pages = [Page("http://stackoverflow.com/questions?sort=votes", QuestionUrlsScraper())]
+    start_pages = [ Page("http://stackoverflow.com/questions?sort=votes", UrlsScraper()) ]
     crawler = XCrawler(start_pages)
+
     crawler.config.output_file_name = "stackoverflow_css_crawler_output.csv"
     crawler.config.number_of_threads = 3
     crawler.run()
+
 
 Documentation
 --------------

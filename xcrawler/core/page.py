@@ -5,6 +5,7 @@ from __future__ import print_function
 from lxml import etree
 from lxml.cssselect import CSSSelector
 from urlparse import urlparse
+from urlparse import urljoin
 
 from ..collections.fallback_list import FallbackList
 
@@ -15,9 +16,9 @@ class Page:
     Attributes:
         url (str): the url of a web page.
         scraper (PageScraper): the PageScraper used to extract data and urls from a web page.
-        content (Element): the content of a web page represented as Element object.
-            More information about Element object: http://effbot.org/zone/element.htm
-        domain (str): The domain name of a web page.
+        content (Element): the content of a web page represented as an Element object.
+            More information about an Element object: http://effbot.org/zone/element.htm
+        domain_name (str): The domain name of a web page.
     """
     
     def __init__(self, url, page_scraper, content = None):
@@ -44,9 +45,9 @@ class Page:
 
     def xpath(self, path):
         """
-        :param path: XPath expression
-        :returns: FallbackList containing elements of a web page that match XPath expression.
-            If no elements of a web pages match XPath expression then empty list is returned.
+        :param path: the XPath expression
+        :returns: a FallbackList containing elements of a web page that match the XPath expression.
+            If no element of a web page matches the XPath expression then an empty list is returned.
         """
         path = self.decode_path_to_unicode_object(path)
         result = self.content.xpath(path)
@@ -55,9 +56,9 @@ class Page:
 
     def css(self, path):
         """
-        :param path: CSS selector
-        :returns: FallbackList containing elements of a web page that match CSS selector.
-            If no elements of a web pages match CSS selector then empty list is returned.
+        :param path: the CSS selector
+        :returns: a FallbackList containing elements of a web page that match the CSS selector.
+            If no element of a web page matches the CSS selector then an empty list is returned.
         """
         path = self.decode_path_to_unicode_object(path)
         selector = CSSSelector(path)
@@ -67,9 +68,9 @@ class Page:
 
     def css_text(self, path):
         """
-        :param path: CSS selector
-        :returns: FallbackList containing text of elements of a web page that match CSS selector.
-            If no elements of a web pages match CSS selector then empty list is returned.
+        :param path: the CSS selector
+        :returns: a FallbackList containing text of elements of a web page that match the CSS selector.
+            If no element of a web page matches the CSS selector then an empty list is returned.
         """
         result = self.css(path)
         result = self.convert_elements_to_text(result)
@@ -83,10 +84,10 @@ class Page:
 
     def css_attr(self, path, attribute_name):
         """
-        :param path: CSS selector
-        :param attribute_name: name of the attribute of a web page element
-        :returns: FallbackList containing attribute values of elements of a web page that match CSS selector.
-            If no elements of a web pages match CSS selector then empty list is returned.
+        :param path: the CSS selector
+        :param attribute_name: the attribute name of a web page element.
+        :returns: a FallbackList containing attribute values of elements of a web page that match the CSS selector.
+            If no element of a web page matches the CSS selector then an empty list is returned.
         """
         result = self.css(path)
         result = self.convert_elements_to_attribute(result, attribute_name)
@@ -108,6 +109,31 @@ class Page:
             print("Exception message: " + str(exception))
             raise
         return path
+
+    def to_urls(self, links):
+        """
+        This methods converts relative or absolute links to urls.
+        If a link does not start with a domain name of a page then the domain name is prepended to the link.
+        :param links: the list of links to web pages.
+        :returns: the list of web page urls.
+        """
+        urls = []
+        for link in links:
+            url = self.to_url(link)
+            urls.append(url)
+        return urls
+
+    def to_url(self, link):
+        """
+        This methods converts relative or absolute link to url.
+        If a link does not start with a domain name of a page then the domain name is prepended to the link.
+        :param link: link to a web page.
+        :returns: a web page url.
+        """
+        url = link
+        if not link.startswith(self.domain_name):
+            url = urljoin(self.domain_name, link)
+        return url
 
     def __str__(self):
         return etree.tostring(self.content)

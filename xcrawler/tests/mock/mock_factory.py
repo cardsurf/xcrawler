@@ -30,7 +30,7 @@ def create_mock_pages(number_mock_pages):
 def create_mock_crawler():
     crawler = mock.create_autospec(xcrawler.XCrawler)
     crawler.start_pages = create_mock_pages(10)
-    crawler.domain_name = "test.com"
+    crawler.domain_name = "http://test.com"
     return crawler
 
 

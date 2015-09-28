@@ -14,8 +14,9 @@ class StackOverflowItem:
 
 class TagsScraper(PageScraper):
     def visit(self, page):
-        top_three_urls = page.xpath("//a[@class='post-tag']/@href")[0:3]
-        return [Page(page.domain_name + url, TagQuestionsScraper()) for url in top_three_urls]
+        links = page.xpath("//a[@class='post-tag']/@href")[0:3]
+        urls = page.to_urls(links)
+        return [Page(url, TagQuestionsScraper()) for url in urls]
 
 
 class TagQuestionsScraper(PageScraper):
@@ -28,8 +29,9 @@ class TagQuestionsScraper(PageScraper):
         return item
 
     def visit(self, page):
-        two_latest_urls = page.xpath("//a[@class='question-hyperlink']/@href")[0:2]
-        return [Page(page.domain_name + url, QuestionPageScraper()) for url in two_latest_urls]
+        links = page.xpath("//a[@class='question-hyperlink']/@href")[0:2]
+        urls = page.to_urls(links)
+        return [Page(url, QuestionPageScraper()) for url in urls]
 
 
 class QuestionPageScraper(PageScraper):
@@ -42,9 +44,10 @@ class QuestionPageScraper(PageScraper):
         return item
 
 
-start_pages = [Page("http://stackoverflow.com/tags", TagsScraper())]
+start_pages = [ Page("http://stackoverflow.com/tags", TagsScraper()) ]
 crawler = XCrawler(start_pages)
-crawler.config.output_file_name = "stackoverflow_three_level_scraper.csv"
+
+crawler.config.output_file_name = "stackoverflow_three_level_crawler.csv"
 crawler.config.number_of_threads = 3
 crawler.run()
 

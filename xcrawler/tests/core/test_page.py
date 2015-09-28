@@ -14,12 +14,12 @@ class TestPage(unittest.TestCase):
         self.page = xcrawler.Page(url, scraper)
         
     @mock.patch('xcrawler.core.page.urlparse')
-    def test_get_domain_name(self, mock_urlparse_module):
+    def test_get_domain_name(self, mock_urlparse_function):
         mock_parsed_url = mock.Mock()
         mock_parsed_url.scheme = 'http'
         mock_parsed_url.netloc = 'test.com'
         mock_parsed_url.path ='/index=1.html'
-        mock_urlparse_module.return_value = mock_parsed_url
+        mock_urlparse_function.return_value = mock_parsed_url
         domain_name = self.page.domain_name
         self.assertEquals(domain_name, "http://test.com")
         
@@ -124,11 +124,29 @@ class TestPage(unittest.TestCase):
         mock_unicode_function.side_effect = ValueError('Boom!')
         result = self.page.decode_path_to_unicode_object(path)
         self.assertEquals(result, path)
-        
+
+    @mock.patch.object(xcrawler.Page, 'to_url')
+    def test_to_urls(self, mock_to_url):
+        self.page.domain_name = "http://test.com"
+        links = ["http://test.com/link/to/example_page.html", "link/to/example_page.html", "/link/to/example_page.html"]
+        mock_to_url.return_value = "http://test.com/link/to/example_page.html"
+        result = self.page.to_urls(links)
+        self.assertEquals(mock_to_url.call_count, len(links))
+        self.assertEquals(result, ["http://test.com/link/to/example_page.html", "http://test.com/link/to/example_page.html",
+                                   "http://test.com/link/to/example_page.html"])
+
+    @mock.patch('xcrawler.core.page.urljoin')
+    def test_to_url(self, mock_urljoin_function):
+        self.page.domain_name = "http://test.com"
+        link = ".link/to/example_page.html"
+        mock_urljoin_function.return_value = ["http://test.com/link/to/example_page.html"]
+        result = self.page.to_url(link)
+        mock_urljoin_function.assert_called_once_with(self.page.domain_name, link)
+        self.assertEquals(result, mock_urljoin_function.return_value)
+
     @mock.patch('xcrawler.core.page.etree')
     def test_str(self, mock_etree_module):
         mock_etree_module.tostring.return_value = "<html><br>Page title</br></html>"
         result = self.page.__str__()
         self.assertEquals(result, mock_etree_module.tostring.return_value)
-
 

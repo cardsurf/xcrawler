@@ -8,7 +8,7 @@ class StackOverflowItem:
         self.related_question = None
 
 
-class QuestionsUrlsScraper(PageScraper):
+class QuestionAndUrlsScraper(PageScraper):
     def extract(self, page):
         related_questions = page.xpath("//div[@class='module sidebar-related']//a[@class='question-hyperlink']/text()")
         items = []
@@ -20,19 +20,20 @@ class QuestionsUrlsScraper(PageScraper):
         return items
 
     def visit(self, page):
-        related_urls = page.xpath("//div[@class='module sidebar-related']//a[@class='question-hyperlink']/@href")
-        return [Page(page.domain_name + related_url, QuestionsOnlyScraper()) for related_url in related_urls]
+        links = page.xpath("//div[@class='module sidebar-related']//a[@class='question-hyperlink']/@href")
+        urls = page.to_urls(links)
+        return [Page(url, QuestionsOnlyScraper()) for url in urls]
 
 
 class QuestionsOnlyScraper(PageScraper):
     def __init__(self):
-        self.items_urls_scraper = QuestionsUrlsScraper()
+        self.scraper = QuestionAndUrlsScraper()
 
     def extract(self, page):
-        return self.items_urls_scraper.extract(page)
+        return self.scraper.extract(page)
 
 
-start_pages = [Page("http://stackoverflow.com/questions/16622802/center-image-within-div", QuestionsUrlsScraper())]
+start_pages = [ Page("http://stackoverflow.com/questions/16622802/center-image-within-div", QuestionAndUrlsScraper()) ]
 crawler = XCrawler(start_pages)
 crawler.config.output_file_name = "stackoverflow_two_level_crawler_output.csv"
 crawler.run()
