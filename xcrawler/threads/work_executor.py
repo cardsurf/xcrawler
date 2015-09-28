@@ -6,7 +6,7 @@ from item_processor import ItemProcessor
 from ..core.page import Page
 
 
-class WorkExecutor():
+class WorkExecutor:
     """Manages a process of visiting web pages.
     
     """
@@ -22,7 +22,7 @@ class WorkExecutor():
         self.spawn_item_queue_thread()
     
     def spawn_page_queue_threads(self):
-        for _ in range (self.config.number_of_threads):
+        for _ in range(self.config.number_of_threads):
             t = PageProcessor(self.config, self.page_queue, self.item_queue)
             t.daemon = True
             t.start()
@@ -32,18 +32,14 @@ class WorkExecutor():
             self.item_processor.daemon = True
             self.item_processor.start()
         
-    def execute_work(self, crawler):
+    def execute_work(self, start_pages):
         self.item_processor.open_output_file_if_needed()
-        self.add_pages_to_queue(crawler)
+        self.add_pages_to_queue(start_pages)
         self.wait_until_work_is_done()
         self.item_processor.close_output_file_if_needed()
     
-    def add_pages_to_queue(self, crawler):
-        start_urls = crawler.start_urls
-        page_scraper = crawler.get_first_page_scraper()
-        
-        for url in start_urls:
-            page = Page(url, page_scraper)
+    def add_pages_to_queue(self, start_pages):
+        for page in start_pages:
             self.page_queue.put(page)
 
     def wait_until_work_is_done(self):

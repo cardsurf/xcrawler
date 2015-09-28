@@ -9,7 +9,7 @@ from urlparse import urlparse
 from ..collections.fallback_list import FallbackList
 
 
-class Page():
+class Page:
     """A representation of a web page.
     
     Attributes:
@@ -38,22 +38,27 @@ class Page():
         return items
      
     def extract_pages(self):
-        urls = self.scraper.extract_urls_list(self)
-        next_page_scraper = self.scraper.get_next_page_scraper_or_none()
-        
-        pages = []
-        for url in urls:
-            page = Page(url, next_page_scraper)
-            pages.append(page)
+        pages = self.scraper.extract_pages_list(self)
         return pages
 
+
     def xpath(self, path):
+        """
+        :param path: XPath expression
+        :returns: FallbackList containing elements of a web page that match XPath expression.
+            If no elements of a web pages match XPath expression then empty list is returned.
+        """
         path = self.decode_path_to_unicode_object(path)
         result = self.content.xpath(path)
         result = FallbackList(result)
         return result
 
     def css(self, path):
+        """
+        :param path: CSS selector
+        :returns: FallbackList containing elements of a web page that match CSS selector.
+            If no elements of a web pages match CSS selector then empty list is returned.
+        """
         path = self.decode_path_to_unicode_object(path)
         selector = CSSSelector(path)
         result = selector(self.content)
@@ -61,6 +66,11 @@ class Page():
         return result
 
     def css_text(self, path):
+        """
+        :param path: CSS selector
+        :returns: FallbackList containing text of elements of a web page that match CSS selector.
+            If no elements of a web pages match CSS selector then empty list is returned.
+        """
         result = self.css(path)
         result = self.convert_elements_to_text(result)
         return result
@@ -70,7 +80,14 @@ class Page():
             list_elements[i] = etree.tostring(element, method="text", encoding="UTF-8")
         return list_elements
 
+
     def css_attr(self, path, attribute_name):
+        """
+        :param path: CSS selector
+        :param attribute_name: name of the attribute of a web page element
+        :returns: FallbackList containing attribute values of elements of a web page that match CSS selector.
+            If no elements of a web pages match CSS selector then empty list is returned.
+        """
         result = self.css(path)
         result = self.convert_elements_to_attribute(result, attribute_name)
         return result

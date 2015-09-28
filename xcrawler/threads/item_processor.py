@@ -25,18 +25,18 @@ class ItemProcessor(threading.Thread):
             self.items_queue.task_done()  
         
     def process_item(self, item):
-        if(self.config.output_mode == Config.OUTPUT_MODE_PRINT):
+        if self.config.output_mode == Config.OUTPUT_MODE_PRINT:
             print(item)
-        elif(self.config.output_mode == Config.OUTPUT_MODE_FILE):
+        elif self.config.output_mode == Config.OUTPUT_MODE_FILE:
             self.item_writer.write_item(item)
     
     def open_output_file_if_needed(self):
-        if(self.config.output_mode == Config.OUTPUT_MODE_FILE):
+        if self.config.output_mode == Config.OUTPUT_MODE_FILE:
             self.item_writer = ItemWriter()
             self.item_writer.open_output_file(self.config.output_file_name)
         
     def close_output_file_if_needed(self):
-        if(self.config.output_mode == Config.OUTPUT_MODE_FILE):
+        if self.config.output_mode == Config.OUTPUT_MODE_FILE:
             self.item_writer.close_output_file()
         
             

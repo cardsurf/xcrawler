@@ -1,13 +1,14 @@
 
-import xcrawler
+from xcrawler import XCrawler, Page, PageScraper
 
 
-class StackOverflowItem(object):
+class StackOverflowItem:
     def __init__(self):
         self.url = None
         self.related_question = None
 
-class FirstLevelPageScraper(xcrawler.PageScraper):
+
+class QuestionsUrlsScraper(PageScraper):
     def extract_items(self, page):
         related_questions = page.xpath("//div[@class='module sidebar-related']//a[@class='question-hyperlink']/text()")
         items = []
@@ -20,22 +21,19 @@ class FirstLevelPageScraper(xcrawler.PageScraper):
 
     def extract_urls(self, page):
         related_urls = page.xpath("//div[@class='module sidebar-related']//a[@class='question-hyperlink']/@href")
-        urls = [page.domain + related_url for related_url in related_urls]
-        return urls 
+        return [Page(page.domain_name + related_url, QuestionsOnlyScraper()) for related_url in related_urls]
 
-class SecondLevelPageScraper(xcrawler.PageScraper):
+
+class QuestionsOnlyScraper(PageScraper):
     def __init__(self):
-        self.first_level_scraper = FirstLevelPageScraper()
-        
+        self.items_urls_scraper = QuestionsUrlsScraper()
+
     def extract_items(self, page):
-        return self.first_level_scraper.extract_items(page)
+        return self.items_urls_scraper.extract_items(page)
 
 
-start_urls = ["http://stackoverflow.com/questions/16622802/center-image-within-div"]
-page_scrapers = [FirstLevelPageScraper(), SecondLevelPageScraper()]
-
-crawler = xcrawler.XCrawler(start_urls, page_scrapers)
+start_pages = [Page("http://stackoverflow.com/questions/16622802/center-image-within-div", QuestionsUrlsScraper())]
+crawler = XCrawler(start_pages)
 crawler.config.output_file_name = "stackoverflow_two_level_crawler_output.csv"
-
 crawler.run()
 

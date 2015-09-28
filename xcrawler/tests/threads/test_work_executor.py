@@ -28,11 +28,11 @@ class TestWorkExecutor(unittest.TestCase):
         self.work_executor.spawn_item_queue_thread()
         self.assertEquals(item_processor.start.call_count, 1)
                 
-    @mock.patch('xcrawler.threads.work_executor.Page')   
+    @mock.patch('xcrawler.threads.work_executor.Page')
     def test_add_pages_to_queue(self, page_class):
-        mock_crawler = mock_factory.create_mock_crawler()
-        self.work_executor.add_pages_to_queue(mock_crawler)
-        self.assertEquals(self.work_executor.page_queue.put.call_count, len(mock_crawler.start_urls))
+        mock_start_pages = mock_factory.create_mock_pages(10)
+        self.work_executor.add_pages_to_queue(mock_start_pages)
+        self.assertEquals(self.work_executor.page_queue.put.call_count, len(mock_start_pages))
 
     def test_wait_until_work_is_done(self):
         self.work_executor.wait_until_work_is_done()
@@ -42,10 +42,11 @@ class TestWorkExecutor(unittest.TestCase):
     @mock.patch.object(xcrawler.WorkExecutor, 'add_pages_to_queue')
     @mock.patch.object(xcrawler.WorkExecutor, 'wait_until_work_is_done')   
     def test_execute_work(self, mock_wait_until_work_is_done, mock_add_pages_to_queue):
-        mock_crawler = mock_factory.create_mock_crawler()
-        self.work_executor.execute_work(mock_crawler)
+        mock_start_pages = mock_factory.create_mock_pages(10)
+        self.work_executor.execute_work(mock_start_pages)
         self.assertEquals(self.work_executor.item_processor.open_output_file_if_needed.call_count, 1)
         self.assertEquals(mock_add_pages_to_queue.call_count, 1)
         self.assertEquals(mock_wait_until_work_is_done.call_count, 1)
         self.assertEquals(self.work_executor.item_processor.close_output_file_if_needed.call_count, 1)                  
-        
+
+

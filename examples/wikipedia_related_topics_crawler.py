@@ -1,12 +1,14 @@
 
-import xcrawler
+from xcrawler import XCrawler, Page, PageScraper
 
-class RelatedTopic(object):
+
+class RelatedTopic:
     def __init__(self):
         self.name = None
         self.url = None
 
-class WikipediaPageScraper(xcrawler.PageScraper):
+
+class WikipediaScraper(PageScraper):
     def extract_items(self, page):
         names = page.xpath("//div[@class='div-col columns column-count column-count-2']/ul[1]/li/a/text()")
         urls = page.xpath("//div[@class='div-col columns column-count column-count-2']/ul[1]/li/a/@href")
@@ -19,12 +21,10 @@ class WikipediaPageScraper(xcrawler.PageScraper):
             topics.append(topic)
         return topics
 
-start_urls = ["https://en.wikipedia.org/wiki/Arithmetic"]
-page_scrapers = [WikipediaPageScraper()]
 
-crawler = xcrawler.XCrawler(start_urls, page_scrapers)
+start_pages = [Page("https://en.wikipedia.org/wiki/Arithmetic", WikipediaScraper())]
+crawler = XCrawler(start_pages)
 crawler.config.output_file_name = "wikipedia_related_topics_output.csv"
-
 crawler.run()
 
 
