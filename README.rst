@@ -106,8 +106,8 @@ The documentation can also be accessed at runtime with Python's built-in ``help`
     >>> import xcrawler
     >>> help(xcrawler.Config)
         # Information about Config
-    >>> help(xcrawler.PageScraper.extract_items)
-        # Information about extract_items method of PageScraper
+    >>> help(xcrawler.PageScraper.extract)
+        # Information about extract method of PageScraper
 
 Licence
 -------
