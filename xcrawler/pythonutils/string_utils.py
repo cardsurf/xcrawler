@@ -16,10 +16,7 @@ def convert_string_to_unicode(string):
 
 
 def convert_string_to_utf8(string):
-    unicode_object = string
-    if not is_unicode(string):
-        unicode_object = string.decode('utf8')
-
+    unicode_object = convert_string_to_unicode(string)
     byte_string_utf8 = unicode_object.encode("utf-8")
     return byte_string_utf8
 
