@@ -5,7 +5,7 @@ with open('README.rst') as readme_file:
 
 setup(name='xcrawler',
       packages=find_packages(),
-      install_requires=['lxml, cssselect'],
+      install_requires=['lxml', 'cssselect'],
       version='1.1.0',
       description='A multi-threaded, open source web crawler',
       long_description=long_description,
