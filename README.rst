@@ -45,13 +45,12 @@ XPath Example
             return related_questions
 
 
-    start_pages = [Page("http://stackoverflow.com/questions/16622802/center-image-within-div", Scraper())]
+    start_pages = [ Page("http://stackoverflow.com/questions/16622802/center-image-within-div", Scraper()) ]
     crawler = XCrawler(start_pages)
-    
+
     crawler.config.output_file_name = "stackoverflow_example_crawler_output.csv"
     crawler.config.number_of_threads = 3
     crawler.run()
-
 
 CSS Example
 -------------
