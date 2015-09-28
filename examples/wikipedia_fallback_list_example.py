@@ -13,14 +13,14 @@ class WikipediaScraper(PageScraper):
 
         '''
         A web page may contain incomplete data.
-        An IndexException occurs when trying to access extracted data with an incorrect index.
+        An IndexError occurs when trying to access extracted data with an incorrect index.
         try:
            item.name = names.get[i]
         except IndexError:
            item.name = "ANameIsMissing!"
 
         When dealing with incomplete data use the `get` method of the FallbackList class.
-        The `get` method returns a fallback value when an IndexException occurs:
+        The `get` method returns a fallback value when an IndexError occurs:
             item.name = names.get(i, fallback="NoName")
         '''
 
@@ -36,7 +36,7 @@ class WikipediaScraper(PageScraper):
         return topics
 
 
-start_pages = [Page("https://en.wikipedia.org/wiki/Arithmetic", WikipediaScraper())]
+start_pages = [ Page("https://en.wikipedia.org/wiki/Arithmetic", WikipediaScraper()) ]
 crawler = XCrawler(start_pages)
 crawler.config.output_file_name = "wikipedia_fallback_list_output.csv"
 crawler.run()

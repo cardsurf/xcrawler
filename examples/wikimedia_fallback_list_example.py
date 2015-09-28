@@ -9,19 +9,19 @@ class WikimediaItem:
         self.data = None
 
 
-class WikimediaPageScraper(PageScraper):
+class WikimediaScraper(PageScraper):
     def extract(self, page):
 
         '''
         A web page may contain incomplete data.
-        An IndexException occurs when trying to access extracted data with an incorrect index.
+        An IndexError occurs when trying to access extracted data with an incorrect index.
         try:
            item.title = titles.get[i]
         except IndexError:
            item.title = "ATitleIsMissing!"
 
         When dealing with incomplete data use the `get` method of the FallbackList class.
-        The `get` method returns a fallback value when an IndexException occurs:
+        The `get` method returns a fallback value when an IndexError occurs:
             item.title = titles.get(i, fallback="NoTitle")
         '''
 
@@ -43,7 +43,7 @@ class WikimediaPageScraper(PageScraper):
 start_pages = []
 for i in range(1, 3):
     url = "https://commons.wikimedia.org/w/index.php?title=Special:Search&limit=20&offset=" + str(i*20) + "&profile=default&search=water"
-    page = Page(url, WikimediaPageScraper())
+    page = Page(url, WikimediaScraper())
     start_pages.append(page)
 
 crawler = XCrawler(start_pages)

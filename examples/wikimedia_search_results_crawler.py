@@ -9,7 +9,7 @@ class WikimediaItem:
         self.data = None
 
 
-class WikimediaPageScraper(PageScraper):
+class WikimediaScraper(PageScraper):
     def extract(self, page):
         titles = page.xpath("//ul[@class='mw-search-results']/li/div[1]/a/@title")
         urls = page.xpath("//ul[@class='mw-search-results']/li/div[1]/a/@href")
@@ -28,7 +28,7 @@ class WikimediaPageScraper(PageScraper):
 start_pages = []
 for i in range(1, 6):
     url = "https://commons.wikimedia.org/w/index.php?title=Special:Search&limit=20&offset=" + str(i*20) + "&profile=default&search=water"
-    page = Page(url, WikimediaPageScraper())
+    page = Page(url, WikimediaScraper())
     start_pages.append(page)
 
 crawler = XCrawler(start_pages)

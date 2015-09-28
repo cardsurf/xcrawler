@@ -45,8 +45,8 @@ class Page:
 
     def xpath(self, path):
         """
-        :param path: the XPath expression
-        :returns: a FallbackList containing elements of a web page that match the XPath expression.
+        :param path: the XPath expression.
+        :returns: a FallbackList of web page elements that match the XPath expression.
             If no element of a web page matches the XPath expression then an empty list is returned.
         """
         path = self.decode_path_to_unicode_object(path)
@@ -56,8 +56,8 @@ class Page:
 
     def css(self, path):
         """
-        :param path: the CSS selector
-        :returns: a FallbackList containing elements of a web page that match the CSS selector.
+        :param path: the CSS selector.
+        :returns: a FallbackList of web page elements that match the CSS selector.
             If no element of a web page matches the CSS selector then an empty list is returned.
         """
         path = self.decode_path_to_unicode_object(path)
@@ -68,8 +68,8 @@ class Page:
 
     def css_text(self, path):
         """
-        :param path: the CSS selector
-        :returns: a FallbackList containing text of elements of a web page that match the CSS selector.
+        :param path: the CSS selector.
+        :returns: a FallbackList of web page elements that match the CSS selector.
             If no element of a web page matches the CSS selector then an empty list is returned.
         """
         result = self.css(path)
@@ -84,9 +84,9 @@ class Page:
 
     def css_attr(self, path, attribute_name):
         """
-        :param path: the CSS selector
+        :param path: the CSS selector.
         :param attribute_name: the attribute name of a web page element.
-        :returns: a FallbackList containing attribute values of elements of a web page that match the CSS selector.
+        :returns: a FallbackList of web page elements that match the CSS selector.
             If no element of a web page matches the CSS selector then an empty list is returned.
         """
         result = self.css(path)

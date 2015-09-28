@@ -31,10 +31,10 @@ class TagQuestionsScraper(PageScraper):
     def visit(self, page):
         hrefs = page.xpath("//a[@class='question-hyperlink']/@href")[0:2]
         urls = page.to_urls(hrefs)
-        return [Page(url, QuestionPageScraper()) for url in urls]
+        return [Page(url, QuestionScraper()) for url in urls]
 
 
-class QuestionPageScraper(PageScraper):
+class QuestionScraper(PageScraper):
     def extract(self, page):
         item = StackOverflowItem()
         item.description = "A web page with question details"

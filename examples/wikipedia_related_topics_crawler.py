@@ -22,7 +22,7 @@ class WikipediaScraper(PageScraper):
         return topics
 
 
-start_pages = [Page("https://en.wikipedia.org/wiki/Arithmetic", WikipediaScraper())]
+start_pages = [ Page("https://en.wikipedia.org/wiki/Arithmetic", WikipediaScraper()) ]
 crawler = XCrawler(start_pages)
 crawler.config.output_file_name = "wikipedia_related_topics_output.csv"
 crawler.run()

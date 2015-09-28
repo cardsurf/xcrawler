@@ -6,8 +6,8 @@ class PageScraper:
     """A user-defined page scraper that extracts data and urls from a web page.
     
     A user defines how to extract data and urls from a web page using the following methods:
-        `extract_items`: defines how to extract data from a web page.
-        `extract_urls`: defines how to extract urls from a web page.
+        `extract`: returns data extracted from a web page.
+        `visit`: returns next Pages to be visited.
     """
 
     def extract(self, page):
