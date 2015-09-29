@@ -47,7 +47,6 @@ class Page:
         """
         :param path: the XPath expression.
         :returns: a FallbackList of web page elements that match the XPath expression.
-            If no element of a web page matches the XPath expression then an empty list is returned.
         """
         path = self.decode_path_to_unicode_object(path)
         result = self.content.xpath(path)
@@ -58,7 +57,6 @@ class Page:
         """
         :param path: the CSS selector.
         :returns: a FallbackList of web page elements that match the CSS selector.
-            If no element of a web page matches the CSS selector then an empty list is returned.
         """
         path = self.decode_path_to_unicode_object(path)
         selector = CSSSelector(path)
@@ -69,8 +67,7 @@ class Page:
     def css_text(self, path):
         """
         :param path: the CSS selector.
-        :returns: a FallbackList of web page elements that match the CSS selector.
-            If no element of a web page matches the CSS selector then an empty list is returned.
+        :returns: a FallbackList containing text of web page elements that match the CSS selector.
         """
         result = self.css(path)
         result = self.convert_elements_to_text(result)
@@ -86,8 +83,7 @@ class Page:
         """
         :param path: the CSS selector.
         :param attribute_name: the attribute name of a web page element.
-        :returns: a FallbackList of web page elements that match the CSS selector.
-            If no element of a web page matches the CSS selector then an empty list is returned.
+        :returns: a FallbackList containing attribute values of web page elements that match the CSS selector.
         """
         result = self.css(path)
         result = self.convert_elements_to_attribute(result, attribute_name)

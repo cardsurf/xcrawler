@@ -1,6 +1,6 @@
 
 class FallbackList(list):
-    """A list with methods that return a default value when an exception occurs.
+    """A list with methods that return a fallback value when an exception occurs.
 
     """
 
