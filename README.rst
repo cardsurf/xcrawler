@@ -28,8 +28,9 @@ Usage
 * the request timeout
 | To run the crawler call:
 | ``crawler.run()``
-|
+| 
 | Examples how to use xcrawler can be found at: https://github.com/cardsurf/xcrawler/tree/master/examples
+
 XPath Example
 -------------
 .. code:: python
