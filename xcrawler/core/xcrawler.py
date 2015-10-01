@@ -1,6 +1,6 @@
 
 import time
-from config import Config
+from .config import Config
 
 from ..threads.work_executor import WorkExecutor
 

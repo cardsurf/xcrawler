@@ -1,9 +1,8 @@
 
 import Queue
 
-from page_processor import PageProcessor
-from item_processor import ItemProcessor
-from ..core.page import Page
+from .page_processor import PageProcessor
+from .item_processor import ItemProcessor
 
 
 class WorkExecutor:
