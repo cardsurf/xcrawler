@@ -34,13 +34,13 @@ class PageProcessor(threading.Thread):
             page.content = self.fetch_content(page)
             self.put_extracted_items_in_queue(page)
             self.put_extracted_pages_in_queue(page)  
-        except urllib2.URLError, exception:
+        except urllib2.URLError as exception:
             self.handle_url_error_exception(page, exception)
-        except BadStatusLine, exception:
+        except BadStatusLine as exception:
             self.handle_bad_status_line_exception(page, exception)
-        except socket.timeout, exception:
+        except socket.timeout as exception:
             self.handle_socket_timeout_exception(page, exception)
-        except BaseException, exception:
+        except BaseException as exception:
             self.handle_base_exception(page, exception)
             raise
     

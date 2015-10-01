@@ -97,10 +97,10 @@ class Page:
     def decode_path_to_unicode_object(self, path, errors = 'strict'):
         try:
             path = unicode(path, 'utf-8', errors=errors)
-        except ValueError, exception:
+        except ValueError as exception:
             print("ValueError exception while decoding path to unicode " + path)
             print("ValueError exception message: " + (str(exception)))
-        except BaseException, exception:
+        except BaseException as exception:
             print("Exception while decoding path to unicode " + path)
             print("Exception message: " + str(exception))
             raise
