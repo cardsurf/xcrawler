@@ -1,7 +1,8 @@
 
+from __future__ import print_function
 import time
-from .config import Config
 
+from .config import Config
 from ..threads.work_executor import WorkExecutor
 
 
@@ -23,6 +24,6 @@ class XCrawler:
             executor = WorkExecutor(self.config)
             executor.execute_work(self.start_pages)
         end = time.time()
-        print "Finished scraping. Time elapsed: " + str(end - start)
+        print("Finished scraping. Time elapsed: " + str(end - start))
 
 
