@@ -30,9 +30,8 @@ class TestWorkExecutor(unittest.TestCase):
         item_processor = item_processor_class.return_value
         self.work_executor.spawn_item_queue_thread()
         self.assertEquals(item_processor.start.call_count, 1)
-                
-    @mock.patch('xcrawler.threads.work_executor.Page')
-    def test_add_pages_to_queue(self, page_class):
+
+    def test_add_pages_to_queue(self):
         mock_start_pages = mock_factory.create_mock_pages(10)
         self.work_executor.add_pages_to_queue(mock_start_pages)
         self.assertEquals(self.work_executor.page_queue.put.call_count, len(mock_start_pages))
