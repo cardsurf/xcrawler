@@ -39,6 +39,10 @@ class Page:
             self.__domain_name = '{uri.scheme}://{uri.netloc}'.format(uri=parsed_uri)
         return self.__domain_name
 
+    @domain_name.setter
+    def domain_name(self, value):
+        self.__domain_name = value
+
     def extract_items(self):
         items = self.scraper.extract_items_list(self)
         return items
