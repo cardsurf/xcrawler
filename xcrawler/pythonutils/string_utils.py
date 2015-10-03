@@ -1,11 +1,13 @@
 
+from six import string_types, text_type
+
 
 def is_string(o):
-    return isinstance(o, basestring)
+    return isinstance(o, string_types)
 
 
 def is_unicode(o):
-    return isinstance(o, unicode)
+    return isinstance(o, text_type)
 
 
 def convert_string_to_unicode(string):
