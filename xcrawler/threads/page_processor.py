@@ -1,10 +1,18 @@
 
 from __future__ import print_function
 import threading
-import urllib2
-import time
 import socket
-from httplib import BadStatusLine
+import time
+try:
+    from urllib2 import Request
+    from urllib2 import URLError
+    from urllib2 import urlopen
+    from httplib import BadStatusLine
+except ImportError:
+    from urllib.request import Request
+    from urllib.request import urlopen
+    from urllib.error import URLError
+    from http.client import BadStatusLine
 from lxml import etree
 
 
@@ -34,7 +42,7 @@ class PageProcessor(threading.Thread):
             page.content = self.fetch_content(page)
             self.put_extracted_items_in_queue(page)
             self.put_extracted_pages_in_queue(page)  
-        except urllib2.URLError as exception:
+        except URLError as exception:
             self.handle_url_error_exception(page, exception)
         except BadStatusLine as exception:
             self.handle_bad_status_line_exception(page, exception)
@@ -46,9 +54,9 @@ class PageProcessor(threading.Thread):
     
     def fetch_content(self, page):
         request_timeout = self.config.request_timeout
-        http_header={'User-Agent' : "Urllib Browser"}
-        http_request = urllib2.Request(page.url, headers=http_header) 
-        content = urllib2.urlopen(http_request, timeout=request_timeout).read()   
+        http_header = {'User-Agent': "Urllib Browser"}
+        http_request = Request(page.url, headers=http_header)
+        content = urlopen(http_request, timeout=request_timeout).read()
         unicode_parser = etree.HTMLParser(encoding="utf-8")
         content_tree = etree.HTML(content, parser=unicode_parser)
         return content_tree

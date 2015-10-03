@@ -1,7 +1,10 @@
 
 import unittest
 import mock
-import Queue
+try:
+    import Queue as queue
+except ImportError:
+    import queue
 
 import xcrawler
 from xcrawler.tests.mock import mock_factory
@@ -12,8 +15,8 @@ class TestWorkExecutor(unittest.TestCase):
     def setUp(self):
         mock_config = mock_factory.create_mock_config()
         self.work_executor = xcrawler.WorkExecutor(mock_config)
-        self.work_executor.page_queue = mock.create_autospec(Queue).return_value
-        self.work_executor.item_queue = mock.create_autospec(Queue).return_value
+        self.work_executor.page_queue = mock.create_autospec(queue).return_value
+        self.work_executor.item_queue = mock.create_autospec(queue).return_value
         self.work_executor.item_processor = mock.create_autospec(xcrawler.ItemProcessor).return_value
           
     @mock.patch('xcrawler.threads.work_executor.PageProcessor') 

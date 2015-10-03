@@ -1,7 +1,11 @@
 
 import unittest
 import mock
-import Queue
+try:
+    import Queue as queue
+except ImportError:
+    import queue
+
 
 import xcrawler
 from xcrawler.tests.mock import mock_factory
@@ -11,8 +15,8 @@ class TestPageProcessor(unittest.TestCase):
     
     def setUp(self):
         mock_config = mock_factory.create_mock_config()
-        mock_page_queue = mock.create_autospec(Queue).return_value
-        mock_item_queue = mock.create_autospec(Queue).return_value
+        mock_page_queue = mock.create_autospec(queue).return_value
+        mock_item_queue = mock.create_autospec(queue).return_value
         self.page_processor = xcrawler.PageProcessor(mock_config, mock_page_queue, mock_item_queue)
         
     @mock.patch('xcrawler.threads.page_processor.time.sleep') 
@@ -33,10 +37,11 @@ class TestPageProcessor(unittest.TestCase):
         mock_fetch_content.assert_called_once_with(mock_page)
         mock_put_extracted_pages_in_queue.assert_called_once_with(mock_page)
         mock_put_extracted_items_in_queue.assert_called_once_with(mock_page)      
-    
-    @mock.patch('xcrawler.threads.page_processor.urllib2')
+
+    @mock.patch('xcrawler.threads.page_processor.Request')
+    @mock.patch('xcrawler.threads.page_processor.urlopen')
     @mock.patch('xcrawler.threads.page_processor.etree')
-    def test_fetch_content(self, mock_etree_module, mock_urllib2_module):
+    def test_fetch_content(self, mock_etree_module, mock_urlopen_function,  mock_request_class):
         mock_page = mock.Mock()
         mock_page.url = "http://mockurl.mock"
         mock_etree_module.HTML.return_value = "<html><br>Page title</br></html>"

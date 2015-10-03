@@ -1,5 +1,8 @@
 
-import Queue
+try:
+    import Queue as queue
+except ImportError:
+    import queue
 
 from .page_processor import PageProcessor
 from .item_processor import ItemProcessor
@@ -11,8 +14,8 @@ class WorkExecutor:
     """
     
     def __init__(self, config):
-        self.page_queue = Queue.Queue()
-        self.item_queue = Queue.Queue()
+        self.page_queue = queue.Queue()
+        self.item_queue = queue.Queue()
         self.config = config
         self.spawn_worker_threads()
 

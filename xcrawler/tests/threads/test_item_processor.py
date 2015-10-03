@@ -1,7 +1,11 @@
 
 import unittest
 import mock
-import Queue
+try:
+    import Queue as queue
+except ImportError:
+    import queue
+
 
 import xcrawler
 from xcrawler.tests.mock import mock_factory
@@ -11,7 +15,7 @@ class TestItemProcessor(unittest.TestCase):
 
     def setUp(self):
         mock_config = mock_factory.create_mock_config()
-        mock_item_queue = mock.create_autospec(Queue).return_value
+        mock_item_queue = mock.create_autospec(queue).return_value
         mock_item_writer = mock.create_autospec(xcrawler.ItemWriter()).return_value
         self.item_processor = xcrawler.ItemProcessor(mock_config, mock_item_queue)
         self.item_processor.item_writer = mock_item_writer

@@ -2,10 +2,14 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
+try:
+    from urlparse import urlparse
+    from urlparse import urljoin
+except ImportError:
+    from urllib.parse import urlparse
+    from urllib.parse import urljoin
 from lxml import etree
 from lxml.cssselect import CSSSelector
-from urlparse import urlparse
-from urlparse import urljoin
 
 from ..collections.fallback_list import FallbackList
 
