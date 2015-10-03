@@ -12,6 +12,7 @@ from lxml import etree
 from lxml.cssselect import CSSSelector
 
 from ..collections.fallback_list import FallbackList
+from ..pythonutils import string_utils
 
 
 class Page:
@@ -100,7 +101,7 @@ class Page:
 
     def decode_path_to_unicode_object(self, path, errors = 'strict'):
         try:
-            path = unicode(path, 'utf-8', errors=errors)
+            path = string_utils.convert_string_to_unicode(path)
         except ValueError as exception:
             print("ValueError exception while decoding path to unicode " + path)
             print("ValueError exception message: " + (str(exception)))
