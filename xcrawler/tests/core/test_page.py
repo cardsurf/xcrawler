@@ -107,7 +107,7 @@ class TestPage(unittest.TestCase):
         result = self.page.convert_elements_to_attribute(mock_result, mock_attribute_name)
         self.assertEquals(result, ["url1", "url2"])
 
-    @mock.patch('__builtin__.unicode')
+    @mock.patch('builtins.unicode')
     def test_decode_path_to_unicode_object_no_exception(self, mock_unicode_function):
         path = "path"
         unicode_path = "unicode path"
@@ -115,8 +115,8 @@ class TestPage(unittest.TestCase):
         result = self.page.decode_path_to_unicode_object(path)
         self.assertEquals(result, unicode_path)
         
-    @mock.patch('__builtin__.unicode')
-    @mock.patch('__builtin__.print')
+    @mock.patch('builtins.unicode')
+    @mock.patch('builtins.print')
     def test_decode_path_to_unicode_object_exception(self, mock_print_function, mock_unicode_function):
         path = "path"
         unicode_path = "unicode path"

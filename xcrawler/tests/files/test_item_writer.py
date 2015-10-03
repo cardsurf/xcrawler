@@ -22,8 +22,8 @@ class TestItemWriter(unittest.TestCase):
         mock_is_string_function.assert_called_once_with(mock_string)
            
     @mock.patch('xcrawler.files.item_writer.string_utils.is_string')
-    @mock.patch('__builtin__.vars')
-    @mock.patch('__builtin__.sorted')
+    @mock.patch('builtins.vars')
+    @mock.patch('builtins.sorted')
     def test_write_headers_to_output_file_item_argument(self, mock_sorted_function, mock_vars_function, mock_is_string_function):
         mock_item = mock.Mock()
         mock_variables = mock.Mock()
@@ -84,7 +84,7 @@ class TestItemWriter(unittest.TestCase):
         mock_convert_string_to_utf8.assert_called_once_with(mock_string)
         self.item_writer.writer.writerow.assert_called_once_with([mock_convert_string_to_utf8.return_value])
         
-    @mock.patch('__builtin__.vars')
+    @mock.patch('builtins.vars')
     @mock.patch('xcrawler.files.item_writer.dict_utils.get_list_of_values_sorted_by_keys')
     @mock.patch('xcrawler.files.item_writer.string_utils.list_convert_object_to_string')
     @mock.patch('xcrawler.files.item_writer.string_utils.list_convert_string_to_utf8')
@@ -103,7 +103,7 @@ class TestItemWriter(unittest.TestCase):
         self.item_writer.writer.writerow.assert_called_once_with(mock_string_values)
 
     @mock.patch('xcrawler.files.item_writer.csv.writer')
-    @mock.patch('__builtin__.open')
+    @mock.patch('builtins.open')
     def test_open_output_file(self, mock_open_function, mock_csv_writer_function):
         mock_file_name = "mock_file_name"
         mock_file = mock.Mock()
