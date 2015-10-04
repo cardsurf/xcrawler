@@ -51,7 +51,6 @@ class Page:
         pages = self.scraper.extract_pages_list(self)
         return pages
 
-
     def xpath(self, path):
         """
         :param path: the XPath expression.
@@ -61,6 +60,24 @@ class Page:
         result = self.content.xpath(path)
         result = FallbackList(result)
         return result
+
+    def decode_path_to_unicode_object(self, path):
+        try:
+            path = string_utils.convert_string_to_unicode(path)
+        except ValueError as exception:
+            self.handle_value_error_exception(path, exception)
+        except BaseException as exception:
+            self.handle_base_exception(path, exception)
+            raise
+        return path
+
+    def handle_value_error_exception(self, path, exception):
+        print("ValueError exception while decoding path to unicode " + path)
+        print("ValueError exception message: " + (str(exception)))
+
+    def handle_base_exception(self, path, exception):
+        print("Exception while decoding path to unicode " + path)
+        print("Exception message: " + str(exception))
 
     def css(self, path):
         """
@@ -87,7 +104,6 @@ class Page:
             list_elements[i] = etree.tostring(element, method="text", encoding="UTF-8")
         return list_elements
 
-
     def css_attr(self, path, attribute_name):
         """
         :param path: the CSS selector.
@@ -102,18 +118,6 @@ class Page:
         for i, element in enumerate(list_elements):
             list_elements[i] = element.attrib[attribute_name]
         return list_elements
-
-    def decode_path_to_unicode_object(self, path, errors = 'strict'):
-        try:
-            path = string_utils.convert_string_to_unicode(path)
-        except ValueError as exception:
-            print("ValueError exception while decoding path to unicode " + path)
-            print("ValueError exception message: " + (str(exception)))
-        except BaseException as exception:
-            print("Exception while decoding path to unicode " + path)
-            print("Exception message: " + str(exception))
-            raise
-        return path
 
     def to_urls(self, links):
         """

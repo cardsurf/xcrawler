@@ -108,22 +108,28 @@ class TestPage(unittest.TestCase):
         self.assertEquals(result, ["url1", "url2"])
 
     @mock.patch('xcrawler.core.page.string_utils.convert_string_to_unicode')
-    def test_decode_path_to_unicode_object_no_exception(self, mock_convert_string_to_unicode):
+    def test_decode_path_to_unicode_object(self, mock_convert_string_to_unicode):
         path = "path"
         unicode_path = "unicode path"
         mock_convert_string_to_unicode.return_value = unicode_path
         result = self.page.decode_path_to_unicode_object(path)
         self.assertEquals(result, unicode_path)
-        
-    @mock.patch('xcrawler.core.page.string_utils.convert_string_to_unicode')
+
     @mock.patch('builtins.print')
-    def test_decode_path_to_unicode_object_exception(self, mock_print_function, mock_convert_string_to_unicode):
-        path = "path"
-        unicode_path = "unicode path"
-        mock_convert_string_to_unicode.return_value = unicode_path
-        mock_convert_string_to_unicode.side_effect = ValueError('Boom!')
-        result = self.page.decode_path_to_unicode_object(path)
-        self.assertEquals(result, path)
+    def test_handle_value_error_exception(self, mock_print_function):
+        mock_path = "//div[@class='sidebar-blue']//a[@class='question-hyperlink']/text()"
+        mock_exception = mock.Mock()
+        mock_exception.message = "ValueError exception message"
+        self.page.handle_value_error_exception(mock_path, mock_exception)
+        self.assertEquals(mock_print_function.call_count, 2)
+
+    @mock.patch('builtins.print')
+    def test_handle_base_exception(self, mock_print_function):
+        mock_path = "//div[@class='sidebar-blue']//a[@class='question-hyperlink']/text()"
+        mock_exception = mock.Mock()
+        mock_exception.message = "Base exception message"
+        self.page.handle_base_exception(mock_path, mock_exception)
+        self.assertEquals(mock_print_function.call_count, 2)
 
     @mock.patch.object(xcrawler.Page, 'to_url')
     def test_to_urls(self, mock_to_url):
