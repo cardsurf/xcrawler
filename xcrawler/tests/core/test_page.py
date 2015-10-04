@@ -1,6 +1,10 @@
 
 import unittest
 import mock
+try:
+    import __builtin__ as builtins
+except ImportError:
+    import builtins
 
 from xcrawler.tests.mock import mock_factory
 import xcrawler
@@ -115,7 +119,7 @@ class TestPage(unittest.TestCase):
         result = self.page.decode_path_to_unicode_object(path)
         self.assertEquals(result, unicode_path)
 
-    @mock.patch('builtins.print')
+    @mock.patch('xcrawler.tests.core.test_page.builtins.print')
     def test_handle_value_error_exception(self, mock_print_function):
         mock_path = "//div[@class='sidebar-blue']//a[@class='question-hyperlink']/text()"
         mock_exception = mock.Mock()
@@ -123,7 +127,7 @@ class TestPage(unittest.TestCase):
         self.page.handle_value_error_exception(mock_path, mock_exception)
         self.assertEquals(mock_print_function.call_count, 2)
 
-    @mock.patch('builtins.print')
+    @mock.patch('xcrawler.tests.core.test_page.builtins.print')
     def test_handle_base_exception(self, mock_print_function):
         mock_path = "//div[@class='sidebar-blue']//a[@class='question-hyperlink']/text()"
         mock_exception = mock.Mock()

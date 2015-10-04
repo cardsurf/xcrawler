@@ -2,6 +2,10 @@
 import unittest
 import mock
 import csv
+try:
+    import __builtin__ as builtins
+except ImportError:
+    import builtins
 
 import xcrawler
 
@@ -22,8 +26,8 @@ class TestItemWriter(unittest.TestCase):
         mock_is_string_function.assert_called_once_with(mock_string)
            
     @mock.patch('xcrawler.files.item_writer.string_utils.is_string')
-    @mock.patch('builtins.vars')
-    @mock.patch('builtins.sorted')
+    @mock.patch('xcrawler.tests.files.test_item_writer.builtins.vars')
+    @mock.patch('xcrawler.tests.files.test_item_writer.builtins.sorted')
     def test_write_headers_to_output_file_item_argument(self, mock_sorted_function, mock_vars_function, mock_is_string_function):
         mock_item = mock.Mock()
         mock_variables = mock.Mock()
@@ -84,7 +88,7 @@ class TestItemWriter(unittest.TestCase):
         mock_convert_string_to_unicode_string.assert_called_once_with(mock_string)
         self.item_writer.writer.writerow.assert_called_once_with([mock_convert_string_to_unicode_string.return_value])
         
-    @mock.patch('builtins.vars')
+    @mock.patch('xcrawler.tests.files.test_item_writer.builtins.vars')
     @mock.patch('xcrawler.files.item_writer.dict_utils.get_list_of_values_sorted_by_keys')
     @mock.patch('xcrawler.files.item_writer.string_utils.list_convert_object_to_string')
     @mock.patch('xcrawler.files.item_writer.string_utils.list_convert_string_to_unicode_string')
@@ -103,7 +107,7 @@ class TestItemWriter(unittest.TestCase):
         self.item_writer.writer.writerow.assert_called_once_with(mock_string_values)
 
     @mock.patch('xcrawler.files.item_writer.csv.writer')
-    @mock.patch('builtins.open')
+    @mock.patch('xcrawler.tests.files.test_item_writer.builtins.open')
     def test_open_output_file(self, mock_open_function, mock_csv_writer_function):
         mock_file_name = "mock_file_name"
         mock_file = mock.Mock()

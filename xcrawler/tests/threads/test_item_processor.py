@@ -3,8 +3,10 @@ import unittest
 import mock
 try:
     import Queue as queue
+    import __builtin__ as builtins
 except ImportError:
     import queue
+    import builtins
 
 
 import xcrawler
@@ -21,7 +23,7 @@ class TestItemProcessor(unittest.TestCase):
         self.item_processor.item_writer = mock_item_writer
         self.item_processor.no_items_received = True
         
-    @mock.patch('builtins.print')
+    @mock.patch('xcrawler.tests.threads.test_item_processor.builtins.print')
     def test_process_item_output_mode_print(self, mock_print_function):
         self.item_processor.config.output_mode = xcrawler.Config.OUTPUT_MODE_PRINT
         mock_item = mock.Mock()
