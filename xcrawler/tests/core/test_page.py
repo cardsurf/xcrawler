@@ -107,11 +107,11 @@ class TestPage(unittest.TestCase):
         result = self.page.convert_elements_to_attribute(mock_result, mock_attribute_name)
         self.assertEquals(result, ["url1", "url2"])
 
-    @mock.patch('xcrawler.core.page.string_utils.convert_string_to_unicode')
-    def test_decode_path_to_unicode_object(self, mock_convert_string_to_unicode):
+    @mock.patch('xcrawler.core.page.string_utils.convert_string_to_unicode_string')
+    def test_decode_path_to_unicode_object(self, mock_convert_string_to_unicode_string):
         path = "path"
         unicode_path = "unicode path"
-        mock_convert_string_to_unicode.return_value = unicode_path
+        mock_convert_string_to_unicode_string.return_value = unicode_path
         result = self.page.decode_path_to_unicode_object(path)
         self.assertEquals(result, unicode_path)
 

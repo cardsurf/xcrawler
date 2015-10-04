@@ -63,7 +63,7 @@ class Page:
 
     def decode_path_to_unicode_object(self, path):
         try:
-            path = string_utils.convert_string_to_unicode(path)
+            path = string_utils.convert_string_to_unicode_string(path)
         except ValueError as exception:
             self.handle_value_error_exception(path, exception)
         except BaseException as exception:

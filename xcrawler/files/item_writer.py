@@ -34,14 +34,14 @@ class ItemWriter:
             self.write_item_variables_to_output_file(item)
 
     def write_string_to_output_file(self, string):
-        string = string_utils.convert_string_to_unicode(string)
+        string = string_utils.convert_string_to_unicode_string(string)
         self.writer.writerow([string])
     
     def write_item_variables_to_output_file(self, item):
         variables = vars(item)
         values = dict_utils.get_list_of_values_sorted_by_keys(variables)
         values = string_utils.list_convert_object_to_string(values)
-        values = string_utils.list_convert_string_to_unicode(values)
+        values = string_utils.list_convert_string_to_unicode_string(values)
         self.writer.writerow(values)
 
     def open_output_file(self, output_file_name):
