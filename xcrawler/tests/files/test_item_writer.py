@@ -75,20 +75,20 @@ class TestItemWriter(unittest.TestCase):
         mock_is_string_function.assert_called_once_with(mock_item)
         mock_write_item_variables_to_output_file.assert_called_once_with(mock_item)   
         
-    @mock.patch('xcrawler.files.item_writer.string_utils.convert_string_to_utf8')
-    def test_write_string_to_output_file(self, mock_convert_string_to_utf8):
-        mock_convert_string_to_utf8.return_value = "mock_byte_string_utf8"
+    @mock.patch('xcrawler.files.item_writer.string_utils.convert_string_to_unicode')
+    def test_write_string_to_output_file(self, mock_convert_string_to_unicode):
+        mock_convert_string_to_unicode.return_value = "mock_byte_string_unicode"
         mock_string = "mock"
         self.item_writer.write_string_to_output_file(mock_string)
         
-        mock_convert_string_to_utf8.assert_called_once_with(mock_string)
-        self.item_writer.writer.writerow.assert_called_once_with([mock_convert_string_to_utf8.return_value])
+        mock_convert_string_to_unicode.assert_called_once_with(mock_string)
+        self.item_writer.writer.writerow.assert_called_once_with([mock_convert_string_to_unicode.return_value])
         
     @mock.patch('builtins.vars')
     @mock.patch('xcrawler.files.item_writer.dict_utils.get_list_of_values_sorted_by_keys')
     @mock.patch('xcrawler.files.item_writer.string_utils.list_convert_object_to_string')
-    @mock.patch('xcrawler.files.item_writer.string_utils.list_convert_string_to_utf8')
-    def test_write_item_variables_to_output_file(self, mock_list_convert_string_to_utf8_function,
+    @mock.patch('xcrawler.files.item_writer.string_utils.list_convert_string_to_unicode')
+    def test_write_item_variables_to_output_file(self, mock_list_convert_string_to_unicode,
                                                        mock_list_convert_object_to_string,
                                                        mock_get_list_of_values_sorted_by_keys, mock_vars_function):
         mock_item = mock.Mock()
@@ -98,7 +98,7 @@ class TestItemWriter(unittest.TestCase):
         mock_vars_function.return_value = mock_variables
         mock_get_list_of_values_sorted_by_keys.return_value = mock_values
         mock_list_convert_object_to_string.return_value = mock_string_values
-        mock_list_convert_string_to_utf8_function.return_value = mock_list_convert_object_to_string.return_value
+        mock_list_convert_string_to_unicode.return_value = mock_list_convert_object_to_string.return_value
         self.item_writer.write_item_to_output_file(mock_item)
         self.item_writer.writer.writerow.assert_called_once_with(mock_string_values)
 

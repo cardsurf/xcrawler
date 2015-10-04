@@ -1,9 +1,9 @@
 
-from six import string_types, text_type
+from six import binary_type, text_type
 
 
 def is_string(o):
-    return isinstance(o, string_types)
+    return isinstance(o, binary_type)
 
 
 def is_unicode(o):
