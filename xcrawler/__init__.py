@@ -10,4 +10,4 @@ from .threads.work_executor import WorkExecutor
 from .threads.item_processor import ItemProcessor
 from .threads.page_processor import PageProcessor
 
-from .files.item_writer import ItemWriter
+from xcrawler.files.writers.item_writer import ItemWriter

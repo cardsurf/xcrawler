@@ -3,7 +3,7 @@ from __future__ import print_function
 import threading
 
 from xcrawler.core.config import Config
-from xcrawler.files.item_writer import ItemWriter
+from xcrawler.files.writers.item_writer import ItemWriter
 
 
 class ItemProcessor(threading.Thread):
