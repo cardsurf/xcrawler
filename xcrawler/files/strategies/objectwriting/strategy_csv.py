@@ -2,7 +2,7 @@
 import abc
 import csv
 
-from .strategy_object_writing import StrategyObjectWriting
+from xcrawler.files.strategies.objectwriting.strategy_object_writing import StrategyObjectWriting
 
 
 class StrategyCsv(StrategyObjectWriting):

@@ -4,8 +4,8 @@ try:
 except ImportError:
     import queue
 
-from .page_processor import PageProcessor
-from .item_processor import ItemProcessor
+from xcrawler.threads.page_processor import PageProcessor
+from xcrawler.threads.item_processor import ItemProcessor
 
 
 class WorkExecutor:

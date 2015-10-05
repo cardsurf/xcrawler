@@ -1,14 +1,14 @@
 
 import unittest
 
-import xcrawler
+from xcrawler.collections.fallback_list import FallbackList
 
 
 class TestFallbackList(unittest.TestCase):
 
     def setUp(self):
         self.list_strings = ["Element 1", "Element 2", "Element 3"]
-        self.fallback_list = xcrawler.FallbackList(self.list_strings)
+        self.fallback_list = FallbackList(self.list_strings)
         self.numbers = 10
 
     def test_get_valid_index(self):

@@ -2,8 +2,8 @@
 from __future__ import print_function
 import time
 
-from .config import Config
-from ..threads.work_executor import WorkExecutor
+from xcrawler.core.config import Config
+from xcrawler.threads.work_executor import WorkExecutor
 
 
 class XCrawler:

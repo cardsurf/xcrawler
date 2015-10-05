@@ -11,8 +11,8 @@ except ImportError:
 from lxml import etree
 from lxml.cssselect import CSSSelector
 
-from ..collections.fallback_list import FallbackList
-from ..pythonutils import string_utils
+from xcrawler.collections.fallback_list import FallbackList
+from xcrawler.pythonutils import string_utils
 
 
 class Page:

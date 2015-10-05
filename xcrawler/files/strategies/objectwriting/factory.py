@@ -1,7 +1,7 @@
 
-from ....pythonutils.version_utils import is_python2
-from .strategy_csv_python2 import StrategyCsvPython2
-from .strategy_csv_python3 import StrategyCsvPython3
+from xcrawler.pythonutils.version_utils import is_python2
+from xcrawler.files.strategies.objectwriting.strategy_csv_python2 import StrategyCsvPython2
+from xcrawler.files.strategies.objectwriting.strategy_csv_python3 import StrategyCsvPython3
 
 
 def create_csv_strategy(output_file):

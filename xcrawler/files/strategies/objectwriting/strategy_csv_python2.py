@@ -1,6 +1,6 @@
 
-from ....pythonutils import string_utils
-from .strategy_csv import StrategyCsv
+from xcrawler.pythonutils import string_utils
+from xcrawler.files.strategies.objectwriting.strategy_csv import StrategyCsv
 
 
 class StrategyCsvPython2(StrategyCsv):

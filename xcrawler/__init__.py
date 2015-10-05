@@ -1,13 +1,13 @@
 
-from .collections.fallback_list import FallbackList
+from xcrawler.collections.fallback_list import FallbackList
 
-from .core.page_scraper import PageScraper
-from .core.xcrawler import XCrawler
-from .core.config import Config
-from .core.page import Page
+from xcrawler.core.page_scraper import PageScraper
+from xcrawler.core.crawler import XCrawler
+from xcrawler.core.config import Config
+from xcrawler.core.page import Page
 
-from .threads.work_executor import WorkExecutor
-from .threads.item_processor import ItemProcessor
-from .threads.page_processor import PageProcessor
+from xcrawler.threads.work_executor import WorkExecutor
+from xcrawler.threads.item_processor import ItemProcessor
+from xcrawler.threads.page_processor import PageProcessor
 
 from xcrawler.files.writers.item_writer import ItemWriter
