@@ -28,18 +28,15 @@ class TestItemWriter(unittest.TestCase):
         mock_is_string_function.assert_called_once_with(mock_string)
            
     @mock.patch('xcrawler.files.writers.item_writer.string_utils.is_string')
-    @mock.patch('xcrawler.tests.files.test_item_writer.builtins.vars')
-    @mock.patch('xcrawler.tests.files.test_item_writer.builtins.sorted')
-    def test_write_headers_to_output_file_item_argument(self, mock_sorted_function, mock_vars_function, mock_is_string_function):
+    @mock.patch('xcrawler.files.writers.item_writer.object_utils.get_list_of_variable_names_sorted_by_name')
+    def test_write_headers_to_output_file_item_argument(self, mock_get_list_of_variable_names_sorted_by_name, mock_is_string_function):
         mock_item = mock.Mock()
-        mock_variables = mock.Mock()
-        mock_headers = mock.Mock()
+        mock_item_variables = { "width": 800, "height": 600, "title": "mock title" }
+        mock_names = ["height", "mock title", "width"]
         mock_is_string_function.return_value = False
-        mock_vars_function.return_value = mock_variables
-        mock_variables.keys.return_value = mock_headers
-        mock_sorted_function.return_value = mock_headers
+        mock_get_list_of_variable_names_sorted_by_name.return_value = ["height", "mock title", "width"]
         self.item_writer.write_headers_to_output_file(mock_item)
-        self.item_writer.write_object_strategy.write.assert_called_once_with(mock_headers)
+        self.item_writer.write_object_strategy.write.assert_called_once_with(mock_names)
         
     @mock.patch.object(ItemWriter, 'write_headers_to_output_file')
     @mock.patch.object(ItemWriter, 'write_item_to_output_file')
@@ -86,14 +83,13 @@ class TestItemWriter(unittest.TestCase):
         self.item_writer.write_string_to_output_file(mock_string)
         self.item_writer.write_object_strategy.write.assert_called_once_with([mock_string])
 
-    @mock.patch('xcrawler.tests.files.test_item_writer.builtins.vars')
-    @mock.patch('xcrawler.files.writers.item_writer.dict_utils.get_list_of_values_sorted_by_keys')
-    def test_write_item_variables_to_output_file(self, mock_get_list_of_values_sorted_by_keys, mock_vars_function):
+    @mock.patch('xcrawler.files.writers.item_writer.object_utils.get_list_of_variable_values_sorted_by_name')
+    def test_write_item_variables_to_output_file(self, mock_get_list_of_variable_values_sorted_by_name):
         mock_item = mock.Mock()
-        mock_vars_function.return_value = { "width": 800, "height": 600, "title": "mock title"}
-        mock_get_list_of_values_sorted_by_keys.return_value = [600, "mock title", 800]
+        mock_variables = { "width": 800, "height": 600, "title": "mock title"}
+        mock_get_list_of_variable_values_sorted_by_name.return_value = [600, "mock title", 800]
         self.item_writer.write_item_to_output_file(mock_item)
-        self.item_writer.write_object_strategy.write.assert_called_once_with(mock_get_list_of_values_sorted_by_keys.return_value)
+        self.item_writer.write_object_strategy.write.assert_called_once_with(mock_get_list_of_variable_values_sorted_by_name.return_value)
 
     @mock.patch('xcrawler.files.writers.item_writer.create_csv_strategy')
     def test_open_output_file(self, mock_create_csv_strategy):

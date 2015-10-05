@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from xcrawler.pythonutils import string_utils
-from xcrawler.pythonutils import dict_utils
+from xcrawler.pythonutils import object_utils
 from xcrawler.files.openers.file_opener_write import FileOpenerWrite
 from xcrawler.files.strategies.writeobject.factory import create_csv_strategy
 
@@ -20,9 +20,7 @@ class ItemWriter:
 
     def write_headers_to_output_file(self, item):             
         if not string_utils.is_string(item):
-            variables = vars(item)
-            headers = variables.keys()
-            headers = sorted(headers)
+            headers = object_utils.get_list_of_variable_names_sorted_by_name(item)
             self.write_object_strategy.write(headers)
 
     def write_item(self, item):
@@ -42,8 +40,7 @@ class ItemWriter:
         self.write_object_strategy.write([string])
 
     def write_item_variables_to_output_file(self, item):
-        variables = vars(item)
-        values = dict_utils.get_list_of_values_sorted_by_keys(variables)
+        values = object_utils.get_list_of_variable_values_sorted_by_name(item)
         self.write_object_strategy.write(values)
 
     def open_output_file(self, output_file_name):
