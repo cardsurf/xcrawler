@@ -3,9 +3,7 @@
 
 from xcrawler.pythonutils import string_utils
 from xcrawler.pythonutils import dict_utils
-from xcrawler.pythonutils import version_utils
-
-from xcrawler.files.strategies.fileopening.factory import create_strings_strategy
+from xcrawler.files.openers.file_opener_write import FileOpenerWrite
 from xcrawler.files.strategies.objectwriting.factory import create_csv_strategy
 
 
@@ -17,7 +15,7 @@ class ItemWriter:
         self.__no_items_written_to_file = True
         self.output_file_name = ""
         self.output_file = None
-        self.opening_strategy = None
+        self.file_opener = FileOpenerWrite()
         self.writing_strategy = None
 
     def write_headers_to_output_file(self, item):             
@@ -50,8 +48,7 @@ class ItemWriter:
 
     def open_output_file(self, output_file_name):
         self.output_file_name = output_file_name
-        self.opening_strategy = create_strings_strategy()
-        self.output_file = self.opening_strategy.open(self.output_file_name)
+        self.output_file = self.file_opener.open_file_write_strings(output_file_name)
         self.writing_strategy = create_csv_strategy(self.output_file)
 
     def close_output_file(self):

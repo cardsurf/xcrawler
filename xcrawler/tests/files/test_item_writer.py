@@ -8,7 +8,7 @@ except ImportError:
 
 import xcrawler
 from xcrawler.files.strategies.objectwriting.strategy_object_writing import StrategyObjectWriting
-from xcrawler.files.strategies.fileopening.strategy_file_opening import StrategyFileOpening
+from xcrawler.files.openers.file_opener_write import FileOpenerWrite
 
 
 class TestItemWriter(unittest.TestCase):
@@ -16,7 +16,7 @@ class TestItemWriter(unittest.TestCase):
     def setUp(self):
         self.item_writer = xcrawler.ItemWriter()
         self.item_writer.writing_strategy = mock.create_autospec(StrategyObjectWriting).return_value
-        self.item_writer.opening_strategy = mock.create_autospec(StrategyFileOpening).return_value
+        self.item_writer.file_opener = mock.create_autospec(FileOpenerWrite).return_value
         self.item_writer._ItemWriter__no_items_written_to_file = True
 
     @mock.patch('xcrawler.files.writers.item_writer.string_utils.is_string')
@@ -95,21 +95,17 @@ class TestItemWriter(unittest.TestCase):
         self.item_writer.write_item_to_output_file(mock_item)
         self.item_writer.writing_strategy.write.assert_called_once_with(mock_get_list_of_values_sorted_by_keys.return_value)
 
-    @mock.patch('xcrawler.files.writers.item_writer.create_strings_strategy')
     @mock.patch('xcrawler.files.writers.item_writer.create_csv_strategy')
-    def test_open_output_file(self, mock_create_csv_strategy, mock_create_strings_strategy):
+    def test_open_output_file(self, mock_create_csv_strategy):
         mock_file_name = "mock_output.csv"
         mock_file = mock.Mock()
-        mock_opening_strategy = mock.Mock()
         mock_writing_strategy = mock.Mock()
-        mock_create_strings_strategy.return_value = mock_opening_strategy
-        mock_opening_strategy.open.return_value = mock_file
+        self.item_writer.file_opener.open_file_write_strings.return_value = mock_file
         mock_create_csv_strategy.return_value = mock_writing_strategy
         self.item_writer.open_output_file(mock_file_name)
     
         self.assertEquals(self.item_writer.output_file_name, mock_file_name)
         self.assertEquals(self.item_writer.output_file, mock_file)
-        self.assertEquals(self.item_writer.opening_strategy, mock_opening_strategy)
         self.assertEquals(self.item_writer.writing_strategy, mock_writing_strategy)
            
     def test_close_output_file(self):
