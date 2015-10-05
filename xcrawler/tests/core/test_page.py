@@ -7,7 +7,7 @@ except ImportError:
     import builtins
 
 from xcrawler.tests.mock import mock_factory
-import xcrawler
+from xcrawler.core.page import Page
 
 
 class TestPage(unittest.TestCase):
@@ -15,7 +15,7 @@ class TestPage(unittest.TestCase):
     def setUp(self):
         url = "http://test.com/index1.html"
         scraper = mock_factory.create_mock_page_scraper()
-        self.page = xcrawler.Page(url, scraper)
+        self.page = Page(url, scraper)
         
     @mock.patch('xcrawler.core.page.urlparse')
     def test_get_domain_name(self, mock_urlparse_function):
@@ -69,8 +69,8 @@ class TestPage(unittest.TestCase):
         self.assertEquals(result, mock_fallback_list_instance)
         mock_fallback_list_module.assert_called_once_with(mock_selector.return_value)
 
-    @mock.patch.object(xcrawler.Page, 'css')
-    @mock.patch.object(xcrawler.Page, 'convert_elements_to_text')
+    @mock.patch.object(Page, 'css')
+    @mock.patch.object(Page, 'convert_elements_to_text')
     def test_css_text(self, mock_convert_elements_to_text, mock_css):
         mock_page_content = mock.Mock()
         mock_page_content.__str__ = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
@@ -88,8 +88,8 @@ class TestPage(unittest.TestCase):
         result = self.page.convert_elements_to_text(mock_list_elements)
         self.assertEquals(result, ["mock_text", "mock_text"])
 
-    @mock.patch.object(xcrawler.Page, 'css')
-    @mock.patch.object(xcrawler.Page, 'convert_elements_to_attribute')
+    @mock.patch.object(Page, 'css')
+    @mock.patch.object(Page, 'convert_elements_to_attribute')
     def test_css_attr(self, mock_convert_elements_to_attribute, mock_css):
         mock_page_content = mock.Mock()
         mock_page_content.__str__ = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
@@ -135,7 +135,7 @@ class TestPage(unittest.TestCase):
         self.page.handle_base_exception(mock_path, mock_exception)
         self.assertEquals(mock_print_function.call_count, 2)
 
-    @mock.patch.object(xcrawler.Page, 'to_url')
+    @mock.patch.object(Page, 'to_url')
     def test_to_urls(self, mock_to_url):
         self.page.domain_name = "http://test.com"
         links = ["http://test.com/link/to/example_page.html", "link/to/example_page.html", "/link/to/example_page.html"]

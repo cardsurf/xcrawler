@@ -8,8 +8,8 @@ except ImportError:
     import queue
     import builtins
 
-import xcrawler
 from xcrawler.tests.mock import mock_factory
+from xcrawler.threads.page_processor import PageProcessor
 
 
 class TestPageProcessor(unittest.TestCase):
@@ -18,7 +18,7 @@ class TestPageProcessor(unittest.TestCase):
         mock_config = mock_factory.create_mock_config()
         mock_page_queue = mock.create_autospec(queue).return_value
         mock_item_queue = mock.create_autospec(queue).return_value
-        self.page_processor = xcrawler.PageProcessor(mock_config, mock_page_queue, mock_item_queue)
+        self.page_processor = PageProcessor(mock_config, mock_page_queue, mock_item_queue)
         
     @mock.patch('xcrawler.threads.page_processor.time.sleep') 
     def test_wait_to_fetch_page(self, mock_time_function):
@@ -26,9 +26,9 @@ class TestPageProcessor(unittest.TestCase):
         self.page_processor.wait_to_fetch_page()
         mock_time_function.assert_called_once_with(self.page_processor.config.fetch_delay)
    
-    @mock.patch.object(xcrawler.PageProcessor, 'put_extracted_items_in_queue') 
-    @mock.patch.object(xcrawler.PageProcessor, 'put_extracted_pages_in_queue')
-    @mock.patch.object(xcrawler.PageProcessor, 'fetch_content') 
+    @mock.patch.object(PageProcessor, 'put_extracted_items_in_queue')
+    @mock.patch.object(PageProcessor, 'put_extracted_pages_in_queue')
+    @mock.patch.object(PageProcessor, 'fetch_content')
     def test_process_page(self, mock_fetch_content,
                           mock_put_extracted_pages_in_queue, mock_put_extracted_items_in_queue):
         mock_fetch_content.return_value = "<html><br>Page title</br></html>"

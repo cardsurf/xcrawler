@@ -6,7 +6,7 @@ try:
 except ImportError:
     import builtins
 
-import xcrawler
+from xcrawler.files.writers.item_writer import ItemWriter
 from xcrawler.files.strategies.objectwriting.strategy_object_writing import StrategyObjectWriting
 from xcrawler.files.openers.file_opener_write import FileOpenerWrite
 
@@ -14,7 +14,7 @@ from xcrawler.files.openers.file_opener_write import FileOpenerWrite
 class TestItemWriter(unittest.TestCase):
 
     def setUp(self):
-        self.item_writer = xcrawler.ItemWriter()
+        self.item_writer = ItemWriter()
         self.item_writer.writing_strategy = mock.create_autospec(StrategyObjectWriting).return_value
         self.item_writer.file_opener = mock.create_autospec(FileOpenerWrite).return_value
         self.item_writer._ItemWriter__no_items_written_to_file = True
@@ -41,8 +41,8 @@ class TestItemWriter(unittest.TestCase):
         self.item_writer.write_headers_to_output_file(mock_item)
         self.item_writer.writing_strategy.write.assert_called_once_with(mock_headers)
         
-    @mock.patch.object(xcrawler.ItemWriter, 'write_headers_to_output_file') 
-    @mock.patch.object(xcrawler.ItemWriter, 'write_item_to_output_file') 
+    @mock.patch.object(ItemWriter, 'write_headers_to_output_file')
+    @mock.patch.object(ItemWriter, 'write_item_to_output_file')
     def test_write_item_first_item(self, mock_write_item_to_output_file, mock_write_headers_to_output_file):
         self.item_writer._ItemWriter__no_items_written_to_file = True
         mock_item = mock.Mock()
@@ -52,7 +52,7 @@ class TestItemWriter(unittest.TestCase):
         mock_write_headers_to_output_file.assert_called_once_with(mock_item)
         mock_write_item_to_output_file.assert_called_once_with(mock_item)
         
-    @mock.patch.object(xcrawler.ItemWriter, 'write_item_to_output_file') 
+    @mock.patch.object(ItemWriter, 'write_item_to_output_file')
     def test_write_item_non_first_item(self, mock_write_item_to_output_file):
         self.item_writer._ItemWriter__no_items_written_to_file = False
         mock_item = mock.Mock()
@@ -61,7 +61,7 @@ class TestItemWriter(unittest.TestCase):
         mock_write_item_to_output_file.assert_called_once_with(mock_item)
         
     @mock.patch('xcrawler.files.writers.item_writer.string_utils.is_string')
-    @mock.patch.object(xcrawler.ItemWriter, 'write_string_to_output_file') 
+    @mock.patch.object(ItemWriter, 'write_string_to_output_file')
     def test_write_item_to_output_file_string_argument(self, mock_write_string_to_output_file, mock_is_string_function):
         mock_is_string_function.return_value = True
         mock_string = "mock"
@@ -71,7 +71,7 @@ class TestItemWriter(unittest.TestCase):
         mock_write_string_to_output_file.assert_called_once_with(mock_string)
         
     @mock.patch('xcrawler.files.writers.item_writer.string_utils.is_string')
-    @mock.patch.object(xcrawler.ItemWriter, 'write_item_variables_to_output_file') 
+    @mock.patch.object(ItemWriter, 'write_item_variables_to_output_file')
     def test_write_item_to_output_file_item_argument(self, mock_write_item_variables_to_output_file,
                                                       mock_is_string_function):
         mock_is_string_function.return_value = False

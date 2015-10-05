@@ -6,18 +6,19 @@ try:
 except ImportError:
     import queue
 
-import xcrawler
 from xcrawler.tests.mock import mock_factory
+from xcrawler.threads.work_executor import WorkExecutor
+from xcrawler.threads.item_processor import ItemProcessor
 
 
 class TestWorkExecutor(unittest.TestCase):
     
     def setUp(self):
         mock_config = mock_factory.create_mock_config()
-        self.work_executor = xcrawler.WorkExecutor(mock_config)
+        self.work_executor = WorkExecutor(mock_config)
         self.work_executor.page_queue = mock.create_autospec(queue).return_value
         self.work_executor.item_queue = mock.create_autospec(queue).return_value
-        self.work_executor.item_processor = mock.create_autospec(xcrawler.ItemProcessor).return_value
+        self.work_executor.item_processor = mock.create_autospec(ItemProcessor).return_value
           
     @mock.patch('xcrawler.threads.work_executor.PageProcessor') 
     def test_spawn_page_queue_threads(self, page_processor_class):
@@ -41,8 +42,8 @@ class TestWorkExecutor(unittest.TestCase):
         self.assertEquals(self.work_executor.page_queue.join.call_count, 1)
         self.assertEquals(self.work_executor.item_queue.join.call_count, 1)
                    
-    @mock.patch.object(xcrawler.WorkExecutor, 'add_pages_to_queue')
-    @mock.patch.object(xcrawler.WorkExecutor, 'wait_until_work_is_done')   
+    @mock.patch.object(WorkExecutor, 'add_pages_to_queue')
+    @mock.patch.object(WorkExecutor, 'wait_until_work_is_done')
     def test_execute_work(self, mock_wait_until_work_is_done, mock_add_pages_to_queue):
         mock_start_pages = mock_factory.create_mock_pages(10)
         self.work_executor.execute_work(mock_start_pages)

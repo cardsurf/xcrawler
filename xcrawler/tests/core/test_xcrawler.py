@@ -2,15 +2,15 @@
 import unittest
 import mock
 
-import xcrawler
 from xcrawler.tests.mock import mock_factory
+from xcrawler.core.xcrawler import XCrawler
 
 
 class TestXCrawler(unittest.TestCase):
     
     def setUp(self):
         start_pages = mock_factory.create_mock_pages(10)
-        self.crawler = xcrawler.XCrawler(start_pages)
+        self.crawler = XCrawler(start_pages)
 
     @mock.patch('xcrawler.core.xcrawler.WorkExecutor')
     def test_run_with_empty_start_pages(self, mock_work_executor_module):
