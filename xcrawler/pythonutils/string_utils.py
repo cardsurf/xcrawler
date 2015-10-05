@@ -30,17 +30,17 @@ def convert_object_to_string(o):
     return o
 
 
+def convert_string_to_byte_string_utf8(string):
+    unicode_string = convert_string_to_unicode_string(string)
+    byte_string_utf8 = unicode_string.encode("utf-8")
+    return byte_string_utf8
+
+
 def convert_string_to_unicode_string(string):
     if is_unicode_string(string):
         return string
     unicode_string = string.decode('utf8')
     return unicode_string
-
-
-def convert_string_to_byte_string_utf8(string):
-    unicode_string = convert_string_to_unicode_string(string)
-    byte_string_utf8 = unicode_string.encode("utf-8")
-    return byte_string_utf8
 
 
 def replace_none_with_empty_string(o):
@@ -49,18 +49,26 @@ def replace_none_with_empty_string(o):
     return o
 
 
+def list_convert_to_byte_string_utf8(list_objects):
+    return [convert_to_byte_string_utf8(o) for o in list_objects]
+
+
+def list_convert_to_unicode_string(list_objects):
+    return [convert_to_unicode_string(o) for o in list_objects]
+
+
 def list_convert_object_to_string(list_objects):
     return [convert_object_to_string(o) for o in list_objects]
 
 
-def list_convert_string_to_unicode_string(string_list):
-    return [convert_string_to_unicode_string(s) for s in string_list]
+def list_convert_string_to_unicode_string(list_strings):
+    return [convert_string_to_unicode_string(s) for s in list_strings]
 
 
-def list_convert_string_to_byte_string_utf8(string_list):
-    return [convert_string_to_byte_string_utf8(s) for s in string_list]
+def list_convert_string_to_byte_string_utf8(list_strings):
+    return [convert_string_to_byte_string_utf8(s) for s in list_strings]
 
 
-def list_replace_none_with_empty_string(list_elements):
-    return [replace_none_with_empty_string(e) for e in list_elements]
+def list_replace_none_with_empty_string(list_objects):
+    return [replace_none_with_empty_string(e) for e in list_objects]
 
