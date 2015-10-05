@@ -2,7 +2,7 @@
 import abc
 
 
-class StrategyObjectWriting:
+class WriteObjectStrategy:
     """A base class for strategy of writing objects to a file in a specific format.
 
     """
