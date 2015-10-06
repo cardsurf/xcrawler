@@ -3,7 +3,6 @@ import csv
 
 from xcrawler.pythonutils import string_utils
 from xcrawler.pythonutils import object_utils
-from xcrawler.pythonutils import version_utils
 from xcrawler.files.strategies.writeobject.write_object_strategy import WriteObjectStrategy
 
 
@@ -12,16 +11,10 @@ class WriteObjectCsv(WriteObjectStrategy):
 
     """
 
-    def __init__(self, file_opener):
+    def __init__(self, file_opener, object_to_string_converter):
         self.file_opener = file_opener
-        self.convert_to_strings_function = self.get_convert_to_strings_function()
+        self.object_to_string_converter = object_to_string_converter
         self.writer = None
-
-    def get_convert_to_strings_function(self):
-        if version_utils.is_python2():
-            return string_utils.list_convert_to_byte_string_utf8
-        else:
-            return string_utils.list_convert_to_unicode_string
 
     def open_file(self, file_name):
         output_file = self.open_file_and_init_writer(file_name)
@@ -48,7 +41,7 @@ class WriteObjectCsv(WriteObjectStrategy):
 
     def write_variables(self, item):
         values = object_utils.get_list_of_variable_values_sorted_by_name(item)
-        values = self.convert_to_strings_function(values)
+        values = self.object_to_string_converter.list_convert_to_string(values)
         self.write(values)
 
     def write(self, list_strings):

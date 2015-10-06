@@ -3,31 +3,19 @@ import unittest
 import mock
 import csv
 
-from xcrawler.files.openers.file_opener_write import FileOpenerWrite
 from xcrawler.files.strategies.writeobject.write_object_csv import WriteObjectCsv
+from xcrawler.compatibility.compatible_file_opener_write import CompatibleFileOpenerWrite
+from xcrawler.compatibility.compatible_object_string_converter import CompatibleObjectStringConverter
 
 
 class TestWriteObjectCsv(unittest.TestCase):
 
     def setUp(self):
-        mock_file_opener = mock.create_autospec(FileOpenerWrite).return_value
-        self.write_object_csv = WriteObjectCsv(mock_file_opener)
+        mock_file_opener = mock.create_autospec(CompatibleFileOpenerWrite).return_value
+        mock_object_to_string_converter = mock.create_autospec(CompatibleObjectStringConverter).return_value
+        self.write_object_csv = WriteObjectCsv(mock_file_opener, mock_object_to_string_converter)
         self.write_object_csv.writer = mock.create_autospec(csv.writer).return_value
         self.write_object_csv.convert_to_strings_function = mock.Mock()
-
-    @mock.patch('xcrawler.files.strategies.writeobject.write_object_csv.version_utils.is_python2')
-    @mock.patch('xcrawler.files.strategies.writeobject.write_object_csv.string_utils.list_convert_to_byte_string_utf8')
-    def test_get_convert_to_strings_python2(self, mock_list_convert_to_byte_string_utf8, mock_is_python2):
-        mock_is_python2.return_value = True
-        result = self.write_object_csv.get_convert_to_strings_function()
-        self.assertEquals(result, mock_list_convert_to_byte_string_utf8)
-
-    @mock.patch('xcrawler.files.strategies.writeobject.write_object_csv.version_utils.is_python2')
-    @mock.patch('xcrawler.files.strategies.writeobject.write_object_csv.string_utils.list_convert_to_unicode_string')
-    def test_get_convert_to_strings_python3(self, mock_list_convert_to_unicode_string, mock_is_python2):
-        mock_is_python2.return_value = False
-        result = self.write_object_csv.get_convert_to_strings_function()
-        self.assertEquals(result, mock_list_convert_to_unicode_string)
 
     @mock.patch.object(WriteObjectCsv, 'open_file_and_init_writer')
     def test_open_file(self, mock_open_file_and_init_writer):
@@ -94,9 +82,9 @@ class TestWriteObjectCsv(unittest.TestCase):
         mock_object = mock.Mock()
         mock_object_variables = { "width": 800, "height": 600, "title": "mock title" }
         mock_get_list_of_variable_values_sorted_by_name.return_value = [600, "mock title", 800]
-        self.write_object_csv.convert_to_strings_function.return_value = ["600", "mock title", "800"]
+        self.write_object_csv.object_to_string_converter.list_convert_to_string.return_value = ["600", "mock title", "800"]
         self.write_object_csv.write_variables(mock_object)
-        mock_write.assert_called_once_with(self.write_object_csv.convert_to_strings_function.return_value)
+        mock_write.assert_called_once_with(self.write_object_csv.object_to_string_converter.list_convert_to_string.return_value)
 
     def test_write(self):
         mock_list_string = ["600", "mock title", "800"]
