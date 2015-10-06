@@ -51,30 +51,30 @@ class TestObjectWriterCsv(unittest.TestCase):
     @mock.patch('xcrawler.files.writers.object_writer_csv.string_utils.is_string')
     @mock.patch('xcrawler.files.writers.object_writer_csv.object_utils.get_list_of_variable_names_sorted_by_name')
     @mock.patch.object(ObjectWriterCsv, 'write')
-    def test_write_headers_item_argument(self, mock_write, mock_get_list_of_variable_names_sorted_by_name, mock_is_string_function):
-        mock_item = mock.Mock()
-        mock_item_variables = { "width": 800, "height": 600, "title": "mock title" }
+    def test_write_headers_object_argument(self, mock_write, mock_get_list_of_variable_names_sorted_by_name, mock_is_string_function):
+        mock_object = mock.Mock()
+        mock_object_variables = { "width": 800, "height": 600, "title": "mock title" }
         mock_names = ["height", "mock title", "width"]
         mock_is_string_function.return_value = False
         mock_get_list_of_variable_names_sorted_by_name.return_value = ["height", "mock title", "width"]
-        self.object_writer_csv.write_headers(mock_item)
+        self.object_writer_csv.write_headers(mock_object)
         mock_write.assert_called_once_with(mock_names)
 
     @mock.patch('xcrawler.files.writers.object_writer_csv.string_utils.is_string')
     @mock.patch.object(ObjectWriterCsv, 'write')
-    def test_write_item_string_argument(self, mock_write, mock_is_string):
-        mock_item = "Mock string"
+    def test_write_object_string_argument(self, mock_write, mock_is_string):
+        mock_object = "Mock string"
         mock_is_string.return_value = True
-        self.object_writer_csv.write_item(mock_item)
-        mock_write.assert_called_once_with([mock_item])
+        self.object_writer_csv.write_object(mock_object)
+        mock_write.assert_called_once_with([mock_object])
 
     @mock.patch('xcrawler.files.writers.object_writer_csv.string_utils.is_string')
     @mock.patch.object(ObjectWriterCsv, 'write_variables')
-    def test_write_item_non_string_argument(self, mock_write_variables, mock_is_string):
-        mock_item = mock.Mock()
+    def test_write_object_non_string_argument(self, mock_write_variables, mock_is_string):
+        mock_object = mock.Mock()
         mock_is_string.return_value = False
-        self.object_writer_csv.write_item(mock_item)
-        mock_write_variables.assert_called_once_with(mock_item)
+        self.object_writer_csv.write_object(mock_object)
+        mock_write_variables.assert_called_once_with(mock_object)
 
     @mock.patch('xcrawler.files.writers.object_writer_csv.object_utils.get_list_of_variable_values_sorted_by_name')
     @mock.patch.object(ObjectWriterCsv, 'write')

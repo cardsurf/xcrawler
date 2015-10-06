@@ -6,7 +6,7 @@ from xcrawler.files.writers.object_writer import ObjectWriter
 
 
 class ObjectWriterCsv(ObjectWriter):
-    """A base strategy of writing objects to a .csv file."
+    """Writes objects to a .csv file."
 
     """
 
@@ -27,19 +27,19 @@ class ObjectWriterCsv(ObjectWriter):
     def init_writer(self, opened_file):
         self.writer = csv.writer(opened_file, delimiter=' ', quotechar='"', quoting=csv.QUOTE_ALL, lineterminator='\n')
 
-    def write_headers(self, item):
-        if not string_utils.is_string(item):
-            headers = object_utils.get_list_of_variable_names_sorted_by_name(item)
+    def write_headers(self, instance_object):
+        if not string_utils.is_string(instance_object):
+            headers = object_utils.get_list_of_variable_names_sorted_by_name(instance_object)
             self.write(headers)
 
-    def write_item(self, item):
-        if string_utils.is_string(item):
-            self.write([item])
+    def write_object(self, instance_object):
+        if string_utils.is_string(instance_object):
+            self.write([instance_object])
         else:
-            self.write_variables(item)
+            self.write_variables(instance_object)
 
-    def write_variables(self, item):
-        values = object_utils.get_list_of_variable_values_sorted_by_name(item)
+    def write_variables(self, instance_object):
+        values = object_utils.get_list_of_variable_values_sorted_by_name(instance_object)
         values = self.object_to_string_converter.list_convert_to_string(values)
         self.write(values)
 

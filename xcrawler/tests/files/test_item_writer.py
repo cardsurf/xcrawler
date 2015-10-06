@@ -33,13 +33,13 @@ class TestItemWriter(unittest.TestCase):
         self.assertFalse(self.item_writer._ItemWriter__no_items_written_to_file)
         
         mock_write_headers.assert_called_once_with(mock_item)
-        self.item_writer.write_object_strategy.write_item.assert_called_once_with(mock_item)
+        self.item_writer.write_object_strategy.write_object.assert_called_once_with(mock_item)
         
     def test_write_item_non_first_item(self):
         self.item_writer._ItemWriter__no_items_written_to_file = False
         mock_item = mock.Mock()
         self.item_writer.write_item(mock_item)
-        self.item_writer.write_object_strategy.write_item.assert_called_once_with(mock_item)
+        self.item_writer.write_object_strategy.write_object.assert_called_once_with(mock_item)
 
     def test_open_output_file(self):
         mock_file_name = "mock_output.csv"

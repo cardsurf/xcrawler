@@ -16,18 +16,18 @@ class ObjectWriter:
         """
 
     @abc.abstractmethod
-    def write_headers(self, item):
+    def write_headers(self, instance_object):
         """
         Writes headers to a file.
-        :param item: the first item to be written to a file.
+        :param instance_object: the first object to be written to a file.
         """
 
     @abc.abstractmethod
-    def write_item(self, item):
+    def write_object(self, instance_object):
         """
-        Writes an item to a file.
-        If an item is not a string then a string representation of the item is used.
-        :param item: the item to be written to a file.
+        Writes an object to a file.
+        If an object is not a string then a string representation of the object is used.
+        :param instance_object: the object to be written to a file.
         """
 
 

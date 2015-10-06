@@ -25,7 +25,7 @@ class ItemWriter:
             self.write_headers(item)
             self.__no_items_written_to_file = False   
 
-        self.write_object_strategy.write_item(item)
+        self.write_object_strategy.write_object(item)
 
     def open_output_file(self, output_file_name):
         self.output_file = self.write_object_strategy.open_file(output_file_name)
