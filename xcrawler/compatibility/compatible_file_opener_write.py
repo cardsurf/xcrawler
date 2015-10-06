@@ -11,8 +11,9 @@ class CompatibleFileOpenerWrite:
         self.open_file_write_strings = self.get_open_file_write_strings()
 
     def get_open_file_write_strings(self):
+
         if version_utils.is_python2():
-            return FileOpenerWrite.open_file_write_byte_strings
+            return FileOpenerWrite().open_file_write_byte_strings
         else:
-            return FileOpenerWrite.open_file_write_unicode_strings
+            return FileOpenerWrite().open_file_write_unicode_strings
 

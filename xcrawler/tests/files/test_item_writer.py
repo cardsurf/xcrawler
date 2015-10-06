@@ -8,7 +8,7 @@ except ImportError:
 
 from xcrawler.files.writers.item_writer import ItemWriter
 from xcrawler.files.strategies.writeobject.write_object_csv import WriteObjectCsv
-from xcrawler.files.openers.file_opener_write import FileOpenerWrite
+from xcrawler.compatibility.compatible_file_opener_write import CompatibleFileOpenerWrite
 
 
 class TestItemWriter(unittest.TestCase):
@@ -16,7 +16,7 @@ class TestItemWriter(unittest.TestCase):
     def setUp(self):
         self.item_writer = ItemWriter()
         self.item_writer.write_object_strategy = mock.create_autospec(WriteObjectCsv).return_value
-        self.item_writer.file_opener = mock.create_autospec(FileOpenerWrite).return_value
+        self.item_writer.file_opener = mock.create_autospec(CompatibleFileOpenerWrite).return_value
         self.item_writer._ItemWriter__no_items_written_to_file = True
 
     def test_write_headers(self):

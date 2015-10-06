@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from xcrawler.files.openers.file_opener_write import FileOpenerWrite
+from xcrawler.compatibility.compatible_file_opener_write import CompatibleFileOpenerWrite
 from xcrawler.files.strategies.writeobject.write_object_csv import WriteObjectCsv
 
 
@@ -13,7 +13,7 @@ class ItemWriter:
         self.__no_items_written_to_file = True
         self.output_file_name = ""
         self.output_file = None
-        self.file_opener = FileOpenerWrite()
+        self.file_opener = CompatibleFileOpenerWrite()
         self.write_object_strategy = WriteObjectCsv(self.file_opener)
 
     def write_headers(self, item):
