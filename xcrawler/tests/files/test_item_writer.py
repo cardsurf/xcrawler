@@ -9,7 +9,6 @@ except ImportError:
 
 from xcrawler.files.writers.item_writer import ItemWriter
 from xcrawler.files.writers.object_writer_csv import ObjectWriter
-from xcrawler.compatibility.compatible_file_write_opener import CompatibleFileWriteOpener
 
 
 class TestItemWriter(unittest.TestCase):

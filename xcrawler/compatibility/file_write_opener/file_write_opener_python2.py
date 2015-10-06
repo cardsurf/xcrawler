@@ -1,5 +1,5 @@
 
-from xcrawler.compatibility.compatible_file_write_opener import CompatibleFileWriteOpener
+from xcrawler.compatibility.file_write_opener.compatible_file_write_opener import CompatibleFileWriteOpener
 
 
 class FileWriteOpenerPython2(CompatibleFileWriteOpener):

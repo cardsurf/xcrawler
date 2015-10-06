@@ -4,7 +4,7 @@ import mock
 import csv
 
 from xcrawler.files.writers.object_writer_csv import ObjectWriterCsv
-from xcrawler.compatibility.compatible_file_write_opener import CompatibleFileWriteOpener
+from xcrawler.compatibility.file_write_opener.compatible_file_write_opener import CompatibleFileWriteOpener
 from xcrawler.compatibility.compatible_object_string_converter import CompatibleObjectStringConverter
 
 
