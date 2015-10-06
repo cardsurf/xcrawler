@@ -3,7 +3,7 @@ from xcrawler.compatibility.compatible_file_opener_write import CompatibleFileOp
 
 
 class FileOpenerWritePython2(CompatibleFileOpenerWrite):
-    """A Python 2 compatible class for opening a file in a write mode.."
+    """A Python 2 compatible class for opening a file in a write mode.
 
     """
     def open_file_write_strings(self, file_name):
