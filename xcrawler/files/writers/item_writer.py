@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from xcrawler.compatibility.compatibility_factory import CompatibilityFactory
-from xcrawler.files.writers.object_writer_csv import ObjectWriterCsv
-
 
 class ItemWriter:
     """Writes data extracted from web pages to an output file.
@@ -13,9 +10,7 @@ class ItemWriter:
         self.__no_items_written_to_file = True
         self.output_file_name = ""
         self.output_file = None
-        self.file_opener = CompatibilityFactory().create_compatible_file_opener_write()
-        self.object_to_string_converter = CompatibilityFactory().create_compatible_object_string_converter()
-        self.object_writer = ObjectWriterCsv(self.file_opener, self.object_to_string_converter)
+        self.object_writer = None
 
     def write_headers(self, item):
         self.object_writer.write_headers(item)
