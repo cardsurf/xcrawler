@@ -1,17 +1,17 @@
+
 import unittest
+import mock
 import csv
 
-import mock
-
 from xcrawler.files.writers.object_writer_csv import ObjectWriterCsv
-from xcrawler.compatibility.compatible_file_opener_write import CompatibleFileOpenerWrite
+from xcrawler.compatibility.compatible_file_write_opener import CompatibleFileWriteOpener
 from xcrawler.compatibility.compatible_object_string_converter import CompatibleObjectStringConverter
 
 
-class TestWriteObjectCsv(unittest.TestCase):
+class TestObjectWriterCsv(unittest.TestCase):
 
     def setUp(self):
-        mock_file_opener = mock.create_autospec(CompatibleFileOpenerWrite).return_value
+        mock_file_opener = mock.create_autospec(CompatibleFileWriteOpener).return_value
         mock_object_to_string_converter = mock.create_autospec(CompatibleObjectStringConverter).return_value
         self.object_writer_csv = ObjectWriterCsv(mock_file_opener, mock_object_to_string_converter)
         self.object_writer_csv.writer = mock.create_autospec(csv.writer).return_value

@@ -6,13 +6,13 @@ try:
 except ImportError:
     import builtins
 
-from xcrawler.files.openers.file_opener_write import FileOpenerWrite
+from xcrawler.files.openers.file_write_opener import FileWriteOpener
 
 
-class TestFileOpenerWrite(unittest.TestCase):
+class TestFileWriteOpener(unittest.TestCase):
 
     def setUp(self):
-        self.file_opener_write = FileOpenerWrite()
+        self.file_opener_write = FileWriteOpener()
 
     @mock.patch('xcrawler.tests.files.test_item_writer.builtins.open')
     def test_open_file_write_byte_strings(self, mock_open_function):
