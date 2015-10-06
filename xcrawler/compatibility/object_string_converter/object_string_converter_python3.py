@@ -1,6 +1,6 @@
 
 from xcrawler.pythonutils import string_utils
-from xcrawler.compatibility.compatible_object_string_converter import CompatibleObjectStringConverter
+from xcrawler.compatibility.object_string_converter.compatible_object_string_converter import CompatibleObjectStringConverter
 
 
 class ObjectStringConverterPython3(CompatibleObjectStringConverter):
