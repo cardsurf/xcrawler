@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from xcrawler.compatibility.compatibility_factory import CompatibilityFactory
-from xcrawler.files.strategies.writeobject.write_object_csv import WriteObjectCsv
+from xcrawler.files.strategies.writeobject.object_writer_csv import ObjectWriterCsv
 
 
 class ItemWriter:
@@ -15,7 +15,7 @@ class ItemWriter:
         self.output_file = None
         self.file_opener = CompatibilityFactory().create_compatible_file_opener_write()
         self.object_to_string_converter = CompatibilityFactory().create_compatible_object_string_converter()
-        self.write_object_strategy = WriteObjectCsv(self.file_opener, self.object_to_string_converter)
+        self.write_object_strategy = ObjectWriterCsv(self.file_opener, self.object_to_string_converter)
 
     def write_headers(self, item):
         self.write_object_strategy.write_headers(item)

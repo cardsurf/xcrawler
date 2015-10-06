@@ -3,10 +3,10 @@ import csv
 
 from xcrawler.pythonutils import string_utils
 from xcrawler.pythonutils import object_utils
-from xcrawler.files.strategies.writeobject.write_object_strategy import WriteObjectStrategy
+from xcrawler.files.strategies.writeobject.object_writer import ObjectWriter
 
 
-class WriteObjectCsv(WriteObjectStrategy):
+class ObjectWriterCsv(ObjectWriter):
     """A base strategy of writing objects to a .csv file."
 
     """
