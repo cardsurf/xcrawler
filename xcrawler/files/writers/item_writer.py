@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from xcrawler.compatibility.compatibility_factory import CompatibilityFactory
-from xcrawler.files.strategies.writeobject.object_writer_csv import ObjectWriterCsv
+from xcrawler.files.writers.object_writer_csv import ObjectWriterCsv
 
 
 class ItemWriter:

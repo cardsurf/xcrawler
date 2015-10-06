@@ -1,9 +1,8 @@
-
 import csv
 
 from xcrawler.pythonutils import string_utils
 from xcrawler.pythonutils import object_utils
-from xcrawler.files.strategies.writeobject.object_writer import ObjectWriter
+from xcrawler.files.writers.object_writer import ObjectWriter
 
 
 class ObjectWriterCsv(ObjectWriter):
