@@ -18,8 +18,8 @@ class WriteObjectStrategy:
     @abc.abstractmethod
     def write_headers(self, item):
         """
-        Writes headers at the beginning of an output file.
-        :param item: the first item to be written to an output file.
+        Writes headers to a file.
+        :param item: the first item to be written to a file.
         """
 
     @abc.abstractmethod
@@ -27,7 +27,7 @@ class WriteObjectStrategy:
         """
         Writes an item to a file.
         If an item is not a string then a string representation of the item is used.
-        :param item: the item to be written to an output file.
+        :param item: the item to be written to a file.
         """
 
 
