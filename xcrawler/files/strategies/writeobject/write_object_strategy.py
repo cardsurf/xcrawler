@@ -12,9 +12,16 @@ class WriteObjectStrategy:
         self.output_file = output_file
 
     @abc.abstractmethod
-    def write(self, list_objects):
+    def write_headers(self, item):
         """
-        Writes a list of objects to a file.
-        If an object is not a string then a string representation of the object is used.
-        :param list_strings: the list of objects to be written to an output file.
+        Writes headers at the beginning of an output file.
+        :param item: the first item to be written to an output file.
+        """
+
+    @abc.abstractmethod
+    def write_item(self, item):
+        """
+        Writes an item to a file.
+        If an item is not a string then a string representation of the item is used.
+        :param item: the item to be written to an output file.
         """

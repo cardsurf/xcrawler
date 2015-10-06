@@ -26,7 +26,7 @@ class TestFileOpenerWrite(unittest.TestCase):
 
     @mock.patch('xcrawler.files.openers.file_opener_write.version_utils.is_python2')
     @mock.patch.object(FileOpenerWrite, 'open_file_write_unicode_strings')
-    def test_open_file_write_strings_python2(self, mock_open_file_write_unicode_strings, mock_is_python2):
+    def test_open_file_write_strings_python3(self, mock_open_file_write_unicode_strings, mock_is_python2):
         mock_filename = "file.csv"
         mock_file = mock.Mock()
         mock_open_file_write_unicode_strings.return_value = mock_file
