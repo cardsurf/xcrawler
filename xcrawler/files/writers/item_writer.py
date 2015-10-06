@@ -14,7 +14,7 @@ class ItemWriter:
         self.output_file_name = ""
         self.output_file = None
         self.file_opener = FileOpenerWrite()
-        self.write_object_strategy = None
+        self.write_object_strategy = WriteObjectCsv(self.file_opener)
 
     def write_headers(self, item):
         self.write_object_strategy.write_headers(item)
@@ -27,9 +27,7 @@ class ItemWriter:
         self.write_object_strategy.write_item(item)
 
     def open_output_file(self, output_file_name):
-        self.output_file_name = output_file_name
-        self.output_file = self.file_opener.open_file_write_strings(output_file_name)
-        self.write_object_strategy = WriteObjectCsv(self.output_file)
+        self.output_file = self.write_object_strategy.open_file(output_file_name)
 
     def close_output_file(self):
         self.output_file.close()

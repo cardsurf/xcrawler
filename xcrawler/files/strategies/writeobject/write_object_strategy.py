@@ -8,8 +8,12 @@ class WriteObjectStrategy:
     """
     __metaclass__ = abc.ABCMeta
 
-    def __init__(self, output_file):
-        self.output_file = output_file
+    @abc.abstractmethod
+    def open_file(self, file_name):
+        """
+        Opens a file in a write mode.
+        :param file_name: the name of a file to be opened in a write mode.
+        """
 
     @abc.abstractmethod
     def write_headers(self, item):
@@ -25,3 +29,5 @@ class WriteObjectStrategy:
         If an item is not a string then a string representation of the item is used.
         :param item: the item to be written to an output file.
         """
+
+

@@ -3,14 +3,15 @@ import unittest
 import mock
 import csv
 
+from xcrawler.files.openers.file_opener_write import FileOpenerWrite
 from xcrawler.files.strategies.writeobject.write_object_csv import WriteObjectCsv
 
 
 class TestWriteObjectCsv(unittest.TestCase):
 
     def setUp(self):
-        mock_file = mock.Mock()
-        self.write_object_csv = WriteObjectCsv(mock_file)
+        mock_file_opener = mock.create_autospec(FileOpenerWrite).return_value
+        self.write_object_csv = WriteObjectCsv(mock_file_opener)
         self.write_object_csv.writer = mock.create_autospec(csv.writer).return_value
         self.write_object_csv.convert_to_strings_function = mock.Mock()
 
@@ -27,6 +28,29 @@ class TestWriteObjectCsv(unittest.TestCase):
         mock_is_python2.return_value = False
         result = self.write_object_csv.get_convert_to_strings_function()
         self.assertEquals(result, mock_list_convert_to_unicode_string)
+
+    @mock.patch.object(WriteObjectCsv, 'open_file_and_init_writer')
+    def test_open_file(self, mock_open_file_and_init_writer):
+        mock_file_name = "mock.csv"
+        mock_file = mock.Mock()
+        mock_open_file_and_init_writer.return_value = mock_file
+        result = self.write_object_csv.open_file(mock_file_name)
+        self.assertEquals(result, mock_file)
+
+    @mock.patch.object(WriteObjectCsv, 'init_writer')
+    def test_open_and_init_writer(self, mock_init_writer):
+        mock_file_name = "mock.csv"
+        mock_file = mock.Mock()
+        self.write_object_csv.file_opener.open_file_write_strings.return_value = mock_file
+        result = self.write_object_csv.open_file(mock_file_name)
+        mock_init_writer.assert_called_once_with(mock_file)
+        self.assertEquals(result, mock_file)
+
+    @mock.patch('xcrawler.files.strategies.writeobject.write_object_csv.csv.writer')
+    def test_init_writer(self, mock_csv_writer_class):
+        mock_file = mock.Mock()
+        self.write_object_csv.init_writer(mock_file)
+        self.assertEquals(mock_csv_writer_class.call_count, 1)
 
     @mock.patch('xcrawler.files.strategies.writeobject.write_object_csv.string_utils.is_string')
     def test_write_headers_string_argument(self, mock_is_string_function):

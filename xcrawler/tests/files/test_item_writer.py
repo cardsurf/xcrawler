@@ -40,19 +40,13 @@ class TestItemWriter(unittest.TestCase):
         self.item_writer.write_item(mock_item)
         self.item_writer.write_object_strategy.write_item.assert_called_once_with(mock_item)
 
-    @mock.patch('xcrawler.files.writers.item_writer.WriteObjectCsv')
-    def test_open_output_file(self, mock_write_object_csv):
+    def test_open_output_file(self):
         mock_file_name = "mock_output.csv"
         mock_file = mock.Mock()
-        mock_write_object_stategy = mock.Mock()
-        self.item_writer.file_opener.open_file_write_strings.return_value = mock_file
-        mock_write_object_csv.return_value = mock_write_object_stategy
+        self.item_writer.write_object_strategy.open_file.return_value = mock_file
         self.item_writer.open_output_file(mock_file_name)
-    
-        self.assertEquals(self.item_writer.output_file_name, mock_file_name)
         self.assertEquals(self.item_writer.output_file, mock_file)
-        self.assertEquals(self.item_writer.write_object_strategy, mock_write_object_stategy)
-           
+
     def test_close_output_file(self):
         self.item_writer.output_file = mock.Mock()
         self.item_writer.close_output_file()
