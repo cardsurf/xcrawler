@@ -1,7 +1,7 @@
 
 
 class DictionarySorter:
-    """Sorts keys and values o a dictionary.
+    """Sorts keys and values of a dictionary.
 
     """
     def __init__(self):

@@ -1,0 +1,22 @@
+
+from xcrawler.utils.sorters.dictionary_sorter import DictionarySorter
+
+
+class VariablesSorter:
+    """Sorts variables names and values of an object.
+
+    """
+    def __init__(self, dictionary_sorter=DictionarySorter()):
+        self.dictionary_sorter = dictionary_sorter
+
+    def get_list_of_variable_names_sorted_by_name(self, o):
+        variables = vars(o)
+        names = variables.keys()
+        names = sorted(names)
+        return names
+
+    def get_list_of_variable_values_sorted_by_name(self, o):
+        variables = vars(o)
+        values = self.dictionary_sorter.get_list_of_values_sorted_by_keys(variables)
+        return values
+
