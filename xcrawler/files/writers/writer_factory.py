@@ -4,7 +4,7 @@ from xcrawler.files.writers.item_writer import ItemWriter
 from xcrawler.files.writers.object_writer_csv import ObjectWriterCsv
 
 
-class FileWriterFactory:
+class WriterFactory:
 
     def create_item_writer_based_on_file_extension(self, file_name):
         extension = file_name.split(".")[-1]
