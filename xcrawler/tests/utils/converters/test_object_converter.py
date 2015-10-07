@@ -2,6 +2,7 @@
 import unittest
 import mock
 
+from xcrawler.tests.mock import mock_factory
 from xcrawler.utils.converters.object_converter import ObjectConverter
 from xcrawler.utils.converters.object_converter import StringConverter
 
@@ -34,10 +35,7 @@ class TestObjectConverter(unittest.TestCase):
 
     @mock.patch('xcrawler.utils.converters.object_converter.string_utils.is_byte_string')
     def test_convert_to_string_argument_object(self, mock_is_byte_string):
-        mock_object = mock.Mock()
-        mock_str = mock.Mock()
-        mock_str.return_value = "mock_object"
-        mock_object.__str__ = mock_str
+        mock_object = mock_factory.create_mock_object_with_str("mock_object")
         mock_is_byte_string.return_value = False
         result = self.object_converter.convert_to_string(mock_object)
         self.assertEquals(result, "mock_object")
@@ -48,3 +46,33 @@ class TestObjectConverter(unittest.TestCase):
         mock_is_byte_string.return_value = True
         result = self.object_converter.convert_to_string(mock_object)
         self.assertEquals(result, mock_object)
+
+    @mock.patch.object(ObjectConverter, 'convert_to_byte_string_utf8')
+    def test_list_convert_to_byte_string_utf8(self, mock_convert_to_byte_string_utf8):
+        mock_object1 = mock_factory.create_mock_object_with_str("mock_object")
+        mock_object2 = mock_factory.create_mock_object_with_str(b"mock_object")
+        mock_object3 = mock_factory.create_mock_object_with_str(u"mock_object")
+        list_objects = [mock_object1, mock_object2, mock_object3]
+        mock_convert_to_byte_string_utf8.return_value = b"mock_object"
+        result = self.object_converter.list_convert_to_byte_string_utf8(list_objects)
+        self.assertEquals(result, [b"mock_object", b"mock_object", b"mock_object"])
+
+    @mock.patch.object(ObjectConverter, 'convert_to_unicode_string')
+    def test_list_convert_to_unicode_string(self, mock_convert_to_unicode_string):
+        mock_object1 = mock_factory.create_mock_object_with_str("mock_object")
+        mock_object2 = mock_factory.create_mock_object_with_str(b"mock_object")
+        mock_object3 = mock_factory.create_mock_object_with_str(u"mock_object")
+        list_objects = [mock_object1, mock_object2, mock_object3]
+        mock_convert_to_unicode_string.return_value = u"mock_object"
+        result = self.object_converter.list_convert_to_unicode_string(list_objects)
+        self.assertEquals(result, [u"mock_object", u"mock_object", u"mock_object"])
+
+    @mock.patch.object(ObjectConverter, 'convert_to_string')
+    def test_list_convert_to_unicode_string(self, mock_convert_to_string):
+        mock_object1 = mock_factory.create_mock_object_with_str("mock_object")
+        mock_object2 = mock_factory.create_mock_object_with_str(b"mock_object")
+        mock_object3 = mock_factory.create_mock_object_with_str(u"mock_object")
+        list_objects = [mock_object1, mock_object2, mock_object3]
+        mock_convert_to_string.return_value = "mock_object"
+        result = self.object_converter.list_convert_to_string(list_objects)
+        self.assertEquals(result, ["mock_object", "mock_object", "mock_object"])

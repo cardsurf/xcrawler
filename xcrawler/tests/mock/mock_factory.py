@@ -59,6 +59,10 @@ class MockFallbackList(FallbackList):
         return super(MockFallbackList, self).get(index, fallback)
 
 
-
-
+def create_mock_object_with_str(string):
+    mock_object = mock.Mock()
+    mock_str = mock.Mock()
+    mock_str.return_value = string
+    mock_object.__str__ = mock_str
+    return mock_object
 

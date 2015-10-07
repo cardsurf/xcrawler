@@ -25,5 +25,12 @@ class ObjectConverter:
             o = str(o)
         return o
 
+    def list_convert_to_byte_string_utf8(self, list_objects):
+        return [self.convert_to_byte_string_utf8(o) for o in list_objects]
 
+    def list_convert_to_unicode_string(self, list_objects):
+        return [self.convert_to_unicode_string(o) for o in list_objects]
+
+    def list_convert_to_string(self, list_objects):
+        return [self.convert_to_string(o) for o in list_objects]
 
