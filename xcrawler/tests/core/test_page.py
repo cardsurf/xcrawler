@@ -45,15 +45,15 @@ class TestPage(unittest.TestCase):
         self.assertEquals(pages_list, mock_pages_list)
 
     @mock.patch('xcrawler.core.page.FallbackList')
-    @mock.patch.object(Page, 'decode_path_to_unicode_object')
-    def test_xpath(self, mock_decode_path_to_unicode_object, mock_fallback_list_module):
+    @mock.patch.object(Page, 'decode_path_to_unicode_string')
+    def test_xpath(self, mock_decode_path_to_unicode_string, mock_fallback_list_module):
         mock_fallback_list_instance = mock_fallback_list_module.return_value
         mock_page_content = mock.Mock()
         mock_page_content.__str__ = "<html><div class='header_blue'>text1</div><div class='header_blue'>text2</div></html>"
         mock_page_content.xpath.return_value = ["<div>", "<div>"]
         self.page.content = mock_page_content
         mock_path = "//div[@class='header_blue']"
-        mock_decode_path_to_unicode_object.return_value = u"//div[@class='header_blue']"
+        mock_decode_path_to_unicode_string.return_value = u"//div[@class='header_blue']"
         result = self.page.xpath(mock_path)
 
         self.assertEquals(result, mock_fallback_list_instance)
@@ -117,10 +117,10 @@ class TestPage(unittest.TestCase):
         result = self.page.convert_elements_to_attribute(mock_result, mock_attribute_name)
         self.assertEquals(result, ["url1", "url2"])
 
-    def test_decode_path_to_unicode_object(self):
+    def test_decode_path_to_unicode_string(self):
         path = "path"
         self.page.string_converter.convert_to_unicode_string.return_value = u"path"
-        result = self.page.decode_path_to_unicode_object(path)
+        result = self.page.decode_path_to_unicode_string(path)
         self.assertEquals(result, u"path")
 
     @mock.patch('xcrawler.tests.core.test_page.builtins.print')

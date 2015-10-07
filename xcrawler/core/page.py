@@ -58,12 +58,12 @@ class Page:
         :param path: the XPath expression.
         :returns: a FallbackList of web page elements that match the XPath expression.
         """
-        path = self.decode_path_to_unicode_object(path)
+        path = self.decode_path_to_unicode_string(path)
         result = self.content.xpath(path)
         result = FallbackList(result)
         return result
 
-    def decode_path_to_unicode_object(self, path):
+    def decode_path_to_unicode_string(self, path):
         try:
             path = self.string_converter.convert_to_unicode_string(path)
         except ValueError as exception:
@@ -86,7 +86,7 @@ class Page:
         :param path: the CSS selector.
         :returns: a FallbackList of web page elements that match the CSS selector.
         """
-        path = self.decode_path_to_unicode_object(path)
+        path = self.decode_path_to_unicode_string(path)
         selector = CSSSelector(path)
         result = selector(self.content)
         result = FallbackList(result)
