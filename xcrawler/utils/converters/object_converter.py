@@ -25,6 +25,11 @@ class ObjectConverter:
             o = str(o)
         return o
 
+    def convert_to_empty_string_if_none(self, o):
+        if o is None:
+            o = ""
+        return o
+
     def list_convert_to_byte_string_utf8(self, list_objects):
         return [self.convert_to_byte_string_utf8(o) for o in list_objects]
 
