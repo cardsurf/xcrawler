@@ -2,6 +2,7 @@
 from xcrawler.utils import string_utils
 from xcrawler.utils.converters.string_converter import StringConverter
 
+
 class ObjectConverter:
     """Converts an instance of object to a specified type.
 

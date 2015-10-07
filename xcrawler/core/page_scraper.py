@@ -1,5 +1,5 @@
 
-from xcrawler.utils import type_utils
+from xcrawler.utils.converters.object_converter import ObjectConverter
 
 
 class PageScraper:
@@ -9,6 +9,9 @@ class PageScraper:
         `extract`: returns data extracted from a web page.
         `visit`: returns next Pages to be visited.
     """
+
+    def __init__(self, object_converter=ObjectConverter()):
+        self.object_converter = object_converter
 
     def extract(self, page):
         """
@@ -34,11 +37,11 @@ class PageScraper:
 
     def extract_items_list(self, page):
         items = self.extract(page)
-        return type_utils.convert_to_list_if_single_object(items)
+        return self.object_converter.convert_to_list_if_single_object(items)
     
     def extract_pages_list(self, page):
         pages = self.visit(page)
-        return type_utils.convert_to_list_if_single_object(pages)
+        return self.object_converter.convert_to_list_if_single_object(pages)
 
 
 
