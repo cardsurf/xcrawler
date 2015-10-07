@@ -6,15 +6,15 @@ try:
 except ImportError:
     import builtins
 
-from xcrawler.files.openers.file_write_opener import FileWriteOpener
+from xcrawler.files.openers.write_opener import WriteOpener
 
 
-class TestFileWriteOpener(unittest.TestCase):
+class TestWriteOpener(unittest.TestCase):
 
     def setUp(self):
-        self.file_opener_write = FileWriteOpener()
+        self.file_opener_write = WriteOpener()
 
-    @mock.patch('xcrawler.tests.files.test_file_write_opener.builtins.open')
+    @mock.patch('xcrawler.tests.files.test_write_opener.builtins.open')
     def test_open_file_write_byte_strings(self, mock_open_function):
         mock_filename = "file.csv"
         mock_file = mock.Mock()
@@ -22,7 +22,7 @@ class TestFileWriteOpener(unittest.TestCase):
         result = self.file_opener_write.open_file_write_byte_strings(mock_filename)
         self.assertEquals(result, mock_file)
 
-    @mock.patch('xcrawler.tests.files.test_file_write_opener.builtins.open')
+    @mock.patch('xcrawler.tests.files.test_write_opener.builtins.open')
     def test_open_file_write_unicode_strings(self, mock_open_function):
         mock_filename = "file.csv"
         mock_file = mock.Mock()

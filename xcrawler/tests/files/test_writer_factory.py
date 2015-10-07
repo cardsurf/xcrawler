@@ -43,7 +43,7 @@ class TestWriterFactory(unittest.TestCase):
         mock_object_writer = mock.Mock()
 
         mock_compatibility_factory_class.return_value = mock_factory_instance
-        mock_factory_instance.create_compatible_file_opener_write.return_value = mock_file_opener
+        mock_factory_instance.create_compatible_write_opener.return_value = mock_file_opener
         mock_factory_instance.create_compatible_object_converter.return_value = mock_object_converter
         mock_object_writer_csv_class.return_value = mock_object_writer
         result = self.factory.create_object_writer_csv()

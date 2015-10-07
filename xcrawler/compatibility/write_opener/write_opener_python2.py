@@ -1,8 +1,8 @@
 
-from xcrawler.compatibility.file_write_opener.compatible_file_write_opener import CompatibleFileWriteOpener
+from xcrawler.compatibility.write_opener.compatible_write_opener import CompatibleWriteOpener
 
 
-class FileWriteOpenerPython2(CompatibleFileWriteOpener):
+class WriteOpenerPython2(CompatibleWriteOpener):
     """A Python 2 compatible class for opening a file in a write mode.
 
     """

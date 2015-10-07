@@ -11,6 +11,6 @@ from xcrawler.threads.item_processor import ItemProcessor
 from xcrawler.threads.page_processor import PageProcessor
 
 from xcrawler.files.writers.item_writer import ItemWriter
-from xcrawler.files.openers.file_write_opener import FileWriteOpener
+from xcrawler.files.openers.write_opener import WriteOpener
 from xcrawler.files.writers.object_writer_csv import ObjectWriterCsv
 from xcrawler.files.writers.object_writer import ObjectWriter

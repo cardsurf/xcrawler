@@ -1,6 +1,6 @@
 
 
-class FileWriteOpener:
+class WriteOpener:
     """A class with methods for opening a file in a write mode.
 
     """

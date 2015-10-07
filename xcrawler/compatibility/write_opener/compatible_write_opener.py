@@ -1,10 +1,10 @@
 
 import abc
 
-from xcrawler.files.openers.file_write_opener import FileWriteOpener
+from xcrawler.files.openers.write_opener import WriteOpener
 
 
-class CompatibleFileWriteOpener(FileWriteOpener):
+class CompatibleWriteOpener(WriteOpener):
     """A Python 2 and 3 compatible class for opening a file in a write mode.
 
     """

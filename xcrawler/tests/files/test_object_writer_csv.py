@@ -4,14 +4,14 @@ import mock
 import csv
 
 from xcrawler.files.writers.object_writer_csv import ObjectWriterCsv
-from xcrawler.compatibility.file_write_opener.compatible_file_write_opener import CompatibleFileWriteOpener
+from xcrawler.compatibility.write_opener.compatible_write_opener import CompatibleWriteOpener
 from xcrawler.compatibility.object_converter.compatible_object_converter import CompatibleObjectConverter
 
 
 class TestObjectWriterCsv(unittest.TestCase):
 
     def setUp(self):
-        mock_file_opener = mock.create_autospec(CompatibleFileWriteOpener).return_value
+        mock_file_opener = mock.create_autospec(CompatibleWriteOpener).return_value
         mock_object_converter = mock.create_autospec(CompatibleObjectConverter).return_value
         self.object_writer_csv = ObjectWriterCsv(mock_file_opener, mock_object_converter)
         self.object_writer_csv.writer = mock.create_autospec(csv.writer).return_value
