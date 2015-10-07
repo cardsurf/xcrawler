@@ -3,6 +3,8 @@ import csv
 from xcrawler.utils import string_utils
 from xcrawler.utils import object_utils
 from xcrawler.files.writers.object_writer import ObjectWriter
+from xcrawler.compatibility.write_opener.compatible_write_opener import CompatibleWriteOpener
+from xcrawler.compatibility.object_converter.compatible_object_converter import CompatibleObjectConverter
 
 
 class ObjectWriterCsv(ObjectWriter):
@@ -10,7 +12,8 @@ class ObjectWriterCsv(ObjectWriter):
 
     """
 
-    def __init__(self, file_opener, object_converter):
+    def __init__(self, file_opener=CompatibleWriteOpener(),
+                 object_converter=CompatibleObjectConverter()):
         self.file_opener = file_opener
         self.object_converter = object_converter
         self.writer = None
