@@ -1,5 +1,5 @@
 
-from xcrawler.utils import string_utils
+from xcrawler.utils.types.instance_resolver import InstanceResolver
 from xcrawler.utils.converters.string_converter import StringConverter
 
 
@@ -8,8 +8,11 @@ class ObjectConverter:
 
     """
 
-    def __init__(self, string_converter=StringConverter()):
+    def __init__(self,
+                 string_converter=StringConverter(),
+                 instance_resolver=InstanceResolver()):
         self.string_converter = string_converter
+        self.instance_resolver = instance_resolver
 
     def convert_to_byte_string_utf8(self, o):
         string = self.convert_to_string(o)
@@ -22,7 +25,7 @@ class ObjectConverter:
         return unicode_string
 
     def convert_to_string(self, o):
-        if not string_utils.is_byte_string(o):
+        if not self.instance_resolver.is_byte_string(o):
             o = str(o)
         return o
 

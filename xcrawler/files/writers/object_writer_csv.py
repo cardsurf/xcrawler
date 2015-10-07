@@ -1,6 +1,6 @@
 import csv
 
-from xcrawler.utils import string_utils
+from xcrawler.utils.types.instance_resolver import InstanceResolver
 from xcrawler.utils.sorters.variables_sorter import VariablesSorter
 from xcrawler.files.writers.object_writer import ObjectWriter
 from xcrawler.compatibility.write_opener.compatible_write_opener import CompatibleWriteOpener
@@ -12,12 +12,15 @@ class ObjectWriterCsv(ObjectWriter):
 
     """
 
-    def __init__(self, file_opener=CompatibleWriteOpener(),
+    def __init__(self,
+                 file_opener=CompatibleWriteOpener(),
                  object_converter=CompatibleObjectConverter(),
-                 variables_sorter=VariablesSorter()):
+                 variables_sorter=VariablesSorter(),
+                 instance_resolver=InstanceResolver()):
         self.file_opener = file_opener
         self.object_converter = object_converter
         self.variables_sorter = variables_sorter
+        self.instance_resolver = instance_resolver
         self.writer = None
 
     def open_file(self, file_name):
@@ -33,12 +36,12 @@ class ObjectWriterCsv(ObjectWriter):
         self.writer = csv.writer(opened_file, delimiter=' ', quotechar='"', quoting=csv.QUOTE_ALL, lineterminator='\n')
 
     def write_headers(self, instance_object):
-        if not string_utils.is_string(instance_object):
+        if not self.instance_resolver.is_string(instance_object):
             headers = self.variables_sorter.get_list_of_variable_names_sorted_by_name(instance_object)
             self.write(headers)
 
     def write_object(self, instance_object):
-        if string_utils.is_string(instance_object):
+        if self.instance_resolver.is_string(instance_object):
             self.write([instance_object])
         else:
             self.write_variables(instance_object)
