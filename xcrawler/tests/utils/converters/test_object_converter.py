@@ -47,16 +47,6 @@ class TestObjectConverter(unittest.TestCase):
         result = self.object_converter.convert_to_string(mock_object)
         self.assertEquals(result, mock_object)
 
-    def test_convert_to_empty_string_if_none_argument_not_none(self):
-        mock_object = mock.Mock()
-        result = self.object_converter.convert_to_empty_string_if_none(mock_object)
-        self.assertEquals(result, mock_object)
-
-    def test_convert_to_empty_string_if_none_argument_none(self):
-        mock_object = None
-        result = self.object_converter.convert_to_empty_string_if_none(mock_object)
-        self.assertEquals(result, "")
-
     @mock.patch.object(ObjectConverter, 'convert_to_byte_string_utf8')
     def test_list_convert_to_byte_string_utf8(self, mock_convert_to_byte_string_utf8):
         mock_object1 = mock_factory.create_mock_object_with_str("mock_object")
