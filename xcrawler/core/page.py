@@ -12,7 +12,7 @@ from lxml import etree
 from lxml.cssselect import CSSSelector
 
 from xcrawler.collections.fallback_list import FallbackList
-from xcrawler.pythonutils import string_utils
+from xcrawler.utils import string_utils
 
 
 class Page:

@@ -1,5 +1,5 @@
 
-from xcrawler.pythonutils import string_utils
+from xcrawler.utils import string_utils
 from xcrawler.compatibility.object_string_converter.compatible_object_string_converter import CompatibleObjectStringConverter
 
 

@@ -1,6 +1,6 @@
 
 
-from xcrawler.pythonutils import dict_utils
+from xcrawler.utils import dict_utils
 
 
 def get_list_of_variable_names_sorted_by_name(o):

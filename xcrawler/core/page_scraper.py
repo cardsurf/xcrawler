@@ -1,5 +1,5 @@
 
-from xcrawler.pythonutils import type_utils
+from xcrawler.utils import type_utils
 
 
 class PageScraper:

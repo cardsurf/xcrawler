@@ -1,5 +1,5 @@
 
-from xcrawler.pythonutils.version_utils import is_python2
+from xcrawler.utils.version_utils import is_python2
 from xcrawler.compatibility.file_write_opener.file_write_opener_python2 import FileWriteOpenerPython2
 from xcrawler.compatibility.file_write_opener.file_write_opener_python3 import FileWriteOpenerPython3
 from xcrawler.compatibility.object_string_converter.object_string_converter_python2 import ObjectStringConverterPython2
