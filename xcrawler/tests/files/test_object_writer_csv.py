@@ -6,14 +6,16 @@ import csv
 from xcrawler.files.writers.object_writer_csv import ObjectWriterCsv
 from xcrawler.compatibility.write_opener.compatible_write_opener import CompatibleWriteOpener
 from xcrawler.compatibility.object_converter.compatible_object_converter import CompatibleObjectConverter
+from xcrawler.utils.sorters.variables_sorter import VariablesSorter
 
 
 class TestObjectWriterCsv(unittest.TestCase):
 
     def setUp(self):
-        mock_file_opener = mock.create_autospec(CompatibleWriteOpener).return_value
-        mock_object_converter = mock.create_autospec(CompatibleObjectConverter).return_value
-        self.object_writer_csv = ObjectWriterCsv(mock_file_opener, mock_object_converter)
+        file_opener = mock.create_autospec(CompatibleWriteOpener).return_value
+        object_converter = mock.create_autospec(CompatibleObjectConverter).return_value
+        variables_sorter = mock.create_autospec(VariablesSorter).return_value
+        self.object_writer_csv = ObjectWriterCsv(file_opener, object_converter, variables_sorter)
         self.object_writer_csv.writer = mock.create_autospec(csv.writer).return_value
         self.object_writer_csv.convert_to_strings_function = mock.Mock()
 
@@ -49,14 +51,13 @@ class TestObjectWriterCsv(unittest.TestCase):
         mock_is_string_function.assert_called_once_with(mock_string)
 
     @mock.patch('xcrawler.files.writers.object_writer_csv.string_utils.is_string')
-    @mock.patch('xcrawler.files.writers.object_writer_csv.object_utils.get_list_of_variable_names_sorted_by_name')
     @mock.patch.object(ObjectWriterCsv, 'write')
-    def test_write_headers_object_argument(self, mock_write, mock_get_list_of_variable_names_sorted_by_name, mock_is_string_function):
+    def test_write_headers_object_argument(self, mock_write, mock_is_string_function):
         mock_object = mock.Mock()
         mock_object_variables = { "width": 800, "height": 600, "title": "mock title" }
         mock_names = ["height", "mock title", "width"]
         mock_is_string_function.return_value = False
-        mock_get_list_of_variable_names_sorted_by_name.return_value = ["height", "mock title", "width"]
+        self.object_writer_csv.variables_sorter.get_list_of_variable_names_sorted_by_name.return_value = ["height", "mock title", "width"]
         self.object_writer_csv.write_headers(mock_object)
         mock_write.assert_called_once_with(mock_names)
 
@@ -76,12 +77,11 @@ class TestObjectWriterCsv(unittest.TestCase):
         self.object_writer_csv.write_object(mock_object)
         mock_write_variables.assert_called_once_with(mock_object)
 
-    @mock.patch('xcrawler.files.writers.object_writer_csv.object_utils.get_list_of_variable_values_sorted_by_name')
     @mock.patch.object(ObjectWriterCsv, 'write')
-    def test_write_variable_values(self, mock_write, mock_get_list_of_variable_values_sorted_by_name):
+    def test_write_variable_values(self, mock_write):
         mock_object = mock.Mock()
         mock_object_variables = { "width": 800, "height": 600, "title": "mock title" }
-        mock_get_list_of_variable_values_sorted_by_name.return_value = [600, "mock title", 800]
+        self.object_writer_csv.variables_sorter.get_list_of_variable_values_sorted_by_name.return_value = [600, "mock title", 800]
         self.object_writer_csv.object_converter.list_convert_to_string.return_value = ["600", "mock title", "800"]
         self.object_writer_csv.write_variables(mock_object)
         mock_write.assert_called_once_with(self.object_writer_csv.object_converter.list_convert_to_string.return_value)
