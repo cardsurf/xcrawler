@@ -1,9 +1,9 @@
 
 from xcrawler.utils import string_utils
-from xcrawler.compatibility.object_string_converter.compatible_object_string_converter import CompatibleObjectStringConverter
+from xcrawler.compatibility.object_converter.compatible_object_converter import CompatibleObjectConverter
 
 
-class ObjectStringConverterPython3(CompatibleObjectStringConverter):
+class ObjectConverterPython3(CompatibleObjectConverter):
     """A Python 3 compatible class for converting objects to strings.
 
     """

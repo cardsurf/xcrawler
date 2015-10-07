@@ -1,7 +1,10 @@
 
 import abc
 
-class CompatibleObjectStringConverter:
+from xcrawler.utils.converters.object_converter import ObjectConverter
+
+
+class CompatibleObjectConverter(ObjectConverter):
     """A Python 2 and 3 compatible class for converting objects to string.
 
     """

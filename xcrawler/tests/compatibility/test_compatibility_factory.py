@@ -29,20 +29,20 @@ class TestCompatibilityFactory(unittest.TestCase):
         self.assertEquals(result, mock_file_opener_write)
 
     @mock.patch('xcrawler.compatibility.compatibility_factory.is_python2')
-    @mock.patch('xcrawler.compatibility.compatibility_factory.ObjectStringConverterPython2')
-    def test_create_object_string_converter_python2(self, mock_object_string_converter_python2, mock_is_python2):
+    @mock.patch('xcrawler.compatibility.compatibility_factory.ObjectConverterPython2')
+    def test_create_object_converter_python2(self, mock_object_converter_python2, mock_is_python2):
         mock_converter = mock.Mock()
-        mock_object_string_converter_python2.return_value = mock_converter
+        mock_object_converter_python2.return_value = mock_converter
         mock_is_python2.return_value = True
-        result = self.factory.create_compatible_object_string_converter()
+        result = self.factory.create_compatible_object_converter()
         self.assertEquals(result, mock_converter)
 
     @mock.patch('xcrawler.compatibility.compatibility_factory.is_python2')
-    @mock.patch('xcrawler.compatibility.compatibility_factory.ObjectStringConverterPython3')
-    def test_create_object_string_converter_python3(self, mock_object_string_converter_python3, mock_is_python2):
+    @mock.patch('xcrawler.compatibility.compatibility_factory.ObjectConverterPython3')
+    def test_create_object_converter_python3(self, mock_object_converter_python3, mock_is_python2):
         mock_converter = mock.Mock()
-        mock_object_string_converter_python3.return_value = mock_converter
+        mock_object_converter_python3.return_value = mock_converter
         mock_is_python2.return_value = False
-        result = self.factory.create_compatible_object_string_converter()
+        result = self.factory.create_compatible_object_converter()
         self.assertEquals(result, mock_converter)
 

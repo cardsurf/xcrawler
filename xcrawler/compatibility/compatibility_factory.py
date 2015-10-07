@@ -2,8 +2,8 @@
 from xcrawler.utils.version_utils import is_python2
 from xcrawler.compatibility.file_write_opener.file_write_opener_python2 import FileWriteOpenerPython2
 from xcrawler.compatibility.file_write_opener.file_write_opener_python3 import FileWriteOpenerPython3
-from xcrawler.compatibility.object_string_converter.object_string_converter_python2 import ObjectStringConverterPython2
-from xcrawler.compatibility.object_string_converter.object_string_converter_python3 import ObjectStringConverterPython3
+from xcrawler.compatibility.object_converter.object_converter_python2 import ObjectConverterPython2
+from xcrawler.compatibility.object_converter.object_converter_python3 import ObjectConverterPython3
 
 
 class CompatibilityFactory:
@@ -14,8 +14,8 @@ class CompatibilityFactory:
         else:
             return FileWriteOpenerPython3()
 
-    def create_compatible_object_string_converter(self):
+    def create_compatible_object_converter(self):
         if is_python2():
-            return ObjectStringConverterPython2()
+            return ObjectConverterPython2()
         else:
-            return ObjectStringConverterPython3()
+            return ObjectConverterPython3()

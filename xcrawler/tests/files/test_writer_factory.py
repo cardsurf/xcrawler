@@ -6,7 +6,7 @@ from xcrawler.compatibility.compatibility_factory import CompatibilityFactory
 from xcrawler.files.writers.writer_factory import WriterFactory
 
 
-class TestCompatibilityFactory(unittest.TestCase):
+class TestWriterFactory(unittest.TestCase):
 
     def setUp(self):
         self.factory = WriterFactory()
@@ -39,15 +39,15 @@ class TestCompatibilityFactory(unittest.TestCase):
     def test_create_object_writer_csv(self, mock_object_writer_csv_class, mock_compatibility_factory_class):
         mock_factory_instance = mock.create_autospec(CompatibilityFactory).return_value
         mock_file_opener = mock.Mock()
-        mock_object_to_string_converter = mock.Mock()
+        mock_object_converter = mock.Mock()
         mock_object_writer = mock.Mock()
 
         mock_compatibility_factory_class.return_value = mock_factory_instance
         mock_factory_instance.create_compatible_file_opener_write.return_value = mock_file_opener
-        mock_factory_instance.create_compatible_object_string_converter.return_value = mock_object_to_string_converter
+        mock_factory_instance.create_compatible_object_converter.return_value = mock_object_converter
         mock_object_writer_csv_class.return_value = mock_object_writer
         result = self.factory.create_object_writer_csv()
-        mock_object_writer_csv_class.assert_called_once_with(mock_file_opener, mock_object_to_string_converter)
+        mock_object_writer_csv_class.assert_called_once_with(mock_file_opener, mock_object_converter)
         self.assertEquals(result, mock_object_writer)
 
 

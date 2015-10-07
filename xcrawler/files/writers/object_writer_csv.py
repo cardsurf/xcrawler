@@ -10,9 +10,9 @@ class ObjectWriterCsv(ObjectWriter):
 
     """
 
-    def __init__(self, file_opener, object_to_string_converter):
+    def __init__(self, file_opener, object_converter):
         self.file_opener = file_opener
-        self.object_to_string_converter = object_to_string_converter
+        self.object_converter = object_converter
         self.writer = None
 
     def open_file(self, file_name):
@@ -40,7 +40,7 @@ class ObjectWriterCsv(ObjectWriter):
 
     def write_variables(self, instance_object):
         values = object_utils.get_list_of_variable_values_sorted_by_name(instance_object)
-        values = self.object_to_string_converter.list_convert_to_string(values)
+        values = self.object_converter.list_convert_to_string(values)
         self.write(values)
 
     def write(self, list_strings):

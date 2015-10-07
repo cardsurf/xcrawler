@@ -5,15 +5,15 @@ import csv
 
 from xcrawler.files.writers.object_writer_csv import ObjectWriterCsv
 from xcrawler.compatibility.file_write_opener.compatible_file_write_opener import CompatibleFileWriteOpener
-from xcrawler.compatibility.object_string_converter.compatible_object_string_converter import CompatibleObjectStringConverter
+from xcrawler.compatibility.object_converter.compatible_object_converter import CompatibleObjectConverter
 
 
 class TestObjectWriterCsv(unittest.TestCase):
 
     def setUp(self):
         mock_file_opener = mock.create_autospec(CompatibleFileWriteOpener).return_value
-        mock_object_to_string_converter = mock.create_autospec(CompatibleObjectStringConverter).return_value
-        self.object_writer_csv = ObjectWriterCsv(mock_file_opener, mock_object_to_string_converter)
+        mock_object_converter = mock.create_autospec(CompatibleObjectConverter).return_value
+        self.object_writer_csv = ObjectWriterCsv(mock_file_opener, mock_object_converter)
         self.object_writer_csv.writer = mock.create_autospec(csv.writer).return_value
         self.object_writer_csv.convert_to_strings_function = mock.Mock()
 
@@ -82,9 +82,9 @@ class TestObjectWriterCsv(unittest.TestCase):
         mock_object = mock.Mock()
         mock_object_variables = { "width": 800, "height": 600, "title": "mock title" }
         mock_get_list_of_variable_values_sorted_by_name.return_value = [600, "mock title", 800]
-        self.object_writer_csv.object_to_string_converter.list_convert_to_string.return_value = ["600", "mock title", "800"]
+        self.object_writer_csv.object_converter.list_convert_to_string.return_value = ["600", "mock title", "800"]
         self.object_writer_csv.write_variables(mock_object)
-        mock_write.assert_called_once_with(self.object_writer_csv.object_to_string_converter.list_convert_to_string.return_value)
+        mock_write.assert_called_once_with(self.object_writer_csv.object_converter.list_convert_to_string.return_value)
 
     def test_write(self):
         mock_list_string = ["600", "mock title", "800"]
