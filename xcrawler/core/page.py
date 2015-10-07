@@ -12,7 +12,7 @@ from lxml import etree
 from lxml.cssselect import CSSSelector
 
 from xcrawler.collections.fallback_list import FallbackList
-from xcrawler.utils import string_utils
+from xcrawler.utils.converters.string_converter import StringConverter
 
 
 class Page:
@@ -23,13 +23,15 @@ class Page:
         scraper (PageScraper): the PageScraper used to extract data and urls from a web page.
         content (Element): the content of a web page represented as an Element object.
             More information about an Element object: http://effbot.org/zone/element.htm
+        string_converter(StringConverter): the StringConverter that converts a string to an unicode string
         domain_name (str): The domain name of a web page.
     """
     
-    def __init__(self, url, page_scraper, content = None):
+    def __init__(self, url, page_scraper, content=None, string_converter=StringConverter()):
         self.url = url   
         self.scraper = page_scraper
         self.content = content
+        self.string_converter = string_converter
         self.__domain_name = None
 
     @property
@@ -63,7 +65,7 @@ class Page:
 
     def decode_path_to_unicode_object(self, path):
         try:
-            path = string_utils.convert_string_to_unicode_string(path)
+            path = self.string_converter.convert_to_unicode_string(path)
         except ValueError as exception:
             self.handle_value_error_exception(path, exception)
         except BaseException as exception:
