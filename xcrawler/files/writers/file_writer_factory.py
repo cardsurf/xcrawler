@@ -15,8 +15,7 @@ class FileWriterFactory:
 
     def create_item_writer_csv(self):
         object_writer = self.create_object_writer_csv()
-        item_writer = ItemWriter()
-        item_writer.object_writer = object_writer
+        item_writer = ItemWriter(object_writer)
         return item_writer
 
     def create_object_writer_csv(self):

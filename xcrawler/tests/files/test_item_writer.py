@@ -14,8 +14,8 @@ from xcrawler.files.writers.object_writer_csv import ObjectWriter
 class TestItemWriter(unittest.TestCase):
 
     def setUp(self):
-        self.item_writer = ItemWriter()
-        self.item_writer.object_writer = mock.create_autospec(ObjectWriter).return_value
+        mock_object_writer = mock.create_autospec(ObjectWriter).return_value
+        self.item_writer = ItemWriter(mock_object_writer)
         self.item_writer._ItemWriter__no_items_written_to_file = True
 
     def test_write_headers(self):

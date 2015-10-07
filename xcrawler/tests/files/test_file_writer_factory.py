@@ -24,11 +24,15 @@ class TestCompatibilityFactory(unittest.TestCase):
         self.assertRaises(ValueError, self.factory.create_item_writer_based_on_file_extension, mock_file_name)
 
     @mock.patch.object(FileWriterFactory, 'create_object_writer_csv')
-    def test_create_item_writer_csv(self, mock_create_object_writer_csv):
+    @mock.patch('xcrawler.files.writers.file_writer_factory.ItemWriter')
+    def test_create_item_writer_csv(self, mock_item_writer_class, mock_create_object_writer_csv):
         mock_object_writer = mock.Mock()
         mock_create_object_writer_csv.return_value = mock_object_writer
+        mock_item_writer_instance = mock.Mock()
+        mock_item_writer_class.return_value = mock_item_writer_instance
         result = self.factory.create_item_writer_csv()
-        self.assertEquals(result.object_writer, mock_object_writer)
+        mock_item_writer_class.assert_called_once_with(mock_object_writer)
+        self.assertEquals(result, mock_item_writer_instance)
 
     @mock.patch('xcrawler.files.writers.file_writer_factory.CompatibilityFactory')
     @mock.patch('xcrawler.files.writers.file_writer_factory.ObjectWriterCsv')

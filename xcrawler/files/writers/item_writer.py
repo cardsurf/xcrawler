@@ -6,11 +6,11 @@ class ItemWriter:
     """Writes data extracted from web pages to an output file.
     
     """
-    def __init__(self):
+    def __init__(self, object_writer):
         self.__no_items_written_to_file = True
         self.output_file_name = ""
         self.output_file = None
-        self.object_writer = None
+        self.object_writer = object_writer
 
     def write_headers(self, item):
         self.object_writer.write_headers(item)
