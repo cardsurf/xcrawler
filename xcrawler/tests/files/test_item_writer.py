@@ -2,11 +2,6 @@
 import unittest
 import mock
 
-try:
-    import __builtin__ as builtins
-except ImportError:
-    import builtins
-
 from xcrawler.files.writers.item_writer import ItemWriter
 from xcrawler.files.writers.object_writer_csv import ObjectWriter
 
