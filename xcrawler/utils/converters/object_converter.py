@@ -25,6 +25,11 @@ class ObjectConverter:
             o = str(o)
         return o
 
+    def convert_to_list_if_single_object(self, o):
+        if isinstance(o, list):
+            return o
+        return [o]
+
     def list_convert_to_byte_string_utf8(self, list_objects):
         return [self.convert_to_byte_string_utf8(o) for o in list_objects]
 
