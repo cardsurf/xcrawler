@@ -11,8 +11,7 @@ class VariablesSorter:
 
     def get_list_of_variable_names_sorted_by_name(self, o):
         variables = vars(o)
-        names = variables.keys()
-        names = sorted(names)
+        names = self.dictionary_sorter.get_list_of_keys_sorted_by_name(variables)
         return names
 
     def get_list_of_variable_values_sorted_by_name(self, o):

@@ -15,12 +15,13 @@ class TestVariablesSorter(unittest.TestCase):
     def test_get_list_of_variable_names_sorted_by_name(self):
         mock_object = mock.Mock()
         mock_object.__dict__ = {"width": 800, "height": 600, "title": "mock title"}
+        self.variables_sorter.dictionary_sorter.get_list_of_keys_sorted_by_name.return_value = ["height", "title", "width"]
         result = self.variables_sorter.get_list_of_variable_names_sorted_by_name(mock_object)
         self.assertEquals(result, ["height", "title", "width"])
 
     def get_list_of_variable_values_sorted_by_name(self):
         mock_object = mock.Mock()
         mock_object.__dict__ = {"width": 800, "height": 600, "title": "mock title"}
-        self.variables_sorter.dictionary_sorter.get_list_of_values_sorted_by_keys = [600, "mock title", 800]
+        self.variables_sorter.dictionary_sorter.get_list_of_values_sorted_by_keys.return_value = [600, "mock title", 800]
         result = self.variables_sorter.get_list_of_variable_names_sorted_by_name(mock_object)
         self.assertEquals(result, [600, "mock title", 800])
