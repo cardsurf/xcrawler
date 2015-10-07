@@ -2,13 +2,13 @@
 import unittest
 import mock
 
-from xcrawler.utils.types.type_resolver import TypeResolver
+from xcrawler.utils.types.instance_resolver import InstanceResolver
 
 
-class TestStringConverter(unittest.TestCase):
+class TestInstanceResolver(unittest.TestCase):
 
     def setUp(self):
-        self.type_resolver = TypeResolver()
+        self.type_resolver = InstanceResolver()
 
     def test_is_string_argument_non_string(self):
         mock_object = mock.Mock()
