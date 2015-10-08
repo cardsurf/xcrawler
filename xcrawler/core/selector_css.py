@@ -10,15 +10,17 @@ class SelectorCss:
     """Gets a list of Elements that match a CSS selector from an instance of an Element object.
 
     Attributes:
-        selector (CSSSelector): gets a list of Elements from an Element object.
+        element (Element): an instance of an Element object that contains nested Elements.
+        cssselector_factory (CSSSelectorFactory): creates an instance of the CSSSelector class.
         string_converter(StringConverter): the StringConverter that converts a string to an unicode string.
     """
 
     def __init__(self,
-                 selector=None,
+                 element=None,
+                 cssselector_factory=None,
                  string_converter=StringConverter()):
-        self.selector = selector
+        self.element = element
+        self.cssselector_factory = cssselector_factory
         self.string_converter = string_converter
-
 
 

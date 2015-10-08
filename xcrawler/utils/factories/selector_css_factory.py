@@ -1,6 +1,4 @@
 
-from lxml.cssselect import CSSSelector
-
 from xcrawler.core.selector_css import SelectorCss
 
 
@@ -13,7 +11,6 @@ class SelectorCssFactory:
         pass
 
     def create_selector_css(self, element):
-        selector = CSSSelector(element)
-        selector_css = SelectorCss(selector)
+        selector_css = SelectorCss(element)
         return selector_css
 
