@@ -1,15 +1,12 @@
 
 import unittest
 import mock
-try:
-    import __builtin__ as builtins
-except ImportError:
-    import builtins
 from lxml.etree import Element
 
 from xcrawler.tests.mock import mock_factory
 from xcrawler.core.page import Page
-from xcrawler.utils.converters.string_converter import StringConverter
+from xcrawler.core.extractor_xpath import ExtractorXPath
+from xcrawler.core.extractor_css import ExtractorCss
 
 
 class TestPage(unittest.TestCase):
@@ -18,8 +15,9 @@ class TestPage(unittest.TestCase):
         url = "http://test.com/index1.html"
         scraper = mock_factory.create_mock_page_scraper()
         content = mock.create_autospec(Element).return_value
-        string_converter = mock.create_autospec(StringConverter).return_value
-        self.page = Page(url, scraper, content, string_converter)
+        extractor_xpath = mock.create_autospec(ExtractorXPath).return_value
+        extractor_css = mock.create_autospec(ExtractorCss).return_value
+        self.page = Page(url, scraper, content, extractor_xpath, extractor_css)
         
     @mock.patch('xcrawler.core.page.urlparse')
     def test_get_domain_name(self, mock_urlparse_function):
@@ -37,107 +35,40 @@ class TestPage(unittest.TestCase):
         items_list = self.page.extract_items()
         self.assertEquals(items_list, mock_items_list)
         
-    @mock.patch('xcrawler.core.page.Page')
-    def test_extract_pages(self, mock_page_class):
+    def test_extract_pages(self):
         mock_pages_list = mock_factory.create_mock_pages(10)
         self.page.scraper.extract_pages_list.return_value = mock_pages_list
         pages_list = self.page.extract_pages()
         self.assertEquals(pages_list, mock_pages_list)
 
-    @mock.patch('xcrawler.core.page.FallbackList')
-    @mock.patch.object(Page, 'decode_path_to_unicode_string')
-    def test_xpath(self, mock_decode_path_to_unicode_string, mock_fallback_list_module):
-        mock_fallback_list_instance = mock_fallback_list_module.return_value
-        mock_page_content = mock.Mock()
-        mock_page_content.__str__ = "<html><div class='header_blue'>text1</div><div class='header_blue'>text2</div></html>"
-        mock_page_content.xpath.return_value = ["<div>", "<div>"]
-        self.page.content = mock_page_content
+    def test_xpath(self):
         mock_path = "//div[@class='header_blue']"
-        mock_decode_path_to_unicode_string.return_value = u"//div[@class='header_blue']"
+        self.page.content.__str__ = "<html><div class='header_blue'>text1</div><div class='header_blue'>text2</div></html>"
+        self.page.extractor_xpath.xpath.return_value = mock_factory.create_mock_fallback_list(["<div>", "<div>"])
         result = self.page.xpath(mock_path)
+        self.assertEquals(result, ["<div>", "<div>"])
 
-        self.assertEquals(result, mock_fallback_list_instance)
-        mock_fallback_list_module.assert_called_once_with(mock_page_content.xpath.return_value)
-
-    @mock.patch('xcrawler.core.page.FallbackList')
-    @mock.patch('xcrawler.core.page.CSSSelector')
-    def test_css(self, mock_cssselector_module, mock_fallback_list_module):
-        mock_fallback_list_instance = mock_fallback_list_module.return_value
-        mock_page_content = mock.Mock()
-        mock_page_content.__str__ = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
-        self.page.content = mock_page_content
-        mock_selector = mock.Mock()
-        mock_selector.return_value = ["<a>", "<a>"]
-        mock_cssselector_module.return_value = mock_selector
+    def test_css(self):
         mock_path = "a"
+        self.page.content.__str__ = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
+        self.page.extractor_css.css.return_value = mock_factory.create_mock_fallback_list(["<a>", "<a>"])
         result = self.page.css(mock_path)
+        self.assertEquals(result, ["<a>", "<a>"])
 
-        self.assertEquals(result, mock_fallback_list_instance)
-        mock_fallback_list_module.assert_called_once_with(mock_selector.return_value)
-
-    @mock.patch.object(Page, 'css')
-    @mock.patch.object(Page, 'convert_elements_to_text')
-    def test_css_text(self, mock_convert_elements_to_text, mock_css):
-        mock_page_content = mock.Mock()
-        mock_page_content.__str__ = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
-        self.page.content = mock_page_content
-        mock_css.return_value = mock_factory.create_mock_fallback_list(["<a>", "<a>"])
-        mock_convert_elements_to_text.return_value = mock_factory.create_mock_fallback_list(["text1", "text2"])
+    def test_css_text(self):
         mock_path = "a"
+        self.page.content.__str__ = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
+        self.page.extractor_css.css_text.return_value = mock_factory.create_mock_fallback_list(["text1", "text2"])
         result = self.page.css_text(mock_path)
         self.assertEquals(result, ["text1", "text2"])
 
-    @mock.patch('xcrawler.core.page.etree')
-    def test_convert_elements_to_text(self, mock_etree_module):
-        mock_list_elements = mock_factory.create_mock_fallback_list(["<a href='url1'>mock_text</a>", "<a href='url2'>mock_text</a>"])
-        mock_etree_module.tostring.return_value = "mock_text"
-        result = self.page.convert_elements_to_text(mock_list_elements)
-        self.assertEquals(result, ["mock_text", "mock_text"])
-
-    @mock.patch.object(Page, 'css')
-    @mock.patch.object(Page, 'convert_elements_to_attribute')
-    def test_css_attr(self, mock_convert_elements_to_attribute, mock_css):
-        mock_page_content = mock.Mock()
-        mock_page_content.__str__ = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
-        self.page.content = mock_page_content
-        mock_css.return_value = mock_factory.create_mock_fallback_list(["<a>", "<a>"])
-        mock_convert_elements_to_attribute.return_value = mock_factory.create_mock_fallback_list(["url1", "url2"])
+    def test_css_attr(self):
         mock_path = "a"
         mock_attribute_name = "href"
+        self.page.content.__str__ = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
+        self.page.extractor_css.css_attr.return_value = mock_factory.create_mock_fallback_list(["url1", "url2"])
         result = self.page.css_attr(mock_path, mock_attribute_name)
         self.assertEquals(result, ["url1", "url2"])
-
-    def test_convert_elements_to_attribute(self):
-        mock_element1 = mock.Mock()
-        mock_element1.attrib = {"text": "text1", "href": "url1"}
-        mock_element2 = mock.Mock()
-        mock_element2.attrib = {"text": "text2", "href": "url2"}
-        mock_result = mock_factory.create_mock_fallback_list([mock_element1, mock_element2])
-        mock_attribute_name = "href"
-        result = self.page.convert_elements_to_attribute(mock_result, mock_attribute_name)
-        self.assertEquals(result, ["url1", "url2"])
-
-    def test_decode_path_to_unicode_string(self):
-        path = "path"
-        self.page.string_converter.convert_to_unicode_string.return_value = u"path"
-        result = self.page.decode_path_to_unicode_string(path)
-        self.assertEquals(result, u"path")
-
-    @mock.patch('xcrawler.tests.core.test_page.builtins.print')
-    def test_handle_value_error_exception(self, mock_print_function):
-        mock_path = "//div[@class='sidebar-blue']//a[@class='question-hyperlink']/text()"
-        mock_exception = mock.Mock()
-        mock_exception.message = "ValueError exception message"
-        self.page.handle_value_error_exception(mock_path, mock_exception)
-        self.assertEquals(mock_print_function.call_count, 2)
-
-    @mock.patch('xcrawler.tests.core.test_page.builtins.print')
-    def test_handle_base_exception(self, mock_print_function):
-        mock_path = "//div[@class='sidebar-blue']//a[@class='question-hyperlink']/text()"
-        mock_exception = mock.Mock()
-        mock_exception.message = "Base exception message"
-        self.page.handle_base_exception(mock_path, mock_exception)
-        self.assertEquals(mock_print_function.call_count, 2)
 
     @mock.patch.object(Page, 'to_url')
     def test_to_urls(self, mock_to_url):

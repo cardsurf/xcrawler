@@ -9,10 +9,6 @@ except ImportError:
     from urllib.parse import urlparse
     from urllib.parse import urljoin
 from lxml import etree
-from lxml.cssselect import CSSSelector
-
-from xcrawler.collections.fallback_list import FallbackList
-from xcrawler.utils.converters.string_converter import StringConverter
 
 
 class Page:
@@ -23,15 +19,22 @@ class Page:
         scraper (PageScraper): the PageScraper used to extract data and urls from a web page.
         content (Element): the content of a web page represented as an Element object.
             More information about an Element object: http://effbot.org/zone/element.htm
-        string_converter(StringConverter): the StringConverter that converts a string to an unicode string
+        extractor_xpath (ExtractorXPath): extracts data from an Element object with XPath expressions.
+        extractor_css (ExtractorCss): extracts data from an Element object with CSS selectors.
         domain_name (str): The domain name of a web page.
     """
     
-    def __init__(self, url, page_scraper, content=None, string_converter=StringConverter()):
+    def __init__(self,
+                 url,
+                 page_scraper,
+                 content=None,
+                 extractor_xpath=None,
+                 extractor_css=None):
         self.url = url   
         self.scraper = page_scraper
         self.content = content
-        self.string_converter = string_converter
+        self.extractor_xpath = extractor_xpath
+        self.extractor_css = extractor_css
         self.__domain_name = None
 
     @property
@@ -58,38 +61,15 @@ class Page:
         :param path: the XPath expression.
         :returns: a FallbackList of web page elements that match the XPath expression.
         """
-        path = self.decode_path_to_unicode_string(path)
-        result = self.content.xpath(path)
-        result = FallbackList(result)
+        result = self.extractor_xpath.xpath(path)
         return result
-
-    def decode_path_to_unicode_string(self, path):
-        try:
-            path = self.string_converter.convert_to_unicode_string(path)
-        except ValueError as exception:
-            self.handle_value_error_exception(path, exception)
-        except BaseException as exception:
-            self.handle_base_exception(path, exception)
-            raise
-        return path
-
-    def handle_value_error_exception(self, path, exception):
-        print("ValueError exception while decoding path to unicode " + path)
-        print("ValueError exception message: " + (str(exception)))
-
-    def handle_base_exception(self, path, exception):
-        print("Exception while decoding path to unicode " + path)
-        print("Exception message: " + str(exception))
 
     def css(self, path):
         """
         :param path: the CSS selector.
         :returns: a FallbackList of web page elements that match the CSS selector.
         """
-        path = self.decode_path_to_unicode_string(path)
-        selector = CSSSelector(path)
-        result = selector(self.content)
-        result = FallbackList(result)
+        result = self.extractor_css.css(path)
         return result
 
     def css_text(self, path):
@@ -97,14 +77,8 @@ class Page:
         :param path: the CSS selector.
         :returns: a FallbackList containing text of web page elements that match the CSS selector.
         """
-        result = self.css(path)
-        result = self.convert_elements_to_text(result)
+        result = self.extractor_css.css_text(path)
         return result
-
-    def convert_elements_to_text(self, list_elements):
-        for i, element in enumerate(list_elements):
-            list_elements[i] = etree.tostring(element, method="text", encoding="UTF-8")
-        return list_elements
 
     def css_attr(self, path, attribute_name):
         """
@@ -112,14 +86,8 @@ class Page:
         :param attribute_name: the attribute name of a web page element.
         :returns: a FallbackList containing attribute values of web page elements that match the CSS selector.
         """
-        result = self.css(path)
-        result = self.convert_elements_to_attribute(result, attribute_name)
+        result = self.extractor_css.css_attr(path, attribute_name)
         return result
-
-    def convert_elements_to_attribute(self, list_elements, attribute_name):
-        for i, element in enumerate(list_elements):
-            list_elements[i] = element.attrib[attribute_name]
-        return list_elements
 
     def to_urls(self, links):
         """
