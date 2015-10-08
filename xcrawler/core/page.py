@@ -21,8 +21,7 @@ class Page(object):
         content (Element): the content of a web page represented as an Element object.
             More information about an Element object: http://effbot.org/zone/element.htm
         extractor_factory (ExtractorFactory): creates an extractor that extracts data from an Element object.
-        url_mixer (UrlMixer): join parts of the first url to the second url.
-        domain_name (str): The domain name of a web page.
+        url_mixer (UrlMixer): joins parts of the first url to the second url.
     """
     
     def __init__(self,
@@ -37,7 +36,6 @@ class Page(object):
         self.extractor_factory = extractor_factory
         self.extractor = None
         self.url_mixer = url_mixer
-        self.__domain_name = None
 
     @property
     def content(self):
@@ -47,17 +45,6 @@ class Page(object):
     def content(self, value):
         self._content = value
         self.extractor = self.extractor_factory.create_extractor(self.content)
-
-    @property
-    def domain_name(self):
-        if self.__domain_name == None:
-            parsed_uri = urlparse(self.url)
-            self.__domain_name = '{uri.scheme}://{uri.netloc}'.format(uri=parsed_uri)
-        return self.__domain_name
-
-    @domain_name.setter
-    def domain_name(self, value):
-        self.__domain_name = value
 
     def extract_items(self):
         items = self.scraper.extract_items_list(self)

@@ -27,16 +27,6 @@ class TestPage(unittest.TestCase):
         self.page.extractor_factory.create_extractor.return_value = mock_extractor
         self.page.content = mock_content
         self.assertEquals(self.page.extractor, mock_extractor)
-
-    @mock.patch('xcrawler.core.page.urlparse')
-    def test_get_domain_name(self, mock_urlparse_function):
-        mock_parsed_url = mock.Mock()
-        mock_parsed_url.scheme = 'http'
-        mock_parsed_url.netloc = 'test.com'
-        mock_parsed_url.path ='/index=1.html'
-        mock_urlparse_function.return_value = mock_parsed_url
-        domain_name = self.page.domain_name
-        self.assertEquals(domain_name, "http://test.com")
         
     def test_extract_items(self):
         mock_items_list = mock.Mock()
