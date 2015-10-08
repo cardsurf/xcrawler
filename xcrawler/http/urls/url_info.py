@@ -13,4 +13,4 @@ class UrlInfo:
 
     def is_relative(self, url):
         domain = self.url_splitter.get_domain(url)
-        return len(domain) > 0
+        return len(domain) == 0

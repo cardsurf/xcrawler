@@ -8,7 +8,7 @@ except ImportError:
     from urllib.parse import urlparse
 from lxml import etree
 
-from xcrawler.http.urls.url_joiner import UrlJoiner
+from xcrawler.http.urls.url_mixer import UrlMixer
 
 
 class Page:
@@ -21,7 +21,7 @@ class Page:
             More information about an Element object: http://effbot.org/zone/element.htm
         extractor_xpath (ExtractorXPath): extracts data from an Element object with XPath expressions.
         extractor_css (ExtractorCss): extracts data from an Element object with CSS selectors.
-        url_joiner (UrlJoiner): joins parts of an url
+        url_mixer (UrlMixer): join parts of the first url to the second url.
         domain_name (str): The domain name of a web page.
     """
     
@@ -31,13 +31,13 @@ class Page:
                  content=None,
                  extractor_xpath=None,
                  extractor_css=None,
-                 url_joiner=UrlJoiner()):
+                 url_mixer=UrlMixer()):
         self.url = url   
         self.scraper = page_scraper
         self.content = content
         self.extractor_xpath = extractor_xpath
         self.extractor_css = extractor_css
-        self.url_joiner = url_joiner
+        self.url_mixer = url_mixer
         self.__domain_name = None
 
     @property
@@ -112,7 +112,7 @@ class Page:
         :param link: link to a web page.
         :returns: a web page url.
         """
-        url = self.url_joiner.join_protocol_domain_to_url(self.domain_name, link)
+        url = self.url_mixer.mix_protocol_domain(self.url, link)
         return url
 
     def __str__(self):

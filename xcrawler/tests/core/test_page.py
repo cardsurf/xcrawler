@@ -7,7 +7,7 @@ from xcrawler.tests.mock import mock_factory
 from xcrawler.core.page import Page
 from xcrawler.core.extractor_xpath import ExtractorXPath
 from xcrawler.core.extractor_css import ExtractorCss
-from xcrawler.http.urls.url_joiner import UrlJoiner
+from xcrawler.http.urls.url_mixer import UrlMixer
 
 
 class TestPage(unittest.TestCase):
@@ -18,8 +18,8 @@ class TestPage(unittest.TestCase):
         content = mock.create_autospec(Element).return_value
         extractor_xpath = mock.create_autospec(ExtractorXPath).return_value
         extractor_css = mock.create_autospec(ExtractorCss).return_value
-        url_joiner = mock.create_autospec(UrlJoiner).return_value
-        self.page = Page(url, scraper, content, extractor_xpath, extractor_css, url_joiner)
+        url_mixer = mock.create_autospec(UrlMixer).return_value
+        self.page = Page(url, scraper, content, extractor_xpath, extractor_css, url_mixer)
         
     @mock.patch('xcrawler.core.page.urlparse')
     def test_get_domain_name(self, mock_urlparse_function):
@@ -83,11 +83,11 @@ class TestPage(unittest.TestCase):
                                    "http://test.com/link/to/example_page.html"])
 
     def test_to_url(self):
-        self.page.domain_name = "http://test.com"
-        link = ".link/to/example_page.html"
-        self.page.url_joiner.join_protocol_domain_to_url.return_value = "http://test.com/link/to/example_page.html"
+        self.page.url = "http://test.com/page/url.html"
+        link = "/link/to/example_page.html"
+        self.page.url_mixer.mix_protocol_domain.return_value = "http://test.com/link/to/example_page.html"
         result = self.page.to_url(link)
-        self.page.url_joiner.join_protocol_domain_to_url.assert_called_once_with(self.page.domain_name, link)
+        self.page.url_mixer.mix_protocol_domain.assert_called_once_with(self.page.url, link)
         self.assertEquals(result, "http://test.com/link/to/example_page.html")
 
     @mock.patch('xcrawler.core.page.etree')

@@ -15,7 +15,7 @@ class TestUrlJoiner(unittest.TestCase):
         mock_protocol_domain = "http://test.com"
         mock_urls = ["http://test.com/link/to/example_page.html", "link/to/example_page.html", "/link/to/example_page.html"]
         mock_join_protocol_domain.return_value = "http://test.com/link/to/example_page.html"
-        result = self.url_joiner.join_protocol_domains(mock_protocol_domain, mock_urls)
+        result = self.url_joiner.join_protocol_domain_list(mock_protocol_domain, mock_urls)
         self.assertEquals(mock_join_protocol_domain.call_count, len(mock_urls))
         self.assertEquals(result, ["http://test.com/link/to/example_page.html", "http://test.com/link/to/example_page.html",
                                    "http://test.com/link/to/example_page.html"])

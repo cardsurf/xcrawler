@@ -39,6 +39,6 @@ class TestUrlMixer(unittest.TestCase):
         mock_url1 = "http://example.com/path/to/mock_url1.html"
         mock_url2 = "link/to/example_page.html"
         self.url_mixer.url_splitter.get_protocol_domain.return_value = "http://example.com/"
-        self.url_mixer.url_joiner.join_protocol_domain_to_url.return_value = "http://example.com/link/to/example_page.html"
+        self.url_mixer.url_joiner.join_protocol_domain.return_value = "http://example.com/link/to/example_page.html"
         result = self.url_mixer.mix_protocol_domain(mock_url1, mock_url2)
         self.assertEquals(result, "http://example.com/link/to/example_page.html")

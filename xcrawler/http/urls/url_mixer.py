@@ -5,7 +5,7 @@ from xcrawler.http.urls.url_splitter import UrlSplitter
 
 
 class UrlMixer:
-    """Join parts of the first url with the parts of the second url.
+    """Join parts of the first url to the the second url.
 
     """
 
@@ -31,5 +31,5 @@ class UrlMixer:
 
     def prepend_protocol_domain(self, url1, url2):
         protocol_domain = self.url_splitter.get_protocol_domain(url1)
-        url = self.url_joiner.join_protocol_domain_to_url(protocol_domain, url2)
+        url = self.url_joiner.join_protocol_domain(protocol_domain, url2)
         return url

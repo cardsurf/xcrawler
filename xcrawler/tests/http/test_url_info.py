@@ -16,11 +16,11 @@ class TestUrlInfo(unittest.TestCase):
         mock_url = "http://test.com/link/to/example_page.html"
         self.url_info.url_splitter.get_domain.return_value = "test.com"
         result = self.url_info.is_relative(mock_url)
-        self.assertEquals(result, True)
+        self.assertEquals(result, False)
 
     def test_is_relative_argument_relative_url(self):
         mock_url = "/link/to/example_page.html"
         self.url_info.url_splitter.get_domain.return_value = ""
         result = self.url_info.is_relative(mock_url)
-        self.assertEquals(result, False)
+        self.assertEquals(result, True)
 
