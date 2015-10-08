@@ -16,16 +16,6 @@ class TestUrlMixer(unittest.TestCase):
         url_splitter = mock.create_autospec(UrlSplitter).return_value
         self.url_mixer = UrlMixer(url_info, url_joiner, url_splitter)
 
-    @mock.patch.object(UrlMixer, 'mix_protocol_domain')
-    def test_mix_protocol_domain_list(self, mock_mix_protocol_domain_with_url):
-        mock_url1 = "http://example.com/path/to/mock_url1.html"
-        mock_list_urls2 = ["http://test.com/link/to/example_page.html", "link/to/example_page.html", "/link/to/example_page.html"]
-        mock_mix_protocol_domain_with_url.return_value = "http://test.com/link/to/example_page.html"
-        result = self.url_mixer.mix_protocol_domain_list(mock_url1, mock_list_urls2)
-        self.assertEquals(mock_mix_protocol_domain_with_url.call_count, len(mock_list_urls2))
-        self.assertEquals(result, ["http://test.com/link/to/example_page.html", "http://test.com/link/to/example_page.html",
-                                   "http://test.com/link/to/example_page.html"])
-
     @mock.patch.object(UrlMixer, 'prepend_protocol_domain')
     def test_mix_protocol_domains(self, mock_prepend_protocol_domain):
         mock_url1 = "http://example.com/path/to/mock_url1.html"
