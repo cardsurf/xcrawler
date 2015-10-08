@@ -1,8 +1,3 @@
-from lxml import etree
-
-from xcrawler.utils.factories.extractor_factory import ExtractorFactory
-from xcrawler.utils.factories.css_selector_factory import CSSSelectorFactory
-from xcrawler.utils.factories.fallback_list_factory import FallbackListFactory
 
 
 class Extractor:

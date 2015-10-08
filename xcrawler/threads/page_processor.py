@@ -47,8 +47,7 @@ class PageProcessor(threading.Thread):
     def process_page(self, page):
         try:
             page.content = self.fetch_content(page)
-            page.extractor_xpath = self.extractor_factory.create_extractor_xpath(page.content)
-            page.extractor_css = self.extractor_factory.create_extractor_css(page.content)
+            page.extractor = self.extractor_factory.create_extractor(page.content)
             self.put_extracted_items_in_queue(page)
             self.put_extracted_pages_in_queue(page)  
         except URLError as exception:

@@ -19,8 +19,7 @@ class Page:
         scraper (PageScraper): the PageScraper used to extract data and urls from a web page.
         content (Element): the content of a web page represented as an Element object.
             More information about an Element object: http://effbot.org/zone/element.htm
-        extractor_xpath (ExtractorXPath): extracts data from an Element object with XPath expressions.
-        extractor_css (ExtractorCss): extracts data from an Element object with CSS selectors.
+        extractor (Extractor): extracts data from an Element object.
         url_mixer (UrlMixer): join parts of the first url to the second url.
         domain_name (str): The domain name of a web page.
     """
@@ -29,14 +28,12 @@ class Page:
                  url,
                  page_scraper,
                  content=None,
-                 extractor_xpath=None,
-                 extractor_css=None,
+                 extractor=None,
                  url_mixer=UrlMixer()):
         self.url = url   
         self.scraper = page_scraper
         self.content = content
-        self.extractor_xpath = extractor_xpath
-        self.extractor_css = extractor_css
+        self.extractor = extractor
         self.url_mixer = url_mixer
         self.__domain_name = None
 
@@ -64,7 +61,7 @@ class Page:
         :param path: the XPath expression.
         :returns: a FallbackList of web page elements that match the XPath expression.
         """
-        result = self.extractor_xpath.xpath(path)
+        result = self.extractor.xpath(path)
         return result
 
     def css(self, path):
@@ -72,7 +69,7 @@ class Page:
         :param path: the CSS selector.
         :returns: a FallbackList of web page elements that match the CSS selector.
         """
-        result = self.extractor_css.css(path)
+        result = self.extractor.css(path)
         return result
 
     def css_text(self, path):
@@ -80,7 +77,7 @@ class Page:
         :param path: the CSS selector.
         :returns: a FallbackList containing text of web page elements that match the CSS selector.
         """
-        result = self.extractor_css.css_text(path)
+        result = self.extractor.css_text(path)
         return result
 
     def css_attr(self, path, attribute_name):
@@ -89,7 +86,7 @@ class Page:
         :param attribute_name: the attribute name of a web page element.
         :returns: a FallbackList containing attribute values of web page elements that match the CSS selector.
         """
-        result = self.extractor_css.css_attr(path, attribute_name)
+        result = self.extractor.css_attr(path, attribute_name)
         return result
 
     def to_urls(self, links):
