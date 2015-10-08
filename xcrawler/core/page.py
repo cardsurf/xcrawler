@@ -4,11 +4,11 @@
 from __future__ import print_function
 try:
     from urlparse import urlparse
-    from urlparse import urljoin
 except ImportError:
     from urllib.parse import urlparse
-    from urllib.parse import urljoin
 from lxml import etree
+
+from xcrawler.http.urls.url_joiner import UrlJoiner
 
 
 class Page:
@@ -21,6 +21,7 @@ class Page:
             More information about an Element object: http://effbot.org/zone/element.htm
         extractor_xpath (ExtractorXPath): extracts data from an Element object with XPath expressions.
         extractor_css (ExtractorCss): extracts data from an Element object with CSS selectors.
+        url_joiner (UrlJoiner): joins parts of an url
         domain_name (str): The domain name of a web page.
     """
     
@@ -29,12 +30,14 @@ class Page:
                  page_scraper,
                  content=None,
                  extractor_xpath=None,
-                 extractor_css=None):
+                 extractor_css=None,
+                 url_joiner=UrlJoiner()):
         self.url = url   
         self.scraper = page_scraper
         self.content = content
         self.extractor_xpath = extractor_xpath
         self.extractor_css = extractor_css
+        self.url_joiner = url_joiner
         self.__domain_name = None
 
     @property
@@ -109,9 +112,7 @@ class Page:
         :param link: link to a web page.
         :returns: a web page url.
         """
-        url = link
-        if not link.startswith(self.domain_name):
-            url = urljoin(self.domain_name, link)
+        url = self.url_joiner.join_protocol_domain_to_path(self.domain_name, link)
         return url
 
     def __str__(self):
