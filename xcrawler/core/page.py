@@ -112,7 +112,7 @@ class Page:
         :param link: link to a web page.
         :returns: a web page url.
         """
-        url = self.url_joiner.join_protocol_domain_to_path(self.domain_name, link)
+        url = self.url_joiner.join_protocol_domain_to_url(self.domain_name, link)
         return url
 
     def __str__(self):

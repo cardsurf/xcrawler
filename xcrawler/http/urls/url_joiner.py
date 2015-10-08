@@ -10,16 +10,14 @@ class UrlJoiner:
 
     """
 
-    def join_protocol_domain_to_paths(self, protocol_domain, paths):
-        urls = []
-        for path in paths:
-            url = self.join_protocol_domain_to_path(protocol_domain, path)
-            urls.append(url)
+    def join_protocol_domain_to_urls(self, protocol_domain, urls):
+        for i, url in enumerate(urls):
+            urls[i] = self.join_protocol_domain_to_url(protocol_domain, url)
         return urls
 
-    def join_protocol_domain_to_path(self, protocol_domain, path):
-        url = path
-        if not path.startswith(protocol_domain):
-            url = urljoin(protocol_domain, path)
+    def join_protocol_domain_to_url(self, protocol_domain, url):
+        url = url
+        if not url.startswith(protocol_domain):
+            url = urljoin(protocol_domain, url)
         return url
 

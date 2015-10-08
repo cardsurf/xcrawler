@@ -85,9 +85,9 @@ class TestPage(unittest.TestCase):
     def test_to_url(self):
         self.page.domain_name = "http://test.com"
         link = ".link/to/example_page.html"
-        self.page.url_joiner.join_protocol_domain_to_path.return_value = "http://test.com/link/to/example_page.html"
+        self.page.url_joiner.join_protocol_domain_to_url.return_value = "http://test.com/link/to/example_page.html"
         result = self.page.to_url(link)
-        self.page.url_joiner.join_protocol_domain_to_path.assert_called_once_with(self.page.domain_name, link)
+        self.page.url_joiner.join_protocol_domain_to_url.assert_called_once_with(self.page.domain_name, link)
         self.assertEquals(result, "http://test.com/link/to/example_page.html")
 
     @mock.patch('xcrawler.core.page.etree')
