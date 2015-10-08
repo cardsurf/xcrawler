@@ -13,6 +13,7 @@ class SelectorCssFactory:
         pass
 
     def create_selector_css(self, element):
-        selector_css = SelectorCss(element)
+        selector = CSSSelector(element)
+        selector_css = SelectorCss(selector)
         return selector_css
 
