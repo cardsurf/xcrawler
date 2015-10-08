@@ -18,8 +18,7 @@ class TestPageProcessor(unittest.TestCase):
         mock_config = mock_factory.create_mock_config()
         mock_page_queue = mock.create_autospec(queue).return_value
         mock_item_queue = mock.create_autospec(queue).return_value
-        mock_extractor_factory = mock.create_autospec(ExtractorFactory).return_value
-        self.page_processor = PageProcessor(mock_config, mock_page_queue, mock_item_queue, )
+        self.page_processor = PageProcessor(mock_config, mock_page_queue, mock_item_queue)
         
     @mock.patch('xcrawler.threads.page_processor.time.sleep') 
     def test_wait_to_fetch_page(self, mock_time_function):

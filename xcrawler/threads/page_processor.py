@@ -15,8 +15,6 @@ except ImportError:
     from http.client import BadStatusLine
 from lxml import etree
 
-from xcrawler.utils.factories.extractor_factory import ExtractorFactory
-
 
 class PageProcessor(threading.Thread):
     """A thread used to fetch a content of a web page.
@@ -26,13 +24,11 @@ class PageProcessor(threading.Thread):
     def __init__(self,
                  config,
                  page_queue,
-                 items_queue,
-                 extractor_factory=ExtractorFactory()):
+                 items_queue):
         threading.Thread.__init__(self)
         self.config = config
         self.page_queue = page_queue
         self.items_queue = items_queue
-        self.extractor_factory = extractor_factory
 
     def run(self):
         while True:
@@ -47,7 +43,6 @@ class PageProcessor(threading.Thread):
     def process_page(self, page):
         try:
             page.content = self.fetch_content(page)
-            page.extractor = self.extractor_factory.create_extractor(page.content)
             self.put_extracted_items_in_queue(page)
             self.put_extracted_pages_in_queue(page)  
         except URLError as exception:

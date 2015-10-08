@@ -9,9 +9,10 @@ except ImportError:
 from lxml import etree
 
 from xcrawler.http.urls.url_mixer import UrlMixer
+from xcrawler.utils.factories.extractor_factory import ExtractorFactory
 
 
-class Page:
+class Page(object):
     """A representation of a web page.
     
     Attributes:
@@ -19,7 +20,7 @@ class Page:
         scraper (PageScraper): the PageScraper used to extract data and urls from a web page.
         content (Element): the content of a web page represented as an Element object.
             More information about an Element object: http://effbot.org/zone/element.htm
-        extractor (Extractor): extracts data from an Element object.
+        extractor_factory (ExtractorFactory): creates an extractor that extracts data from an Element object.
         url_mixer (UrlMixer): join parts of the first url to the second url.
         domain_name (str): The domain name of a web page.
     """
@@ -28,14 +29,24 @@ class Page:
                  url,
                  page_scraper,
                  content=None,
-                 extractor=None,
+                 extractor_factory=ExtractorFactory(),
                  url_mixer=UrlMixer()):
         self.url = url   
         self.scraper = page_scraper
-        self.content = content
-        self.extractor = extractor
+        self._content = content
+        self.extractor_factory = extractor_factory
+        self.extractor = None
         self.url_mixer = url_mixer
         self.__domain_name = None
+
+    @property
+    def content(self):
+        return self._content
+
+    @content.setter
+    def content(self, value):
+        self._content = value
+        self.extractor = self.extractor_factory.create_extractor(self.content)
 
     @property
     def domain_name(self):
