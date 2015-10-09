@@ -5,7 +5,7 @@ except ImportError:
     import queue
 
 from xcrawler.threads.threads.thread_factory import ThreadFactory
-from xcrawler.threads.queues.queue_factory import QueueFactory
+from xcrawler.threads.queue import QueueFactory
 
 
 class WorkExecutor:

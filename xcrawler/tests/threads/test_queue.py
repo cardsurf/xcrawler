@@ -7,15 +7,15 @@ try:
 except ImportError:
     import queue
 
-from xcrawler.threads.queues.queue_factory import QueueFactory
+from xcrawler.threads.queue import QueueFactory
 
 
-class TestQueueFactory(unittest.TestCase):
+class TestQueue(unittest.TestCase):
 
     def setUp(self):
         self.queue_factory = QueueFactory()
 
-    @mock.patch('xcrawler.threads.queues.queue_factory.queue.Queue')
+    @mock.patch('xcrawler.threads.queue.queue.Queue')
     def test_create_queue(self, mock_queue_class):
         mock_queue = mock.create_autospec(queue.Queue).return_value
         mock_queue_class.return_value = mock_queue
