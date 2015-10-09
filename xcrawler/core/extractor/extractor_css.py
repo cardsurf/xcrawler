@@ -1,7 +1,7 @@
 from lxml import etree
 
 from xcrawler.utils.converters.string_converter import StringConverter
-from xcrawler.core.extractor.css_selector_factory import CSSSelectorFactory
+from xcrawler.core.extractor.css_selector import CSSSelectorFactory
 from xcrawler.collections.collection_factory import CollectionFactory
 
 

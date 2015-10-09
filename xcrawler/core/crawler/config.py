@@ -34,7 +34,7 @@ class Config(object):
 
 
 class ConfigFactory:
-    """Creates an instance of Config.
+    """Creates an instance of the Config class.
 
     """
     def __init__(self):
