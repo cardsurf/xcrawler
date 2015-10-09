@@ -1,9 +1,4 @@
 
-try:
-    from urllib2 import Request
-except ImportError:
-    from urllib.request import Request
-
 from xcrawler.threads.page_processor import PageProcessor
 from xcrawler.threads.item_processor import ItemProcessor
 
@@ -22,5 +17,4 @@ class ThreadFactory:
     def create_item_processor(self, config, item_queue):
         thread = ItemProcessor(config, item_queue)
         return thread
-
 
