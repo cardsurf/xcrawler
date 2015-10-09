@@ -5,8 +5,8 @@ import mock
 from xcrawler.tests.mock import mock_factory
 from xcrawler.core.crawler.crawler import XCrawler
 from xcrawler.core.crawler.config import ConfigFactory
-from xcrawler.threads.executors.work_executor import WorkExecutor
-from xcrawler.threads.executors.work_executor import WorkExecutorFactory
+from xcrawler.threads.work_executor import WorkExecutor
+from xcrawler.threads.work_executor import WorkExecutorFactory
 
 
 class TestXCrawler(unittest.TestCase):

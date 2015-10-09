@@ -8,12 +8,12 @@ except ImportError:
     import queue
 
 from xcrawler.tests.mock import mock_factory
-from xcrawler.threads.executors.work_executor import WorkExecutor
+from xcrawler.threads.work_executor import WorkExecutor
 from xcrawler.threads.threads.page_processor import PageProcessor
 from xcrawler.threads.threads.item_processor import ItemProcessor
 from xcrawler.threads.queue import QueueFactory
 from xcrawler.threads.threads.thread_factory import ThreadFactory
-from xcrawler.threads.executors.work_executor import WorkExecutorFactory
+from xcrawler.threads.work_executor import WorkExecutorFactory
 from xcrawler.core.crawler.config import Config
 
 
@@ -68,7 +68,7 @@ class TestWorkExecutorFactory(unittest.TestCase):
     def setUp(self):
         self.work_executor_factory = WorkExecutorFactory()
 
-    @mock.patch('xcrawler.threads.executors.work_executor.WorkExecutor')
+    @mock.patch('xcrawler.threads.work_executor.WorkExecutor')
     def test_create_work_executor(self, mock_work_executor_class):
         mock_config = mock.create_autospec(Config).return_value
         mock_work_executor = mock.create_autospec(WorkExecutor).return_value
