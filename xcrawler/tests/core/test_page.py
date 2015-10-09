@@ -4,7 +4,7 @@ import mock
 from lxml.etree import Element
 
 from xcrawler.tests.mock import mock_factory
-from xcrawler.core.page import Page
+from xcrawler.core.crawler.page import Page
 from xcrawler.core.extractor.extractor_factory import ExtractorFactory
 from xcrawler.http.requests.request_factory import RequestFactory
 from xcrawler.core.extractor.extractor import Extractor
@@ -89,7 +89,7 @@ class TestPage(unittest.TestCase):
         self.page.url_mixer.mix_protocol_domain.assert_called_once_with(self.page.url, link)
         self.assertEquals(result, "http://test.com/link/to/example_page.html")
 
-    @mock.patch('xcrawler.core.page.etree')
+    @mock.patch('xcrawler.core.crawler.page.etree')
     def test_str(self, mock_etree_module):
         mock_etree_module.tostring.return_value = "<html><br>Page title</br></html>"
         result = self.page.__str__()

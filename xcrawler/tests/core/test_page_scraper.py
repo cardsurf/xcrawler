@@ -1,9 +1,9 @@
-
 import unittest
+
 import mock
 
-from xcrawler.core.page_scraper import PageScraper
-from xcrawler.core.page import Page
+from xcrawler.core.crawler.page_scraper import PageScraper
+from xcrawler.core.crawler.page import Page
 from xcrawler.utils.converters.object_converter import ObjectConverter
 
 

@@ -3,7 +3,7 @@ import unittest
 import mock
 
 from xcrawler.tests.mock import mock_factory
-from xcrawler.core.crawler import XCrawler
+from xcrawler.core.crawler.crawler import XCrawler
 from xcrawler.core.config.config_factory import ConfigFactory
 from xcrawler.threads.work_executor import WorkExecutor
 from xcrawler.threads.executor_factory import ExecutorFactory
