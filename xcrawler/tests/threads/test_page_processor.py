@@ -10,7 +10,7 @@ except ImportError:
     import builtins
 
 from xcrawler.tests.mock import mock_factory
-from xcrawler.threads.threads.page_processor import PageProcessor
+from xcrawler.threads.page_processor import PageProcessor
 from xcrawler.http.requests.page_requester import PageRequester
 
 
@@ -23,7 +23,7 @@ class TestPageProcessor(unittest.TestCase):
         page_requester = mock.create_autospec(PageRequester).return_value
         self.page_processor = PageProcessor(mock_config, mock_page_queue, mock_item_queue, page_requester)
         
-    @mock.patch('xcrawler.threads.threads.page_processor.time.sleep')
+    @mock.patch('xcrawler.threads.page_processor.time.sleep')
     def test_wait_to_fetch_page(self, mock_time_function):
         self.page_processor.config.fetch_delay = 0.5
         self.page_processor.wait_to_fetch_page()

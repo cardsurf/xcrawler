@@ -1,6 +1,6 @@
 
-from xcrawler.threads.threads.page_processor import PageProcessor
-from xcrawler.threads.threads.item_processor import ItemProcessor
+from xcrawler.threads.page_processor import PageProcessor
+from xcrawler.threads.item_processor import ItemProcessor
 
 
 class ThreadFactory:

@@ -7,8 +7,8 @@ from xcrawler.core.crawler.config import Config
 from xcrawler.core.crawler.page import Page
 
 from xcrawler.threads.work_executor import WorkExecutor
-from xcrawler.threads.threads.item_processor import ItemProcessor
-from xcrawler.threads.threads.page_processor import PageProcessor
+from xcrawler.threads.item_processor import ItemProcessor
+from xcrawler.threads.page_processor import PageProcessor
 
 from xcrawler.files.writers.item_writer import ItemWriter
 from xcrawler.files.openers.write_opener import WriteOpener
