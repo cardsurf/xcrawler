@@ -10,7 +10,7 @@ except ImportError:
     from urllib.error import URLError
     from http.client import BadStatusLine
 
-from xcrawler.http.requests.page_requester import PageRequester
+from xcrawler.http.requests.request_sender import RequestSender
 
 
 class PageProcessor(threading.Thread):
@@ -22,12 +22,12 @@ class PageProcessor(threading.Thread):
                  config,
                  page_queue,
                  items_queue,
-                 page_requester=PageRequester()):
+                 request_sender=RequestSender()):
         threading.Thread.__init__(self)
         self.config = config
         self.page_queue = page_queue
         self.items_queue = items_queue
-        self.page_requester = page_requester
+        self.request_sender = request_sender
 
     def run(self):
         while True:
@@ -41,7 +41,7 @@ class PageProcessor(threading.Thread):
         
     def process_page(self, page):
         try:
-            page.content = self.page_requester.send(page.request, self.config.request_timeout)
+            page.content = self.request_sender.send(page.request, self.config.request_timeout)
             self.put_extracted_items_in_queue(page)
             self.put_extracted_pages_in_queue(page)  
         except URLError as exception:

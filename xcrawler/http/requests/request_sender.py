@@ -7,7 +7,7 @@ except ImportError:
 from xcrawler.utils.converters.string_converter import StringConverter
 
 
-class PageRequester:
+class RequestSender:
     """Fetches a web page content as an Element object.
 
     """

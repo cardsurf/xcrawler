@@ -10,17 +10,17 @@ except ImportError:
     from urllib.error import URLError
 
 
-from xcrawler.http.requests.page_requester import PageRequester
+from xcrawler.http.requests.request_sender import RequestSender
 from xcrawler.utils.converters.string_converter import StringConverter
 
 
-class TestPageRequester(unittest.TestCase):
+class TestRequestSender(unittest.TestCase):
 
     def setUp(self):
         string_converter = mock.create_autospec(StringConverter).return_value
-        self.page_requester = PageRequester(string_converter)
+        self.request_sender = RequestSender(string_converter)
 
-    @mock.patch('xcrawler.http.requests.page_requester.urlopen')
+    @mock.patch('xcrawler.http.requests.request_sender.urlopen')
     def test_send(self, mock_urlopen):
         mock_request = mock.create_autospec(Request).return_value
         mock_file_content = mock.Mock()
@@ -28,6 +28,6 @@ class TestPageRequester(unittest.TestCase):
         mock_element_content = mock.create_autospec(Element).return_value
         mock_urlopen.return_value = mock_file_content
         mock_file_content.read.return_value = mock_string_content
-        self.page_requester.string_converter.convert_to_tree_elements.return_value = mock_element_content
-        result = self.page_requester.send(mock_request)
+        self.request_sender.string_converter.convert_to_tree_elements.return_value = mock_element_content
+        result = self.request_sender.send(mock_request)
         self.assertEquals(result, mock_element_content)

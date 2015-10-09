@@ -11,7 +11,7 @@ except ImportError:
 
 from xcrawler.tests.mock import mock_factory
 from xcrawler.threads.page_processor import PageProcessor
-from xcrawler.http.requests.page_requester import PageRequester
+from xcrawler.http.requests.request_sender import RequestSender
 
 
 class TestPageProcessor(unittest.TestCase):
@@ -20,8 +20,8 @@ class TestPageProcessor(unittest.TestCase):
         mock_config = mock_factory.create_mock_config()
         mock_page_queue = mock.create_autospec(queue).return_value
         mock_item_queue = mock.create_autospec(queue).return_value
-        page_requester = mock.create_autospec(PageRequester).return_value
-        self.page_processor = PageProcessor(mock_config, mock_page_queue, mock_item_queue, page_requester)
+        request_sender = mock.create_autospec(RequestSender).return_value
+        self.page_processor = PageProcessor(mock_config, mock_page_queue, mock_item_queue, request_sender)
         
     @mock.patch('xcrawler.threads.page_processor.time.sleep')
     def test_wait_to_fetch_page(self, mock_time_function):
@@ -32,7 +32,7 @@ class TestPageProcessor(unittest.TestCase):
     @mock.patch.object(PageProcessor, 'put_extracted_items_in_queue')
     @mock.patch.object(PageProcessor, 'put_extracted_pages_in_queue')
     def test_process_page(self, mock_put_extracted_pages_in_queue, mock_put_extracted_items_in_queue):
-        self.page_processor.page_requester.send.return_value = "<html><br>Page title</br></html>"
+        self.page_processor.request_sender.send.return_value = "<html><br>Page title</br></html>"
         mock_page = mock.Mock()
         self.page_processor.process_page(mock_page)
         self.assertEquals(mock_page.content, "<html><br>Page title</br></html>")
