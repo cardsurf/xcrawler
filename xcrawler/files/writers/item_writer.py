@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from xcrawler.files.writers.writer_factory import WriterFactory
+from xcrawler.files.writers.object_writer_factory import ObjectWriterFactory
 from xcrawler.utils.filepaths.filepath_splitter import FilePathSplitter
 
 
@@ -40,7 +40,7 @@ class ItemWriterFactory:
     """
     def __init__(self,
                  filepath_splitter=FilePathSplitter(),
-                 object_writer_factory=WriterFactory()):
+                 object_writer_factory=ObjectWriterFactory()):
         self.filepath_splitter = filepath_splitter
         self.object_writer_factory = object_writer_factory
 

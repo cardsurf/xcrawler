@@ -6,7 +6,7 @@ from xcrawler.files.writers.item_writer import ItemWriter
 from xcrawler.files.writers.object_writer import ObjectWriter
 from xcrawler.files.writers.object_writer_csv import ObjectWriterCsv
 from xcrawler.files.writers.item_writer import ItemWriterFactory
-from xcrawler.files.writers.writer_factory import WriterFactory
+from xcrawler.files.writers.object_writer_factory import ObjectWriterFactory
 from xcrawler.utils.filepaths.filepath_splitter import FilePathSplitter
 
 
@@ -58,7 +58,7 @@ class TestItemWriterFactory(unittest.TestCase):
 
     def setUp(self):
         filepath_splitter = mock.create_autospec(FilePathSplitter).return_value
-        object_writer_factory = mock.create_autospec(WriterFactory).return_value
+        object_writer_factory = mock.create_autospec(ObjectWriterFactory).return_value
         self.item_writer_factory = ItemWriterFactory(filepath_splitter, object_writer_factory)
 
     @mock.patch.object(ItemWriterFactory, 'create_item_writer_csv')

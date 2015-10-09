@@ -3,16 +3,16 @@ import unittest
 import mock
 
 from xcrawler.compatibility.compatibility_factory import CompatibilityFactory
-from xcrawler.files.writers.writer_factory import WriterFactory
+from xcrawler.files.writers.object_writer_factory import ObjectWriterFactory
 
 
-class TestWriterFactory(unittest.TestCase):
+class TestObjectWriterFactory(unittest.TestCase):
 
     def setUp(self):
-        self.factory = WriterFactory()
+        self.factory = ObjectWriterFactory()
 
-    @mock.patch('xcrawler.files.writers.writer_factory.CompatibilityFactory')
-    @mock.patch('xcrawler.files.writers.writer_factory.ObjectWriterCsv')
+    @mock.patch('xcrawler.files.writers.object_writer_factory.CompatibilityFactory')
+    @mock.patch('xcrawler.files.writers.object_writer_factory.ObjectWriterCsv')
     def test_create_object_writer_csv(self, mock_object_writer_csv_class, mock_compatibility_factory_class):
         mock_factory_instance = mock.create_autospec(CompatibilityFactory).return_value
         mock_file_opener = mock.Mock()

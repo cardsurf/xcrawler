@@ -3,7 +3,7 @@ from xcrawler.compatibility.compatibility_factory import CompatibilityFactory
 from xcrawler.files.writers.object_writer_csv import ObjectWriterCsv
 
 
-class WriterFactory:
+class ObjectWriterFactory:
 
     def __init__(self):
         pass
