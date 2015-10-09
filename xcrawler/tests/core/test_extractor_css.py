@@ -6,7 +6,7 @@ from lxml.cssselect import CSSSelector
 
 from xcrawler.core.extractor.extractor_css import ExtractorCss
 from xcrawler.collections.fallback_list import FallbackList
-from xcrawler.utils.factories.css_selector_factory import CSSSelectorFactory
+from xcrawler.core.extractor.css_selector_factory import CSSSelectorFactory
 from xcrawler.collections.collection_factory import CollectionFactory
 from xcrawler.utils.converters.string_converter import StringConverter
 from xcrawler.tests.mock import mock_factory

@@ -1,10 +1,8 @@
-
 import unittest
-import mock
-from lxml.etree import Element
-from lxml.cssselect import CSSSelector
 
-from xcrawler.utils.factories.css_selector_factory import CSSSelectorFactory
+import mock
+
+from xcrawler.core.extractor.css_selector_factory import CSSSelectorFactory
 
 
 class TestSelectorCssFactory(unittest.TestCase):
@@ -12,7 +10,7 @@ class TestSelectorCssFactory(unittest.TestCase):
     def setUp(self):
         self.css_selector_factory = CSSSelectorFactory()
 
-    @mock.patch('xcrawler.utils.factories.css_selector_factory.CSSSelector')
+    @mock.patch('xcrawler.core.extractor.css_selector_factory.CSSSelector')
     def test_create_selector_css(self, mock_css_selector_class):
         mock_path = ".sidebar-blue h3 a"
         mock_selector_instance = mock.Mock()
