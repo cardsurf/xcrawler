@@ -4,16 +4,13 @@ import threading
 import socket
 import time
 try:
-    from urllib2 import Request
     from urllib2 import URLError
-    from urllib2 import urlopen
     from httplib import BadStatusLine
 except ImportError:
-    from urllib.request import Request
-    from urllib.request import urlopen
     from urllib.error import URLError
     from http.client import BadStatusLine
-from lxml import etree
+
+from xcrawler.http.requests.page_requester import PageRequester
 
 
 class PageProcessor(threading.Thread):
@@ -24,11 +21,13 @@ class PageProcessor(threading.Thread):
     def __init__(self,
                  config,
                  page_queue,
-                 items_queue):
+                 items_queue,
+                 page_requester=PageRequester()):
         threading.Thread.__init__(self)
         self.config = config
         self.page_queue = page_queue
         self.items_queue = items_queue
+        self.page_requester = page_requester
 
     def run(self):
         while True:
@@ -42,7 +41,7 @@ class PageProcessor(threading.Thread):
         
     def process_page(self, page):
         try:
-            page.content = self.fetch_content(page)
+            page.content = self.page_requester.send(page.request, self.config.request_timeout)
             self.put_extracted_items_in_queue(page)
             self.put_extracted_pages_in_queue(page)  
         except URLError as exception:
@@ -54,15 +53,6 @@ class PageProcessor(threading.Thread):
         except BaseException as exception:
             self.handle_base_exception(page, exception)
             raise
-    
-    def fetch_content(self, page):
-        request_timeout = self.config.request_timeout
-        http_header = {'User-Agent': "Urllib Browser"}
-        http_request = Request(page.url, headers=http_header)
-        content = urlopen(http_request, timeout=request_timeout).read()
-        unicode_parser = etree.HTMLParser(encoding="utf-8")
-        content_tree = etree.HTML(content, parser=unicode_parser)
-        return content_tree
 
     def handle_url_error_exception(self, page, exception):
         print("URLError exception while processing page: " + page.url)

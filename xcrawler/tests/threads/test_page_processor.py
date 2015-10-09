@@ -11,6 +11,8 @@ except ImportError:
 from xcrawler.tests.mock import mock_factory
 from xcrawler.threads.page_processor import PageProcessor
 from xcrawler.utils.factories.extractor_factory import ExtractorFactory
+from xcrawler.http.requests.page_requester import PageRequester
+
 
 class TestPageProcessor(unittest.TestCase):
     
@@ -18,7 +20,8 @@ class TestPageProcessor(unittest.TestCase):
         mock_config = mock_factory.create_mock_config()
         mock_page_queue = mock.create_autospec(queue).return_value
         mock_item_queue = mock.create_autospec(queue).return_value
-        self.page_processor = PageProcessor(mock_config, mock_page_queue, mock_item_queue)
+        page_requester = mock.create_autospec(PageRequester).return_value
+        self.page_processor = PageProcessor(mock_config, mock_page_queue, mock_item_queue, page_requester)
         
     @mock.patch('xcrawler.threads.page_processor.time.sleep') 
     def test_wait_to_fetch_page(self, mock_time_function):
@@ -28,26 +31,13 @@ class TestPageProcessor(unittest.TestCase):
    
     @mock.patch.object(PageProcessor, 'put_extracted_items_in_queue')
     @mock.patch.object(PageProcessor, 'put_extracted_pages_in_queue')
-    @mock.patch.object(PageProcessor, 'fetch_content')
-    def test_process_page(self, mock_fetch_content,
-                          mock_put_extracted_pages_in_queue, mock_put_extracted_items_in_queue):
-        mock_fetch_content.return_value = "<html><br>Page title</br></html>"
+    def test_process_page(self, mock_put_extracted_pages_in_queue, mock_put_extracted_items_in_queue):
+        self.page_processor.page_requester.send.return_value = "<html><br>Page title</br></html>"
         mock_page = mock.Mock()
         self.page_processor.process_page(mock_page)
-        self.assertEquals(mock_page.content, mock_fetch_content.return_value)
-        mock_fetch_content.assert_called_once_with(mock_page)
+        self.assertEquals(mock_page.content, "<html><br>Page title</br></html>")
         mock_put_extracted_pages_in_queue.assert_called_once_with(mock_page)
-        mock_put_extracted_items_in_queue.assert_called_once_with(mock_page)      
-
-    @mock.patch('xcrawler.threads.page_processor.Request')
-    @mock.patch('xcrawler.threads.page_processor.urlopen')
-    @mock.patch('xcrawler.threads.page_processor.etree')
-    def test_fetch_content(self, mock_etree_module, mock_urlopen_function,  mock_request_class):
-        mock_page = mock.Mock()
-        mock_page.url = "http://mockurl.mock"
-        mock_etree_module.HTML.return_value = "<html><br>Page title</br></html>"
-        mock_page.content = self.page_processor.fetch_content(mock_page)
-        self.assertEquals(mock_page.content, mock_etree_module.HTML.return_value)
+        mock_put_extracted_items_in_queue.assert_called_once_with(mock_page)
 
     @mock.patch('xcrawler.tests.threads.test_page_processor.builtins.print')
     def test_handle_url_error_exception(self, mock_print_function):
