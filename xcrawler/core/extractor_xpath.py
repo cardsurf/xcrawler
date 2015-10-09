@@ -1,6 +1,6 @@
 
 from xcrawler.utils.converters.string_converter import StringConverter
-from xcrawler.utils.factories.fallback_list_factory import FallbackListFactory
+from xcrawler.utils.factories.collection_factory import CollectionFactory
 
 
 class ExtractorXPath:
@@ -8,16 +8,16 @@ class ExtractorXPath:
 
     Attributes:
         root_element (Element): an instance of an Element object that contains nested elements.
-        fallbacklist_factory (FallbackListFactory): creates an instance of the FallbackList class.
-        string_converter(StringConverter): the StringConverter that converts a string to an unicode string.
+        collection_factory (CollectionFactory): creates a collection of the specified type.
+        string_converter(StringConverter): converts a string to an unicode string.
     """
 
     def __init__(self,
                  root_element=None,
-                 fallbacklist_factory=FallbackListFactory(),
+                 collection_factory=CollectionFactory(),
                  string_converter=StringConverter()):
         self.root_element = root_element
-        self.fallbacklist_factory = fallbacklist_factory
+        self.collection_factory = collection_factory
         self.string_converter = string_converter
 
     def xpath(self, path):
@@ -27,5 +27,5 @@ class ExtractorXPath:
         """
         path = self.string_converter.convert_to_unicode_string(path)
         result = self.root_element.xpath(path)
-        result = self.fallbacklist_factory.create_fallback_list(result)
+        result = self.collection_factory.create_fallback_list(result)
         return result

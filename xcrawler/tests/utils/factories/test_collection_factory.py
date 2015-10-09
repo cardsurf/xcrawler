@@ -3,19 +3,19 @@
 import unittest
 import mock
 
-from xcrawler.utils.factories.fallback_list_factory import FallbackListFactory
+from xcrawler.utils.factories.collection_factory import CollectionFactory
 
 
-class TestFallbackListFactory(unittest.TestCase):
+class TestCollectionFactory(unittest.TestCase):
 
     def setUp(self):
-        self.fallback_list_factory = FallbackListFactory()
+        self.collection_factory = CollectionFactory()
 
-    @mock.patch('xcrawler.utils.factories.fallback_list_factory.FallbackList')
+    @mock.patch('xcrawler.utils.factories.collection_factory.FallbackList')
     def test_create_selector_css(self, mock_fallback_list_class):
         mock_list = ["mock1", "mock2", "mock3"]
         mock_fallback_list_instance = mock.Mock()
         mock_fallback_list_class.return_value = mock_fallback_list_instance
-        self.fallback_list_factory.create_fallback_list(mock_list)
+        self.collection_factory.create_fallback_list(mock_list)
         mock_fallback_list_class.assert_called_once_with(mock_list)
 

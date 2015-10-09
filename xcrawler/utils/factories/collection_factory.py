@@ -2,11 +2,10 @@
 from xcrawler.collections.fallback_list import FallbackList
 
 
-class FallbackListFactory:
-    """Creates an instance of the FallbackList class.
+class CollectionFactory:
+    """Creates a collection of the specified type.
 
     """
-
     def __init__(self):
         pass
 

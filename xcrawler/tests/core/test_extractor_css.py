@@ -7,7 +7,7 @@ from lxml.cssselect import CSSSelector
 from xcrawler.core.extractor_css import ExtractorCss
 from xcrawler.collections.fallback_list import FallbackList
 from xcrawler.utils.factories.css_selector_factory import CSSSelectorFactory
-from xcrawler.utils.factories.fallback_list_factory import FallbackListFactory
+from xcrawler.utils.factories.collection_factory import CollectionFactory
 from xcrawler.utils.converters.string_converter import StringConverter
 from xcrawler.tests.mock import mock_factory
 
@@ -17,9 +17,9 @@ class TestExtractorCss(unittest.TestCase):
     def setUp(self):
         root_element = mock.create_autospec(Element).return_value
         cssselector_factory = mock.create_autospec(CSSSelectorFactory).return_value
-        fallbacklist_factory = mock.create_autospec(FallbackListFactory).return_value
+        collection_factory = mock.create_autospec(CollectionFactory).return_value
         string_converter = mock.create_autospec(StringConverter).return_value
-        self.extractor_css = ExtractorCss(root_element, cssselector_factory, fallbacklist_factory, string_converter)
+        self.extractor_css = ExtractorCss(root_element, cssselector_factory, collection_factory, string_converter)
 
     def test_css(self):
         mock_path = ".sidebar-blue h3 a"
@@ -30,7 +30,7 @@ class TestExtractorCss(unittest.TestCase):
         mock_call.return_value = mock_result
         mock_css_selector.__call__ = mock_call
         self.extractor_css.cssselector_factory.create_css_selector = mock_css_selector
-        self.extractor_css.fallbacklist_factory.create_fallback_list.return_value = mock_result_fallback_list
+        self.extractor_css.collection_factory.create_fallback_list.return_value = mock_result_fallback_list
 
         result = self.extractor_css.css(mock_path)
         self.assertEquals(result, mock_result_fallback_list)

@@ -3,7 +3,7 @@ from lxml import etree
 
 from xcrawler.utils.converters.string_converter import StringConverter
 from xcrawler.utils.factories.css_selector_factory import CSSSelectorFactory
-from xcrawler.utils.factories.fallback_list_factory import FallbackListFactory
+from xcrawler.utils.factories.collection_factory import CollectionFactory
 
 
 class ExtractorCss:
@@ -12,18 +12,18 @@ class ExtractorCss:
     Attributes:
         root_element (Element): an instance of an Element object that contains nested elements.
         cssselector_factory (CSSSelectorFactory): creates an instance of the CSSSelector class.
-        fallbacklist_factory (FallbackListFactory): creates an instance of the FallbackList class.
-        string_converter(StringConverter): the StringConverter that converts a string to an unicode string.
+        collection_factory (CollectionFactory): creates a collection of the specified type.
+        string_converter(StringConverter): converts a string to an unicode string.
     """
 
     def __init__(self,
                  root_element=None,
                  cssselector_factory=CSSSelectorFactory(),
-                 fallbacklist_factory=FallbackListFactory(),
+                 collection_factory=CollectionFactory(),
                  string_converter=StringConverter()):
         self.root_element = root_element
         self.cssselector_factory = cssselector_factory
-        self.fallbacklist_factory = fallbacklist_factory
+        self.collection_factory = collection_factory
         self.string_converter = string_converter
 
     def css(self, path):
@@ -34,7 +34,7 @@ class ExtractorCss:
         path = self.string_converter.convert_to_unicode_string(path)
         css_selector = self.cssselector_factory.create_css_selector(path)
         result = css_selector.__call__(self.root_element)
-        result = self.fallbacklist_factory.create_fallback_list(result)
+        result = self.collection_factory.create_fallback_list(result)
         return result
 
     def css_text(self, path):
