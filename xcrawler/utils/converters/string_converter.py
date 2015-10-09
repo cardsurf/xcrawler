@@ -1,7 +1,7 @@
 from lxml.etree import HTML
 
 from xcrawler.utils.types.instance_resolver import InstanceResolver
-from xcrawler.http.parsers.html_parser_factory import HtmlParserFactory
+from xcrawler.http.parsers.html_parser import HtmlParserFactory
 
 
 class StringConverter:

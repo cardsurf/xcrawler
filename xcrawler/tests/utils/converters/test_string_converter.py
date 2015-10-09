@@ -6,7 +6,7 @@ from lxml.etree import Element
 
 from xcrawler.utils.converters.string_converter import StringConverter
 from xcrawler.utils.types.instance_resolver import InstanceResolver
-from xcrawler.http.parsers.html_parser_factory import HtmlParserFactory
+from xcrawler.http.parsers.html_parser import HtmlParserFactory
 
 
 class TestStringConverter(unittest.TestCase):
