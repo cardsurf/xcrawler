@@ -9,8 +9,6 @@ except ImportError:
     from urllib.request import urlopen
     from urllib.error import URLError
     from http.client import BadStatusLine
-from lxml.etree import HTMLParser
-from lxml.etree import HTML
 
 from xcrawler.utils.converters.string_converter import StringConverter
 
