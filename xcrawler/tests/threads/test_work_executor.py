@@ -1,13 +1,14 @@
-
 import unittest
+
 import mock
+
 try:
     import Queue as queue
 except ImportError:
     import queue
 
 from xcrawler.tests.mock import mock_factory
-from xcrawler.threads.work_executor import WorkExecutor
+from xcrawler.threads.executors.work_executor import WorkExecutor
 from xcrawler.threads.page_processor import PageProcessor
 from xcrawler.threads.item_processor import ItemProcessor
 from xcrawler.threads.queue_factory import QueueFactory

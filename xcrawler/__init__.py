@@ -6,7 +6,7 @@ from xcrawler.core.crawler.page_scraper import PageScraper
 from xcrawler.core.config.config import Config
 from xcrawler.core.crawler.page import Page
 
-from xcrawler.threads.work_executor import WorkExecutor
+from xcrawler.threads.executors.work_executor import WorkExecutor
 from xcrawler.threads.item_processor import ItemProcessor
 from xcrawler.threads.page_processor import PageProcessor
 

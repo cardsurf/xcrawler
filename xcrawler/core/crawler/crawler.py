@@ -3,7 +3,7 @@ from __future__ import print_function
 import time
 
 from xcrawler.core.config.config_factory import ConfigFactory
-from xcrawler.threads.executor_factory import ExecutorFactory
+from xcrawler.threads.executors.executor_factory import ExecutorFactory
 
 
 class XCrawler:

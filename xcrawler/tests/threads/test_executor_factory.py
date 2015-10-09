@@ -1,9 +1,9 @@
-
 import unittest
+
 import mock
 
-from xcrawler.threads.executor_factory import ExecutorFactory
-from xcrawler.threads.work_executor import WorkExecutor
+from xcrawler.threads.executors.executor_factory import ExecutorFactory
+from xcrawler.threads.executors.work_executor import WorkExecutor
 from xcrawler.core.config.config import Config
 
 
@@ -12,7 +12,7 @@ class TestExecutorFactory(unittest.TestCase):
     def setUp(self):
         self.executor_factory = ExecutorFactory()
 
-    @mock.patch('xcrawler.threads.executor_factory.WorkExecutor')
+    @mock.patch('xcrawler.threads.executors.executor_factory.WorkExecutor')
     def test_create_work_executor(self, mock_work_executor_class):
         mock_config = mock.create_autospec(Config).return_value
         mock_work_executor = mock.create_autospec(WorkExecutor).return_value

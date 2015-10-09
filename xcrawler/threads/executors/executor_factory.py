@@ -1,10 +1,10 @@
 
 
-from xcrawler.threads.work_executor import WorkExecutor
+from xcrawler.threads.executors.work_executor import WorkExecutor
 
 
 class ExecutorFactory:
-    """Creates a multi-threaded executor.
+    """Creates a multi-threaded executors.
 
     """
     def __init__(self):
