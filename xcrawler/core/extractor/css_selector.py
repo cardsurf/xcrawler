@@ -6,7 +6,6 @@ class CSSSelectorFactory:
     """Creates an instance of the CSSSelector class.
 
     """
-
     def __init__(self):
         pass
 

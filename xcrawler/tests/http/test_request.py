@@ -9,7 +9,7 @@ except ImportError:
 from xcrawler.http.requests.request import RequestFactory
 
 
-class TestRequest(unittest.TestCase):
+class TestRequestFactory(unittest.TestCase):
 
     def setUp(self):
         self.request_factory = RequestFactory()
