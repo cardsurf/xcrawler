@@ -12,7 +12,7 @@ from xcrawler.tests.mock import mock_factory
 from xcrawler.files.writers.item_writer import ItemWriter
 from xcrawler.files.writers.writer_factory import WriterFactory
 from xcrawler.threads.item_processor import ItemProcessor
-from xcrawler.core.config import Config
+from xcrawler.core.config.config import Config
 
 
 class TestItemProcessor(unittest.TestCase):

@@ -3,7 +3,7 @@ from xcrawler.collections.fallback_list import FallbackList
 
 from xcrawler.core.page_scraper import PageScraper
 from xcrawler.core.crawler import XCrawler
-from xcrawler.core.config import Config
+from xcrawler.core.config.config import Config
 from xcrawler.core.page import Page
 
 from xcrawler.threads.work_executor import WorkExecutor

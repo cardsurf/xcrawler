@@ -4,7 +4,7 @@ import mock
 
 from xcrawler.threads.executor_factory import ExecutorFactory
 from xcrawler.threads.work_executor import WorkExecutor
-from xcrawler.core.config import Config
+from xcrawler.core.config.config import Config
 
 
 class TestExecutorFactory(unittest.TestCase):

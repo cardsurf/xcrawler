@@ -2,7 +2,7 @@
 from __future__ import print_function
 import threading
 
-from xcrawler.core.config import Config
+from xcrawler.core.config.config import Config
 from xcrawler.files.writers.writer_factory import WriterFactory
 
 

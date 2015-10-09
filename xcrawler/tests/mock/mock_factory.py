@@ -1,7 +1,7 @@
 
 import mock
 
-from xcrawler.core.config import Config
+from xcrawler.core.config.config import Config
 from xcrawler.core.page import Page
 from xcrawler.core.page_scraper import PageScraper
 from xcrawler.core.crawler import XCrawler

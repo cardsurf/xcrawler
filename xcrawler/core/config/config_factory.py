@@ -1,5 +1,5 @@
 
-from xcrawler.core.config import Config
+from xcrawler.core.config.config import Config
 
 
 class ConfigFactory:
