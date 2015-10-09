@@ -3,7 +3,7 @@ import unittest
 import mock
 from lxml.etree import HTMLParser
 
-from xcrawler.http.parsers.html_parser import HtmlParserFactory
+from xcrawler.http.requests.html_parser import HtmlParserFactory
 
 
 class TestHtmlParserFactory(unittest.TestCase):
@@ -11,7 +11,7 @@ class TestHtmlParserFactory(unittest.TestCase):
     def setUp(self):
         self.html_parser_factory = HtmlParserFactory()
 
-    @mock.patch('xcrawler.http.parsers.html_parser.HTMLParser')
+    @mock.patch('xcrawler.http.requests.html_parser.HTMLParser')
     def test_create_html_parser_unicode(self, mock_html_parser_class):
         mock_html_parser = mock.create_autospec(HTMLParser).return_value
         mock_html_parser_class.return_value = mock_html_parser

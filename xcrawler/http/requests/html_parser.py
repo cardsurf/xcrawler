@@ -1,6 +1,7 @@
 
 from lxml.etree import HTMLParser
 
+
 class HtmlParserFactory:
     """Creates a converter that convert an instance of one type to a specified type.
 
