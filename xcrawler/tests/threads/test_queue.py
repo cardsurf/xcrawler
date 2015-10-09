@@ -10,7 +10,7 @@ except ImportError:
 from xcrawler.threads.queue import QueueFactory
 
 
-class TestQueue(unittest.TestCase):
+class TestQueueFactory(unittest.TestCase):
 
     def setUp(self):
         self.queue_factory = QueueFactory()

@@ -6,7 +6,7 @@ from lxml.etree import HTMLParser
 from xcrawler.http.parsers.html_parser import HtmlParserFactory
 
 
-class TestHtmlParser(unittest.TestCase):
+class TestHtmlParserFactory(unittest.TestCase):
 
     def setUp(self):
         self.html_parser_factory = HtmlParserFactory()

@@ -5,7 +5,7 @@ import mock
 from xcrawler.core.extractor.css_selector import CSSSelectorFactory
 
 
-class TestCSSSelector(unittest.TestCase):
+class TestCSSSelectorFactory(unittest.TestCase):
 
     def setUp(self):
         self.css_selector_factory = CSSSelectorFactory()
