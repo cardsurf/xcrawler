@@ -9,10 +9,10 @@ except ImportError:
 
 from xcrawler.tests.mock import mock_factory
 from xcrawler.threads.executors.work_executor import WorkExecutor
-from xcrawler.threads.page_processor import PageProcessor
-from xcrawler.threads.item_processor import ItemProcessor
+from xcrawler.threads.threads.page_processor import PageProcessor
+from xcrawler.threads.threads.item_processor import ItemProcessor
 from xcrawler.threads.queue_factory import QueueFactory
-from xcrawler.threads.thread_factory import ThreadFactory
+from xcrawler.threads.threads.thread_factory import ThreadFactory
 
 
 class TestWorkExecutor(unittest.TestCase):

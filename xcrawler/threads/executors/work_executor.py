@@ -4,7 +4,7 @@ try:
 except ImportError:
     import queue
 
-from xcrawler.threads.thread_factory import ThreadFactory
+from xcrawler.threads.threads.thread_factory import ThreadFactory
 from xcrawler.threads.queue_factory import QueueFactory
 
 
