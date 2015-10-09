@@ -10,7 +10,7 @@ except ImportError:
 from xcrawler.threads.threads.thread_factory import ThreadFactory
 from xcrawler.threads.threads.page_processor import PageProcessor
 from xcrawler.threads.threads.item_processor import ItemProcessor
-from xcrawler.core.config.config import Config
+from xcrawler.core.crawler.config import Config
 
 
 class TestThreadFactory(unittest.TestCase):
