@@ -8,29 +8,32 @@ except ImportError:
 
 from xcrawler.tests.mock import mock_factory
 from xcrawler.threads.work_executor import WorkExecutor
+from xcrawler.threads.page_processor import PageProcessor
 from xcrawler.threads.item_processor import ItemProcessor
+from xcrawler.threads.thread_factory import ThreadFactory
 
 
 class TestWorkExecutor(unittest.TestCase):
     
     def setUp(self):
         mock_config = mock_factory.create_mock_config()
-        self.work_executor = WorkExecutor(mock_config)
+        thread_factory = mock.create_autospec(ThreadFactory).return_value
+        self.work_executor = WorkExecutor(mock_config, thread_factory)
         self.work_executor.page_queue = mock.create_autospec(queue).return_value
         self.work_executor.item_queue = mock.create_autospec(queue).return_value
         self.work_executor.item_processor = mock.create_autospec(ItemProcessor).return_value
           
-    @mock.patch('xcrawler.threads.work_executor.PageProcessor') 
-    def test_spawn_page_queue_threads(self, page_processor_class):
-        page_processor = page_processor_class.return_value
+    def test_spawn_page_queue_threads(self):
+        mock_page_processor = mock.create_autospec(PageProcessor).return_value
+        self.work_executor.thread_factory.create_page_processor.return_value = mock_page_processor
         self.work_executor.spawn_page_queue_threads()
-        self.assertEquals(page_processor.start.call_count, self.work_executor.config.number_of_threads)
+        self.assertEquals(mock_page_processor.start.call_count, self.work_executor.config.number_of_threads)
         
-    @mock.patch('xcrawler.threads.work_executor.ItemProcessor') 
-    def test_spawn_item_queue_thread(self, item_processor_class):
-        item_processor = item_processor_class.return_value
+    def test_spawn_item_queue_thread(self):
+        mock_item_processor = mock.create_autospec(ItemProcessor).return_value
+        self.work_executor.thread_factory.create_item_processor.return_value = mock_item_processor
         self.work_executor.spawn_item_queue_thread()
-        self.assertEquals(item_processor.start.call_count, 1)
+        self.assertEquals(self.work_executor.item_processor, mock_item_processor)
 
     def test_add_pages_to_queue(self):
         mock_start_pages = mock_factory.create_mock_pages(10)

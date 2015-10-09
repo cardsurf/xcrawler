@@ -4,8 +4,7 @@ try:
 except ImportError:
     import queue
 
-from xcrawler.threads.page_processor import PageProcessor
-from xcrawler.threads.item_processor import ItemProcessor
+from xcrawler.threads.thread_factory import ThreadFactory
 
 
 class WorkExecutor:
@@ -13,10 +12,14 @@ class WorkExecutor:
     
     """
     
-    def __init__(self, config):
+    def __init__(self,
+                 config,
+                 thread_factory=ThreadFactory()):
+        self.config = config
+        self.item_processor = None
         self.page_queue = queue.Queue()
         self.item_queue = queue.Queue()
-        self.config = config
+        self.thread_factory = thread_factory
         self.spawn_worker_threads()
 
     def spawn_worker_threads(self):
@@ -25,12 +28,12 @@ class WorkExecutor:
     
     def spawn_page_queue_threads(self):
         for _ in range(self.config.number_of_threads):
-            t = PageProcessor(self.config, self.page_queue, self.item_queue)
+            t = self.thread_factory.create_page_processor(self.config, self.page_queue, self.item_queue)
             t.daemon = True
             t.start()
             
     def spawn_item_queue_thread(self):
-            self.item_processor = ItemProcessor(self.config, self.item_queue)
+            self.item_processor = self.thread_factory.create_item_processor(self.config, self.item_queue)
             self.item_processor.daemon = True
             self.item_processor.start()
         
