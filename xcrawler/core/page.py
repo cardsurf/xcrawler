@@ -10,6 +10,7 @@ from lxml import etree
 
 from xcrawler.http.urls.url_mixer import UrlMixer
 from xcrawler.utils.factories.extractor_factory import ExtractorFactory
+from xcrawler.http.requests.request_factory import RequestFactory
 
 
 class Page(object):
@@ -20,21 +21,22 @@ class Page(object):
         scraper (PageScraper): the PageScraper used to extract data and urls from a web page.
         content (Element): the content of a web page represented as an Element object.
             More information about an Element object: http://effbot.org/zone/element.htm
-        extractor_factory (ExtractorFactory): creates an extractor that extracts data from an Element object.
-        url_mixer (UrlMixer): joins parts of the first url to the second url.
+        extractor (Extractor): extracts data from an Element object.
+        request (Request): the request send to a web server.
     """
     
     def __init__(self,
                  url,
                  page_scraper,
-                 content=None,
+                 request_factory=RequestFactory(),
                  extractor_factory=ExtractorFactory(),
                  url_mixer=UrlMixer()):
         self.url = url   
         self.scraper = page_scraper
-        self._content = content
-        self.extractor_factory = extractor_factory
+        self._content = None
         self.extractor = None
+        self.request = request_factory.create_request(self.url)
+        self.extractor_factory = extractor_factory
         self.url_mixer = url_mixer
 
     @property

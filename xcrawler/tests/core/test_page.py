@@ -6,6 +6,7 @@ from lxml.etree import Element
 from xcrawler.tests.mock import mock_factory
 from xcrawler.core.page import Page
 from xcrawler.utils.factories.extractor_factory import ExtractorFactory
+from xcrawler.http.requests.request_factory import RequestFactory
 from xcrawler.core.extractor import Extractor
 from xcrawler.http.urls.url_mixer import UrlMixer
 
@@ -15,10 +16,11 @@ class TestPage(unittest.TestCase):
     def setUp(self):
         url = "http://test.com/index1.html"
         scraper = mock_factory.create_mock_page_scraper()
-        content = mock.create_autospec(Element).return_value
+        request_factory = mock.create_autospec(RequestFactory).return_value
         extractor_factory = mock.create_autospec(ExtractorFactory).return_value
         url_mixer = mock.create_autospec(UrlMixer).return_value
-        self.page = Page(url, scraper, content, extractor_factory, url_mixer)
+        self.page = Page(url, scraper, request_factory, extractor_factory, url_mixer)
+        self.page.content = mock.create_autospec(Element).return_value
         self.page.extractor = mock.create_autospec(Extractor).return_value
 
     def test_set_content(self):
