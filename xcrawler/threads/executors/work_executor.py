@@ -53,3 +53,16 @@ class WorkExecutor:
         self.page_queue.join()
         self.item_queue.join()
 
+
+
+
+class WorkExecutorFactory:
+    """Creates an instance of the WorkExecutor class.
+
+    """
+    def __init__(self):
+        pass
+
+    def create_work_executor(self, config):
+        work_executor = WorkExecutor(config)
+        return work_executor

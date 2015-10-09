@@ -3,7 +3,7 @@ from __future__ import print_function
 import time
 
 from xcrawler.core.crawler.config import ConfigFactory
-from xcrawler.threads.executors.executor_factory import ExecutorFactory
+from xcrawler.threads.executors.work_executor import WorkExecutorFactory
 
 
 class XCrawler:
@@ -17,15 +17,15 @@ class XCrawler:
     def __init__(self,
                  start_pages,
                  config_factory=ConfigFactory(),
-                 executor_factory=ExecutorFactory()):
+                 work_executor_factory=WorkExecutorFactory()):
         self.start_pages = start_pages
         self.config = config_factory.create_config()
-        self.executor_factory = executor_factory
+        self.work_executor_factory = work_executor_factory
 
     def run(self):
         start = time.time()
         if len(self.start_pages) > 0:
-            executor = self.executor_factory.create_work_executor(self.config)
+            executor = self.work_executor_factory.create_work_executor(self.config)
             executor.execute_work(self.start_pages)
         end = time.time()
         print("Finished scraping. Time elapsed: " + str(end - start))
