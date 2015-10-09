@@ -1,6 +1,6 @@
 
 from xcrawler.utils.converters.string_converter import StringConverter
-from xcrawler.utils.factories.collection_factory import CollectionFactory
+from xcrawler.collections.collection_factory import CollectionFactory
 
 
 class ExtractorXPath:

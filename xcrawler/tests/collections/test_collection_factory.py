@@ -1,9 +1,8 @@
-
-
 import unittest
+
 import mock
 
-from xcrawler.utils.factories.collection_factory import CollectionFactory
+from xcrawler.collections.collection_factory import CollectionFactory
 
 
 class TestCollectionFactory(unittest.TestCase):
@@ -11,7 +10,7 @@ class TestCollectionFactory(unittest.TestCase):
     def setUp(self):
         self.collection_factory = CollectionFactory()
 
-    @mock.patch('xcrawler.utils.factories.collection_factory.FallbackList')
+    @mock.patch('xcrawler.collections.collection_factory.FallbackList')
     def test_create_selector_css(self, mock_fallback_list_class):
         mock_list = ["mock1", "mock2", "mock3"]
         mock_fallback_list_instance = mock.Mock()
