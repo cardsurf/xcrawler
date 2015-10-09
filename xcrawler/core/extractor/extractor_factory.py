@@ -1,7 +1,7 @@
 
-from xcrawler.core.extractor import Extractor
-from xcrawler.core.extractor_css import ExtractorCss
-from xcrawler.core.extractor_xpath import ExtractorXPath
+from xcrawler.core.extractor.extractor import Extractor
+from xcrawler.core.extractor.extractor_css import ExtractorCss
+from xcrawler.core.extractor.extractor_xpath import ExtractorXPath
 
 
 class ExtractorFactory:

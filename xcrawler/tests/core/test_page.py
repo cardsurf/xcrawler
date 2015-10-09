@@ -1,13 +1,13 @@
-
 import unittest
+
 import mock
 from lxml.etree import Element
 
 from xcrawler.tests.mock import mock_factory
 from xcrawler.core.page import Page
-from xcrawler.utils.factories.extractor_factory import ExtractorFactory
+from xcrawler.core.extractor.extractor_factory import ExtractorFactory
 from xcrawler.http.requests.request_factory import RequestFactory
-from xcrawler.core.extractor import Extractor
+from xcrawler.core.extractor.extractor import Extractor
 from xcrawler.http.urls.url_mixer import UrlMixer
 
 

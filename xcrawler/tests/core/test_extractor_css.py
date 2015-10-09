@@ -4,7 +4,7 @@ import mock
 from lxml.etree import Element
 from lxml.cssselect import CSSSelector
 
-from xcrawler.core.extractor_css import ExtractorCss
+from xcrawler.core.extractor.extractor_css import ExtractorCss
 from xcrawler.collections.fallback_list import FallbackList
 from xcrawler.utils.factories.css_selector_factory import CSSSelectorFactory
 from xcrawler.collections.collection_factory import CollectionFactory
@@ -47,7 +47,7 @@ class TestExtractorCss(unittest.TestCase):
         result = self.extractor_css.css_text(mock_path)
         self.assertEquals(result, ["text1", "text2"])
 
-    @mock.patch('xcrawler.core.extractor_css.etree')
+    @mock.patch('xcrawler.core.extractor.extractor_css.etree')
     def test_convert_elements_to_text(self, mock_etree_module):
         mock_root_element1 = mock.create_autospec(Element).return_value
         mock_root_element1.__str__ = "<a href='url1'>mock_text</a>"

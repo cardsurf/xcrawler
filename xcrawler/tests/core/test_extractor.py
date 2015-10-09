@@ -1,12 +1,13 @@
-
 import unittest
+
 import mock
+
 from lxml.etree import Element
 
 from xcrawler.tests.mock import mock_factory
-from xcrawler.core.extractor import Extractor
-from xcrawler.core.extractor_xpath import ExtractorXPath
-from xcrawler.core.extractor_css import ExtractorCss
+from xcrawler.core.extractor.extractor import Extractor
+from xcrawler.core.extractor.extractor_xpath import ExtractorXPath
+from xcrawler.core.extractor.extractor_css import ExtractorCss
 
 
 class TestExtractor(unittest.TestCase):

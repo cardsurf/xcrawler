@@ -1,6 +1,7 @@
-
 import unittest
+
 import mock
+
 try:
     import Queue as queue
     import __builtin__ as builtins
@@ -10,7 +11,6 @@ except ImportError:
 
 from xcrawler.tests.mock import mock_factory
 from xcrawler.threads.page_processor import PageProcessor
-from xcrawler.utils.factories.extractor_factory import ExtractorFactory
 from xcrawler.http.requests.page_requester import PageRequester
 
 
