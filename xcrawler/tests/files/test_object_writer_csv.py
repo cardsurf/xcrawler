@@ -8,6 +8,7 @@ from xcrawler.compatibility.write_opener.compatible_write_opener import Compatib
 from xcrawler.compatibility.object_converter.compatible_object_converter import CompatibleObjectConverter
 from xcrawler.utils.sorters.variables_sorter import VariablesSorter
 from xcrawler.utils.types.instance_resolver import InstanceResolver
+from xcrawler.files.writers.csv_writer import CsvWriterFactory
 
 
 class TestObjectWriterCsv(unittest.TestCase):
@@ -17,32 +18,29 @@ class TestObjectWriterCsv(unittest.TestCase):
         object_converter = mock.create_autospec(CompatibleObjectConverter).return_value
         variables_sorter = mock.create_autospec(VariablesSorter).return_value
         instance_resolver = mock.create_autospec(InstanceResolver).return_value
-        self.object_writer_csv = ObjectWriterCsv(file_opener, object_converter, variables_sorter, instance_resolver)
+        csv_writer_factory = mock.create_autospec(CsvWriterFactory).return_value
+        self.object_writer_csv = ObjectWriterCsv(file_opener, object_converter, variables_sorter, 
+                                                 instance_resolver, csv_writer_factory)
         self.object_writer_csv.writer = mock.create_autospec(csv.writer).return_value
         self.object_writer_csv.convert_to_strings_function = mock.Mock()
 
-    @mock.patch.object(ObjectWriterCsv, 'open_file_and_init_writer')
-    def test_open_file(self, mock_open_file_and_init_writer):
+    @mock.patch.object(ObjectWriterCsv, 'open_file_and_create_writer')
+    def test_open_file(self, mock_open_file_and_create_writer):
         mock_file_name = "mock.csv"
         mock_file = mock.Mock()
-        mock_open_file_and_init_writer.return_value = mock_file
+        mock_open_file_and_create_writer.return_value = mock_file
         result = self.object_writer_csv.open_file(mock_file_name)
         self.assertEquals(result, mock_file)
 
-    @mock.patch.object(ObjectWriterCsv, 'init_writer')
-    def test_open_and_init_writer(self, mock_init_writer):
+    def test_open_and_create_writer(self):
         mock_file_name = "mock.csv"
         mock_file = mock.Mock()
+        mock_csv_writer = mock.create_autospec(csv.writer).return_value
         self.object_writer_csv.file_opener.open_file_write_strings.return_value = mock_file
-        result = self.object_writer_csv.open_file(mock_file_name)
-        mock_init_writer.assert_called_once_with(mock_file)
+        self.object_writer_csv.csv_writer_factory.create_csv_writer.return_value = mock_csv_writer
+        result = self.object_writer_csv.open_file_and_create_writer(mock_file_name)
+        self.assertEquals(self.object_writer_csv.writer, mock_csv_writer)
         self.assertEquals(result, mock_file)
-
-    @mock.patch('xcrawler.files.writers.object_writer_csv.csv.writer')
-    def test_init_writer(self, mock_csv_writer_class):
-        mock_file = mock.Mock()
-        self.object_writer_csv.init_writer(mock_file)
-        self.assertEquals(mock_csv_writer_class.call_count, 1)
 
     def test_write_headers_string_argument(self):
         mock_string = "mock"

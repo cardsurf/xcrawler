@@ -1,10 +1,10 @@
-import csv
 
 from xcrawler.utils.types.instance_resolver import InstanceResolver
 from xcrawler.utils.sorters.variables_sorter import VariablesSorter
 from xcrawler.files.writers.object_writer import ObjectWriter
 from xcrawler.compatibility.write_opener.compatible_write_opener import CompatibleWriteOpener
 from xcrawler.compatibility.object_converter.compatible_object_converter import CompatibleObjectConverter
+from xcrawler.files.writers.csv_writer import CsvWriterFactory
 
 
 class ObjectWriterCsv(ObjectWriter):
@@ -13,27 +13,26 @@ class ObjectWriterCsv(ObjectWriter):
     """
 
     def __init__(self,
-                 file_opener=CompatibleWriteOpener(),
-                 object_converter=CompatibleObjectConverter(),
-                 variables_sorter=VariablesSorter(),
-                 instance_resolver=InstanceResolver()):
+                   file_opener=CompatibleWriteOpener(),
+                   object_converter=CompatibleObjectConverter(),
+                   variables_sorter=VariablesSorter(),
+                   instance_resolver=InstanceResolver(),
+                   csv_writer_factory=CsvWriterFactory()):
         self.file_opener = file_opener
         self.object_converter = object_converter
         self.variables_sorter = variables_sorter
         self.instance_resolver = instance_resolver
+        self.csv_writer_factory = csv_writer_factory
         self.writer = None
 
     def open_file(self, file_name):
-        output_file = self.open_file_and_init_writer(file_name)
+        output_file = self.open_file_and_create_writer(file_name)
         return output_file
 
-    def open_file_and_init_writer(self, file_name):
+    def open_file_and_create_writer(self, file_name):
         output_file = self.file_opener.open_file_write_strings(file_name)
-        self.init_writer(output_file)
+        self.writer = self.csv_writer_factory.create_csv_writer(output_file)
         return output_file
-
-    def init_writer(self, opened_file):
-        self.writer = csv.writer(opened_file, delimiter=' ', quotechar='"', quoting=csv.QUOTE_ALL, lineterminator='\n')
 
     def write_headers(self, instance_object):
         if not self.instance_resolver.is_string(instance_object):
