@@ -2,7 +2,7 @@
 from __future__ import print_function
 import time
 
-from xcrawler.core.config import Config
+from xcrawler.core.config_factory import ConfigFactory
 from xcrawler.threads.executor_factory import ExecutorFactory
 
 
@@ -16,9 +16,10 @@ class XCrawler:
     
     def __init__(self,
                  start_pages,
+                 config_factory=ConfigFactory(),
                  executor_factory=ExecutorFactory()):
         self.start_pages = start_pages
-        self.config = Config()
+        self.config = config_factory.create_config()
         self.executor_factory = executor_factory
 
     def run(self):
