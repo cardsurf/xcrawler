@@ -2,16 +2,20 @@
 
 import unittest
 import mock
+from lxml.etree import HTMLParser
+from lxml.etree import Element
 
 from xcrawler.utils.converters.string_converter import StringConverter
 from xcrawler.utils.types.instance_resolver import InstanceResolver
+from xcrawler.utils.converters.converter_factory import ConverterFactory
 
 
 class TestStringConverter(unittest.TestCase):
 
     def setUp(self):
         instance_resolver = mock.create_autospec(InstanceResolver).return_value
-        self.string_converter = StringConverter(instance_resolver)
+        converter_factory = mock.create_autospec(ConverterFactory).return_value
+        self.string_converter = StringConverter(instance_resolver, converter_factory)
 
     @mock.patch.object(StringConverter, 'convert_to_unicode_string')
     def test_convert_to_byte_string_utf8(self, mock_convert_to_unicode_string):
@@ -26,6 +30,16 @@ class TestStringConverter(unittest.TestCase):
         self.string_converter.instance_resolver.is_unicode_string.return_value = True
         result = self.string_converter.convert_to_unicode_string(mock_string)
         self.assertEquals(result, mock_string)
+
+    @mock.patch('xcrawler.utils.converters.string_converter.HTML')
+    def test_convert_to_tree_elements(self, mock_html_function):
+        mock_html_string = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
+        mock_unicode_parser = mock.create_autospec(HTMLParser).return_value
+        mock_tree_elements = mock.create_autospec(Element).return_value
+        self.string_converter.converter_factory.create_html_parser_unicode.return_value = mock_unicode_parser
+        mock_html_function.return_value = mock_tree_elements
+        result = self.string_converter.convert_to_tree_elements(mock_html_string)
+        self.assertEquals(result, mock_tree_elements)
 
     def test_convert_to_unicode_string_argument_byte_string_utf8(self):
         mock_string = b"mock"
