@@ -3,7 +3,11 @@ import unittest
 import mock
 
 from xcrawler.files.writers.item_writer import ItemWriter
-from xcrawler.files.writers.object_writer_csv import ObjectWriter
+from xcrawler.files.writers.object_writer import ObjectWriter
+from xcrawler.files.writers.object_writer_csv import ObjectWriterCsv
+from xcrawler.files.writers.item_writer import ItemWriterFactory
+from xcrawler.files.writers.writer_factory import WriterFactory
+from xcrawler.utils.filepaths.filepath_splitter import FilePathSplitter
 
 
 class TestItemWriter(unittest.TestCase):
@@ -47,4 +51,36 @@ class TestItemWriter(unittest.TestCase):
         
         self.item_writer.output_file.close.assert_called_once_with()
         
+
+
+
+class TestItemWriterFactory(unittest.TestCase):
+
+    def setUp(self):
+        filepath_splitter = mock.create_autospec(FilePathSplitter).return_value
+        object_writer_factory = mock.create_autospec(WriterFactory).return_value
+        self.item_writer_factory = ItemWriterFactory(filepath_splitter, object_writer_factory)
+
+    @mock.patch.object(ItemWriterFactory, 'create_item_writer_csv')
+    def test_create_item_writer_based_on_file_extension_csv(self, mock_create_item_writer_csv):
+        mock_file_name = "mock.csv"
+        self.item_writer_factory.filepath_splitter.get_file_extension.return_value = ".csv"
+        mock_item_writer = mock.Mock()
+        mock_create_item_writer_csv.return_value = mock_item_writer
+        result = self.item_writer_factory.create_item_writer_based_on_file_extension(mock_file_name)
+        self.assertEquals(result, mock_item_writer)
+
+    def test_create_item_writer_based_on_file_extension_value_error(self):
+        mock_file_name = "mock.exe"
+        self.item_writer_factory.filepath_splitter.get_file_extension.return_value = ".exe"
+        self.assertRaises(ValueError, self.item_writer_factory.create_item_writer_based_on_file_extension, mock_file_name)
+
+    @mock.patch('xcrawler.files.writers.item_writer.ItemWriter')
+    def test_create_item_writer_csv(self, mock_item_writer_class):
+        mock_object_writer_csv = mock.create_autospec(ObjectWriterCsv).return_value
+        mock_item_writer_csv = mock.create_autospec(ItemWriter).return_value
+        self.item_writer_factory.object_writer_factory.create_object_writer_csv.return_value = mock_object_writer_csv
+        mock_item_writer_class.return_value = mock_item_writer_csv
+        result = self.item_writer_factory.create_item_writer_csv()
+        self.assertEquals(result, mock_item_writer_csv)
 

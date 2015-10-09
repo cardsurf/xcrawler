@@ -11,7 +11,7 @@ except ImportError:
 
 from xcrawler.tests.mock import mock_factory
 from xcrawler.files.writers.item_writer import ItemWriter
-from xcrawler.files.writers.writer_factory import WriterFactory
+from xcrawler.files.writers.item_writer import ItemWriterFactory
 from xcrawler.threads.item_processor import ItemProcessor
 from xcrawler.core.crawler.config import Config
 
@@ -39,12 +39,12 @@ class TestItemProcessor(unittest.TestCase):
         self.item_processor.process_item(mock_item)
         self.item_processor.item_writer.write_item.assert_called_once_with(mock_item)
 
-    @mock.patch('xcrawler.threads.item_processor.WriterFactory')
-    def test_open_output_file_if_needed_is_needed(self, mock_writer_factory_class):
+    @mock.patch('xcrawler.threads.item_processor.ItemWriterFactory')
+    def test_open_output_file_if_needed_is_needed(self, mock_item_writer_factory_class):
         mock_item_writer = mock.create_autospec(ItemWriter).return_value
-        mock_writer_factory_instance =  mock.create_autospec(WriterFactory).return_value
+        mock_writer_factory_instance =  mock.create_autospec(ItemWriterFactory).return_value
         mock_writer_factory_instance.create_item_writer_based_on_file_extension.return_value = mock_item_writer
-        mock_writer_factory_class.return_value = mock_writer_factory_instance
+        mock_item_writer_factory_class.return_value = mock_writer_factory_instance
 
         self.item_processor.config.output_mode = Config.OUTPUT_MODE_FILE
         self.item_processor.open_output_file_if_needed()

@@ -1,4 +1,6 @@
 
+import csv
+
 from xcrawler.utils.types.instance_resolver import InstanceResolver
 from xcrawler.utils.sorters.variables_sorter import VariablesSorter
 from xcrawler.files.writers.object_writer import ObjectWriter
@@ -13,11 +15,11 @@ class ObjectWriterCsv(ObjectWriter):
     """
 
     def __init__(self,
-                   file_opener=CompatibleWriteOpener(),
-                   object_converter=CompatibleObjectConverter(),
-                   variables_sorter=VariablesSorter(),
-                   instance_resolver=InstanceResolver(),
-                   csv_writer_factory=CsvWriterFactory()):
+                 file_opener=CompatibleWriteOpener(),
+                 object_converter=CompatibleObjectConverter(),
+                 variables_sorter=VariablesSorter(),
+                 instance_resolver=InstanceResolver(),
+                 csv_writer_factory=CsvWriterFactory()):
         self.file_opener = file_opener
         self.object_converter = object_converter
         self.variables_sorter = variables_sorter
