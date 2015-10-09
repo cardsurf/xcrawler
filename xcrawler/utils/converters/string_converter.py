@@ -1,8 +1,7 @@
-
 from lxml.etree import HTML
 
 from xcrawler.utils.types.instance_resolver import InstanceResolver
-from xcrawler.utils.converters.converter_factory import ConverterFactory
+from xcrawler.http.parsers.html_parser_factory import HtmlParserFactory
 
 
 class StringConverter:
@@ -11,9 +10,9 @@ class StringConverter:
     """
     def __init__(self,
                  instance_resolver=InstanceResolver(),
-                 converter_factory=ConverterFactory()):
+                 html_parser_factory=HtmlParserFactory()):
         self.instance_resolver = instance_resolver
-        self.converter_factory = converter_factory
+        self.html_parser_factory = html_parser_factory
 
     def convert_to_byte_string_utf8(self, string):
         unicode_string = self.convert_to_unicode_string(string)
@@ -27,7 +26,7 @@ class StringConverter:
         return unicode_string
 
     def convert_to_tree_elements(self, html_string):
-        unicode_parser = self.converter_factory.create_html_parser_unicode()
+        unicode_parser = self.html_parser_factory.create_html_parser_unicode()
         tree_elements = HTML(html_string, parser=unicode_parser)
         return tree_elements
     

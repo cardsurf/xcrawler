@@ -1,18 +1,17 @@
-
-
 import unittest
+
 import mock
 from lxml.etree import HTMLParser
 
-from xcrawler.utils.converters.converter_factory import ConverterFactory
+from xcrawler.http.parsers.html_parser_factory import HtmlParserFactory
 
 
-class TestConverterFactory(unittest.TestCase):
+class TestHtmlParserFactory(unittest.TestCase):
 
     def setUp(self):
-        self.converter_factory = ConverterFactory()
+        self.converter_factory = HtmlParserFactory()
 
-    @mock.patch('xcrawler.utils.converters.converter_factory.HTMLParser')
+    @mock.patch('xcrawler.http.parsers.html_parser_factory.HTMLParser')
     def test_create_html_parser_unicode(self, mock_html_parser_class):
         mock_html_parser = mock.create_autospec(HTMLParser).return_value
         mock_html_parser_class.return_value = mock_html_parser
