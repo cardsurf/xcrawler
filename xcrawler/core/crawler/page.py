@@ -10,7 +10,7 @@ from lxml import etree
 
 from xcrawler.http.urls.url_mixer import UrlMixer
 from xcrawler.core.extractor.extractor_factory import ExtractorFactory
-from xcrawler.http.requests.request_factory import RequestFactory
+from xcrawler.http.requests.request import RequestFactory
 
 
 class Page(object):
