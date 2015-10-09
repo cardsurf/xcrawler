@@ -17,12 +17,14 @@ except ImportError:
 
 
 from xcrawler.http.requests.page_requester import PageRequester
+from xcrawler.utils.converters.string_converter import StringConverter
 
 
 class TestPageRequester(unittest.TestCase):
 
     def setUp(self):
-        self.page_requester = PageRequester()
+        string_converter = mock.create_autospec(StringConverter).return_value
+        self.page_requester = PageRequester(string_converter)
 
     @mock.patch('xcrawler.http.requests.page_requester.Request')
     @mock.patch.object(PageRequester, 'send_request')
@@ -36,38 +38,13 @@ class TestPageRequester(unittest.TestCase):
         self.assertEquals(result, mock_content)
 
     @mock.patch('xcrawler.http.requests.page_requester.urlopen')
-    @mock.patch.object(PageRequester, 'convert_to_element')
-    def test_send_request(self, mock_convert_to_element, mock_urlopen):
+    def test_send_request(self, mock_urlopen):
         mock_request = mock.create_autospec(Request).return_value
         mock_file_content = mock.Mock()
         mock_string_content = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
         mock_element_content = mock.create_autospec(Element).return_value
         mock_urlopen.return_value = mock_file_content
         mock_file_content.read.return_value = mock_string_content
-        mock_convert_to_element.return_value = mock_element_content
+        self.page_requester.string_converter.convert_to_tree_elements.return_value = mock_element_content
         result = self.page_requester.send_request(mock_request)
-        self.assertEquals(result, mock_element_content)
-
-    @mock.patch('xcrawler.http.requests.page_requester.urlopen')
-    @mock.patch.object(PageRequester, 'convert_to_element')
-    def test_send_request(self, mock_convert_to_element, mock_urlopen):
-        mock_request = mock.create_autospec(Request).return_value
-        mock_file_content = mock.Mock()
-        mock_string_content = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
-        mock_element_content = mock.create_autospec(Element).return_value
-        mock_urlopen.return_value = mock_file_content
-        mock_file_content.read.return_value = mock_string_content
-        mock_convert_to_element.return_value = mock_element_content
-        result = self.page_requester.send_request(mock_request)
-        self.assertEquals(result, mock_element_content)
-
-    @mock.patch('xcrawler.http.requests.page_requester.HTMLParser')
-    @mock.patch('xcrawler.http.requests.page_requester.HTML')
-    def test_convert_to_element(self, mock_html_class, mock_htmlparser_class):
-        mock_string_content = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
-        mock_html_parser = mock.Mock()
-        mock_element_content = mock.create_autospec(Element).return_value
-        mock_htmlparser_class.return_value = mock_html_parser
-        mock_html_class.return_value = mock_element_content
-        result = self.page_requester.convert_to_element(mock_string_content)
         self.assertEquals(result, mock_element_content)
