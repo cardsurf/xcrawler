@@ -1,8 +1,8 @@
 
-from xcrawler.utils.converters.object_converter import ObjectConverter
+from xcrawler.compatibility.compatibility_factory import CompatibilityFactory
 
 
-class PageScraper:
+class PageScraper(object):
     """A user-defined page scraper that extracts data and urls from a web page.
     
     A user defines how to extract data and urls from a web page using the following methods:
@@ -10,8 +10,9 @@ class PageScraper:
         `visit`: returns next Pages to be visited.
     """
 
-    def __init__(self, object_converter=ObjectConverter()):
-        self.object_converter = object_converter
+    def __init__(self,
+                 compatiblity_factory=CompatibilityFactory()):
+        self.object_converter = compatiblity_factory.create_compatible_object_converter()
 
     def extract(self, page):
         """

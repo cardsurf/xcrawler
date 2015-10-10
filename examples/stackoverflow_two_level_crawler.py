@@ -27,6 +27,7 @@ class QuestionAndUrlsScraper(PageScraper):
 
 class QuestionsOnlyScraper(PageScraper):
     def __init__(self):
+        super(QuestionsOnlyScraper, self).__init__()
         self.scraper = QuestionAndUrlsScraper()
 
     def extract(self, page):
