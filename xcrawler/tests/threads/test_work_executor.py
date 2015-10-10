@@ -11,7 +11,6 @@ from xcrawler.tests.mock import mock_factory
 from xcrawler.threads.work_executor import WorkExecutor
 from xcrawler.threads.page_processor import PageProcessor
 from xcrawler.threads.item_processor import ItemProcessor
-from xcrawler.threads.queue import QueueFactory
 from xcrawler.threads.thread_factory import ThreadFactory
 from xcrawler.threads.work_executor import WorkExecutorFactory
 from xcrawler.core.crawler.config import Config
@@ -21,11 +20,10 @@ class TestWorkExecutor(unittest.TestCase):
 
     def setUp(self):
         mock_config = mock_factory.create_mock_config()
-        queue_factory = mock.create_autospec(QueueFactory).return_value
+        page_queue = mock.create_autospec(queue).return_value
+        item_queue = mock.create_autospec(queue).return_value
         thread_factory = mock.create_autospec(ThreadFactory).return_value
-        self.work_executor = WorkExecutor(mock_config, queue_factory, thread_factory)
-        self.work_executor.page_queue = mock.create_autospec(queue).return_value
-        self.work_executor.item_queue = mock.create_autospec(queue).return_value
+        self.work_executor = WorkExecutor(mock_config, page_queue, item_queue, thread_factory)
         self.work_executor.item_processor = mock.create_autospec(ItemProcessor).return_value
 
     def test_spawn_page_queue_threads(self):

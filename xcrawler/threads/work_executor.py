@@ -5,7 +5,6 @@ except ImportError:
     import queue
 
 from xcrawler.threads.thread_factory import ThreadFactory
-from xcrawler.threads.queue import QueueFactory
 
 
 class WorkExecutor:
@@ -15,11 +14,12 @@ class WorkExecutor:
     
     def __init__(self,
                  config,
-                 queue_factory=QueueFactory(),
+                 page_queue=queue.Queue(),
+                 item_queue=queue.Queue(),
                  thread_factory=ThreadFactory()):
         self.config = config
-        self.page_queue = queue_factory.create_queue()
-        self.item_queue = queue_factory.create_queue()
+        self.page_queue = page_queue
+        self.item_queue = item_queue
         self.item_processor = None
         self.thread_factory = thread_factory
         self.spawn_worker_threads()
