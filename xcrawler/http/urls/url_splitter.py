@@ -1,16 +1,19 @@
 
-import re
 try:
     from urlparse import urlparse
 except ImportError:
     from urllib.parse import urlparse
+
+from xcrawler.http.urls.url_validator import UrlValidator
 
 
 class UrlSplitter:
     """Splits an url into smaller parts.
 
     """
-    def __init__(self):
+    def __init__(self,
+                 url_validator=UrlValidator()):
+        self.url_validator = url_validator
         self.protocol_domain_separator = "//"
         self.path_separator = "/"
 
@@ -27,14 +30,9 @@ class UrlSplitter:
     def add_protocol_domain_separator(self, url):
         url = url.lstrip(self.path_separator)
         first_part_url = url.split(self.path_separator)[0]
-        if self.is_domain(first_part_url):
+        if self.url_validator.is_domain(first_part_url):
             url = self.protocol_domain_separator + url
         return url
-
-    def is_domain(self, string):
-        is_domain_regex = "^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}$"
-        match = re.match(is_domain_regex, string)
-        return match is not None
 
     def get_part_url(self, string_pattern, parsed_url):
         part = string_pattern.format(uri=parsed_url)
