@@ -8,7 +8,7 @@ except ImportError:
     from urllib.parse import urlparse
 from lxml import etree
 
-from xcrawler.http.urls.url_mixer import UrlMixer
+from xcrawler.http.urls.url_joiner import UrlJoiner
 from xcrawler.core.extractor.extractor_factory import ExtractorFactory
 from xcrawler.http.requests.request import RequestFactory
 
@@ -30,14 +30,14 @@ class Page(object):
                  page_scraper,
                  request_factory=RequestFactory(),
                  extractor_factory=ExtractorFactory(),
-                 url_mixer=UrlMixer()):
+                 url_joiner=UrlJoiner()):
         self.url = url   
         self.scraper = page_scraper
         self._content = None
         self.extractor = None
         self.request = request_factory.create_request(self.url)
         self.extractor_factory = extractor_factory
-        self.url_mixer = url_mixer
+        self.url_joiner = url_joiner
 
     @property
     def content(self):
@@ -109,7 +109,7 @@ class Page(object):
         :param link: link to a web page.
         :returns: a web page url.
         """
-        url = self.url_mixer.mix_protocol_domain(self.url, link)
+        url = self.url_joiner.join_protocol_domain(self.url, link)
         return url
 
     def __str__(self):
