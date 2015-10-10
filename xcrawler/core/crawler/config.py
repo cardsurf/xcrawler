@@ -32,15 +32,3 @@ class Config(object):
                      Config.OUTPUT_MODE_NONE]:      
             self.__output_mode = value
 
-
-class ConfigFactory:
-    """Creates an instance of the Config class.
-
-    """
-    def __init__(self):
-        pass
-
-    def create_config(self):
-        config = Config()
-        return config
-

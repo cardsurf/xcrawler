@@ -4,7 +4,7 @@ import mock
 
 from xcrawler.tests.mock import mock_factory
 from xcrawler.core.crawler.crawler import XCrawler
-from xcrawler.core.crawler.config import ConfigFactory
+from xcrawler.core.crawler.config import Config
 from xcrawler.threads.work_executor import WorkExecutor
 from xcrawler.threads.work_executor import WorkExecutorFactory
 
@@ -13,9 +13,9 @@ class TestXCrawler(unittest.TestCase):
     
     def setUp(self):
         start_pages = mock_factory.create_mock_pages(10)
-        config_factory = mock.create_autospec(ConfigFactory).return_value
+        config = mock.create_autospec(Config).return_value
         work_executor_factory = mock.create_autospec(WorkExecutorFactory).return_value
-        self.crawler = XCrawler(start_pages, config_factory, work_executor_factory)
+        self.crawler = XCrawler(start_pages, config, work_executor_factory)
 
     def test_run_argument_empty_start_pages(self):
         mock_executor = mock.create_autospec(WorkExecutor).return_value
