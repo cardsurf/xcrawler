@@ -7,7 +7,9 @@ from xcrawler.compatibility.object_converter.object_converter_python3 import Obj
 
 
 class CompatibilityFactory:
+    """Creates an object depending on the version of Python.
 
+    """
     def __init__(self, python_info=PythonInfo()):
         self.python_info = python_info
 

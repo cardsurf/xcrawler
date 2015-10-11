@@ -22,7 +22,7 @@ class Page(object):
         content (Element): the content of a web page represented as an Element object.
             More information about an Element object: http://effbot.org/zone/element.htm
         extractor (Extractor): extracts data from an Element object.
-        request (Request): the request send to a web server to fetch a web page.
+        request (urllib.Request): the request send to a web server to fetch a web page.
     """
     
     def __init__(self,
@@ -91,10 +91,10 @@ class Page(object):
 
     def to_urls(self, links):
         """
-        This methods converts relative or absolute links to urls.
-        If a link does not start with a domain name of a page then the domain name is prepended to the link.
-        :param links: the list of links to web pages.
-        :returns: the list of web page urls.
+        This methods converts links to absolute urls.
+        If a link does not have a protocol or a domain then the protocol or the domain of the page is added to the link.
+        :param links: the list of links.
+        :returns: a list of urls.
         """
         urls = []
         for link in links:
@@ -104,10 +104,10 @@ class Page(object):
 
     def to_url(self, link):
         """
-        This methods converts relative or absolute link to url.
-        If a link does not start with a domain name of a page then the domain name is prepended to the link.
-        :param link: link to a web page.
-        :returns: a web page url.
+        This methods converts a link to an absolute url.
+        If a link does not have a protocol or a domain then the protocol or the domain of the page is added to the link.
+        :param link: the link.
+        :returns: an url.
         """
         url = self.url_joiner.join_protocol_domain(self.url, link)
         return url

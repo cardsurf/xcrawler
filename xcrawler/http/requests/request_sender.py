@@ -8,10 +8,9 @@ from xcrawler.pythonutils.converters.string_converter import StringConverter
 
 
 class RequestSender:
-    """Fetches a web page content as an Element object.
+    """Fetches a web page as an Element object.
 
     """
-
     def __init__(self,
                  string_converter=StringConverter()):
         self.string_converter = string_converter

@@ -4,7 +4,7 @@ class Extractor:
     """Extracts data from an instance of an Element object.
 
     Attributes:
-        root_element (Element): an instance of an Element object that contains nested elements.
+        root_element (Element): an instance of an Element object that contains nested Elements.
         extractor_xpath (ExtractorXPath): extracts data from an Element object with XPath expressions.
         extractor_css (ExtractorCss): extracts data from an Element object with CSS selectors.
     """

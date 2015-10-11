@@ -3,7 +3,7 @@ from xcrawler.compatibility.object_converter.compatible_object_converter import 
 
 
 class ObjectConverterPython2(CompatibleObjectConverter):
-    """A Python 2 compatible class for converting objects to strings.
+    """A Python 2 compatible class for converting an object to a specified type.
 
     """
     def convert_to_string(self, o):

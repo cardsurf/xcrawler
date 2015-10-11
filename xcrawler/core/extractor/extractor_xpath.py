@@ -7,7 +7,7 @@ class ExtractorXPath:
     """Extracts data from an instance of an Element object with XPath expressions.
 
     Attributes:
-        root_element (Element): an instance of an Element object that contains nested elements.
+        root_element (Element): an instance of an Element object that contains nested Elements.
         collection_factory (CollectionFactory): creates a collection of the specified type.
         string_converter(StringConverter): converts a string to an unicode string.
     """
@@ -23,7 +23,7 @@ class ExtractorXPath:
     def xpath(self, path):
         """
         :param path: the XPath expression.
-        :returns: a FallbackList of Element objects that match the XPath expression.
+        :returns: a FallbackList of elements that match the XPath expression.
         """
         path = self.string_converter.convert_to_unicode_string(path)
         result = self.root_element.xpath(path)

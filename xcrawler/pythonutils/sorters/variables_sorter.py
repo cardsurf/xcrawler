@@ -3,7 +3,7 @@ from xcrawler.pythonutils.sorters.dictionary_sorter import DictionarySorter
 
 
 class VariablesSorter:
-    """Sorts variables names and values of an object.
+    """Sorts variable names and values of an object.
 
     """
     def __init__(self, dictionary_sorter=DictionarySorter()):

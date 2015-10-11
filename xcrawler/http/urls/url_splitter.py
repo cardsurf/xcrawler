@@ -4,8 +4,6 @@ try:
 except ImportError:
     from urllib.parse import urlparse
 
-from xcrawler.http.urls.url_validator import UrlValidator
-
 
 class UrlSplitter:
     """Splits an url into smaller parts.

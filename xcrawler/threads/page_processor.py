@@ -14,10 +14,9 @@ from xcrawler.http.requests.request_sender import RequestSender
 
 
 class PageProcessor(threading.Thread):
-    """A thread used to fetch a content of a web page.
-    
+    """A thread that fetches a web page.
+
     """
-    
     def __init__(self,
                  config,
                  page_queue,

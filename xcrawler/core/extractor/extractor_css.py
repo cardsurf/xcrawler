@@ -9,10 +9,10 @@ class ExtractorCss:
     """Extracts data from an instance of an Element object with CSS selectors.
 
     Attributes:
-        root_element (Element): an instance of an Element object that contains nested elements.
+        root_element (Element): an instance of an Element object that contains nested Elements.
         cssselector_factory (CSSSelectorFactory): creates an instance of the CSSSelector class.
         collection_factory (CollectionFactory): creates a collection of the specified type.
-        string_converter(StringConverter): converts a string to an unicode string.
+        string_converter (StringConverter): converts a string to a specified type.
     """
 
     def __init__(self,

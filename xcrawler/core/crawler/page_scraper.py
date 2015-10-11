@@ -32,7 +32,7 @@ class PageScraper(object):
         A web page may contain urls to other web pages that need to be visited to extract data.
         A Crawler will visit extracted urls one by one.
         :param page: the instance of Page that contains web page data.
-        :returns: a list of Pages to be visited by a crawler.
+        :returns: a list of Pages or a single Page.
         """
         return []
 

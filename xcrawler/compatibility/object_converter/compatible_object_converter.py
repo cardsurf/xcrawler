@@ -5,7 +5,7 @@ from xcrawler.pythonutils.converters.object_converter import ObjectConverter
 
 
 class CompatibleObjectConverter(ObjectConverter):
-    """A Python 2 and 3 compatible class for converting objects to string.
+    """A Python 2 and 3 compatible class for converting an object to a specified type.
 
     """
     @abc.abstractmethod

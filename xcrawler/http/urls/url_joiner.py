@@ -12,7 +12,6 @@ class UrlJoiner:
     """Replaces missing parts of the second url with the parts of the first url.
 
     """
-
     def __init__(self,
                  url_formatter=UrlFormatter(),
                  url_splitter=UrlSplitter()):

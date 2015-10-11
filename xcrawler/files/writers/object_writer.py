@@ -3,7 +3,7 @@ import abc
 
 
 class ObjectWriter:
-    """A base class for writing objects to a file in a specific format.
+    """A base class for writing objects to a file in a specified format.
 
     """
     __metaclass__ = abc.ABCMeta

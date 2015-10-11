@@ -3,10 +3,9 @@ from sys import version_info
 
 
 class PythonInfo:
-    """Gets information about a running Python version.
+    """Gets information about the version of Python.
 
     """
-
     def __init__(self):
         pass
 

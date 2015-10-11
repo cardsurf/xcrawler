@@ -4,10 +4,9 @@ from xcrawler.pythonutils.converters.string_converter import StringConverter
 
 
 class ObjectConverter:
-    """Converts an instance of object to a specified type.
+    """Converts an object to a specified type.
 
     """
-
     def __init__(self,
                  string_converter=StringConverter(),
                  instance_resolver=InstanceResolver()):

@@ -3,7 +3,7 @@ from six import string_types, binary_type, text_type
 
 
 class InstanceResolver:
-    """Tests if an object is an instance of a specified type.
+    """Determines if an object is an instance of a specified type.
 
     """
     def is_string(self, o):
