@@ -1,8 +1,8 @@
-
 import unittest
+
 import mock
 
-from xcrawler.tests.mock import mock_factory
+from tests.mock import mock_factory
 from xcrawler.pythonutils.converters.object_converter import ObjectConverter
 from xcrawler.pythonutils.converters.object_converter import StringConverter
 from xcrawler.pythonutils.types.instance_resolver import InstanceResolver

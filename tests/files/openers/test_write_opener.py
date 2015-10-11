@@ -14,7 +14,7 @@ class TestWriteOpener(unittest.TestCase):
     def setUp(self):
         self.file_opener_write = WriteOpener()
 
-    @mock.patch('xcrawler.tests.files.openers.test_write_opener.builtins.open')
+    @mock.patch('tests.files.openers.test_write_opener.builtins.open')
     def test_open_file_write_byte_strings(self, mock_open_function):
         mock_filename = "file.csv"
         mock_file = mock.Mock()
@@ -22,7 +22,7 @@ class TestWriteOpener(unittest.TestCase):
         result = self.file_opener_write.open_file_write_byte_strings(mock_filename)
         self.assertEquals(result, mock_file)
 
-    @mock.patch('xcrawler.tests.files.openers.test_write_opener.builtins.open')
+    @mock.patch('tests.files.openers.test_write_opener.builtins.open')
     def test_open_file_write_unicode_strings(self, mock_open_function):
         mock_filename = "file.csv"
         mock_file = mock.Mock()

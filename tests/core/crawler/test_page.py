@@ -3,7 +3,7 @@ import unittest
 import mock
 from lxml.etree import Element
 
-from xcrawler.tests.mock import mock_factory
+from tests.mock import mock_factory
 from xcrawler.core.crawler.page import Page
 from xcrawler.core.extractor.extractor_factory import ExtractorFactory
 from xcrawler.http.requests.request import RequestFactory

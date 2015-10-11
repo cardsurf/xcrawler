@@ -9,7 +9,7 @@ except ImportError:
     import queue
     import builtins
 
-from xcrawler.tests.mock import mock_factory
+from tests.mock import mock_factory
 from xcrawler.files.writers.item_writer import ItemWriter
 from xcrawler.files.writers.item_writer import ItemWriterFactory
 from xcrawler.threads.item_processor import ItemProcessor
@@ -26,7 +26,7 @@ class TestItemProcessor(unittest.TestCase):
         self.item_processor.item_writer = mock_item_writer
         self.item_processor.no_items_received = True
         
-    @mock.patch('xcrawler.tests.threads.test_item_processor.builtins.print')
+    @mock.patch('tests.threads.test_item_processor.builtins.print')
     def test_process_item_output_mode_print(self, mock_print_function):
         self.item_processor.config.output_mode = Config.OUTPUT_MODE_PRINT
         mock_item = mock.Mock()

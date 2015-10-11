@@ -9,7 +9,7 @@ except ImportError:
     import queue
     import builtins
 
-from xcrawler.tests.mock import mock_factory
+from tests.mock import mock_factory
 from xcrawler.threads.page_processor import PageProcessor
 from xcrawler.http.requests.request_sender import RequestSender
 
@@ -39,7 +39,7 @@ class TestPageProcessor(unittest.TestCase):
         mock_put_extracted_pages_in_queue.assert_called_once_with(mock_page)
         mock_put_extracted_items_in_queue.assert_called_once_with(mock_page)
 
-    @mock.patch('xcrawler.tests.threads.test_page_processor.builtins.print')
+    @mock.patch('tests.threads.test_page_processor.builtins.print')
     def test_handle_url_error_exception(self, mock_print_function):
         mock_page = mock.Mock()
         mock_page.url = "http://mockurl.mock"
@@ -48,7 +48,7 @@ class TestPageProcessor(unittest.TestCase):
         self.page_processor.handle_url_error_exception(mock_page, mock_exception)
         self.assertEquals(mock_print_function.call_count, 2)
      
-    @mock.patch('xcrawler.tests.threads.test_page_processor.builtins.print')
+    @mock.patch('tests.threads.test_page_processor.builtins.print')
     def test_handle_bad_status_line_exception(self, mock_print_function):
         mock_page = mock.Mock()
         mock_page.url = "http://mockurl.mock"
@@ -57,7 +57,7 @@ class TestPageProcessor(unittest.TestCase):
         self.page_processor.handle_bad_status_line_exception(mock_page, mock_exception)
         self.assertEquals(mock_print_function.call_count, 2)
         
-    @mock.patch('xcrawler.tests.threads.test_page_processor.builtins.print')
+    @mock.patch('tests.threads.test_page_processor.builtins.print')
     def test_handle_socket_timeout_exception(self, mock_print_function):
         mock_page = mock.Mock()
         mock_page.url = "http://mockurl.mock"
@@ -66,7 +66,7 @@ class TestPageProcessor(unittest.TestCase):
         self.page_processor.handle_socket_timeout_exception(mock_page, mock_exception)
         self.assertEquals(mock_print_function.call_count, 2)
 
-    @mock.patch('xcrawler.tests.threads.test_page_processor.builtins.print')
+    @mock.patch('tests.threads.test_page_processor.builtins.print')
     def test_handle_base_exception(self, mock_print_function):
         mock_page = mock.Mock()
         mock_page.url = "http://mockurl.mock"

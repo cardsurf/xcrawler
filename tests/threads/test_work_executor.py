@@ -7,7 +7,7 @@ try:
 except ImportError:
     import queue
 
-from xcrawler.tests.mock import mock_factory
+from tests.mock import mock_factory
 from xcrawler.threads.work_executor import WorkExecutor
 from xcrawler.threads.page_processor import PageProcessor
 from xcrawler.threads.item_processor import ItemProcessor

@@ -2,7 +2,7 @@ import unittest
 
 import mock
 
-from xcrawler.tests.mock import mock_factory
+from tests.mock import mock_factory
 from xcrawler.core.crawler.crawler import XCrawler
 from xcrawler.core.crawler.config import Config
 from xcrawler.threads.work_executor import WorkExecutor
