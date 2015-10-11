@@ -1,5 +1,10 @@
 # Changelog
 
+### Version 1.2.0
+Added support for Python 3
+Improved converting links to absolute urls
+Added a request attribute to the Page class
+
 ### Version 1.1.0
 Added support for CSS selectors  
 Added examples of using CSS selectors  
