@@ -1,5 +1,5 @@
 
-from xcrawler.utils.sorters.dictionary_sorter import DictionarySorter
+from xcrawler.pythonutils.sorters.dictionary_sorter import DictionarySorter
 
 
 class VariablesSorter:

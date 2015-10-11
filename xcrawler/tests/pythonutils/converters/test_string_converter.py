@@ -4,8 +4,8 @@ import mock
 from lxml.etree import HTMLParser
 from lxml.etree import Element
 
-from xcrawler.utils.converters.string_converter import StringConverter
-from xcrawler.utils.types.instance_resolver import InstanceResolver
+from xcrawler.pythonutils.converters.string_converter import StringConverter
+from xcrawler.pythonutils.types.instance_resolver import InstanceResolver
 from xcrawler.http.requests.html_parser import HtmlParserFactory
 
 
@@ -30,7 +30,7 @@ class TestStringConverter(unittest.TestCase):
         result = self.string_converter.convert_to_unicode_string(mock_string)
         self.assertEquals(result, mock_string)
 
-    @mock.patch('xcrawler.utils.converters.string_converter.HTML')
+    @mock.patch('xcrawler.pythonutils.converters.string_converter.HTML')
     def test_convert_to_tree_elements(self, mock_html_function):
         mock_html_string = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
         mock_unicode_parser = mock.create_autospec(HTMLParser).return_value

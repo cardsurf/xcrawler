@@ -8,7 +8,7 @@ from xcrawler.core.extractor.extractor_css import ExtractorCss
 from xcrawler.collections.fallback_list import FallbackList
 from xcrawler.core.extractor.css_selector import CSSSelectorFactory
 from xcrawler.collections.collection_factory import CollectionFactory
-from xcrawler.utils.converters.string_converter import StringConverter
+from xcrawler.pythonutils.converters.string_converter import StringConverter
 from xcrawler.tests.mock import mock_factory
 
 

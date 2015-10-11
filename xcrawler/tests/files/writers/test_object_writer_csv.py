@@ -6,8 +6,8 @@ import csv
 from xcrawler.files.writers.object_writer_csv import ObjectWriterCsv
 from xcrawler.compatibility.write_opener.compatible_write_opener import CompatibleWriteOpener
 from xcrawler.compatibility.object_converter.compatible_object_converter import CompatibleObjectConverter
-from xcrawler.utils.sorters.variables_sorter import VariablesSorter
-from xcrawler.utils.types.instance_resolver import InstanceResolver
+from xcrawler.pythonutils.sorters.variables_sorter import VariablesSorter
+from xcrawler.pythonutils.types.instance_resolver import InstanceResolver
 from xcrawler.files.writers.csv_writer import CsvWriterFactory
 
 

@@ -11,7 +11,7 @@ except ImportError:
 
 
 from xcrawler.http.requests.request_sender import RequestSender
-from xcrawler.utils.converters.string_converter import StringConverter
+from xcrawler.pythonutils.converters.string_converter import StringConverter
 
 
 class TestRequestSender(unittest.TestCase):

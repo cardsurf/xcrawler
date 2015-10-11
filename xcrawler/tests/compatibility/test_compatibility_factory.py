@@ -3,7 +3,7 @@ import unittest
 import mock
 
 from xcrawler.compatibility.compatibility_factory import CompatibilityFactory
-from xcrawler.utils.info.python_info import PythonInfo
+from xcrawler.pythonutils.info.python_info import PythonInfo
 
 
 class TestCompatibilityFactory(unittest.TestCase):

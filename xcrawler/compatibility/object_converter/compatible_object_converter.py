@@ -1,7 +1,7 @@
 
 import abc
 
-from xcrawler.utils.converters.object_converter import ObjectConverter
+from xcrawler.pythonutils.converters.object_converter import ObjectConverter
 
 
 class CompatibleObjectConverter(ObjectConverter):

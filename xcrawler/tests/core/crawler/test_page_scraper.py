@@ -4,7 +4,7 @@ import mock
 
 from xcrawler.core.crawler.page_scraper import PageScraper
 from xcrawler.core.crawler.page import Page
-from xcrawler.utils.converters.object_converter import ObjectConverter
+from xcrawler.pythonutils.converters.object_converter import ObjectConverter
 
 
 class TestPageScraper(unittest.TestCase):

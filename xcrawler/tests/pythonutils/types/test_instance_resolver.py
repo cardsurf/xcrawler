@@ -2,7 +2,7 @@
 import unittest
 import mock
 
-from xcrawler.utils.types.instance_resolver import InstanceResolver
+from xcrawler.pythonutils.types.instance_resolver import InstanceResolver
 
 
 class TestInstanceResolver(unittest.TestCase):

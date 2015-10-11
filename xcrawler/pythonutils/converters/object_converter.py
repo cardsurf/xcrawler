@@ -1,6 +1,6 @@
 
-from xcrawler.utils.types.instance_resolver import InstanceResolver
-from xcrawler.utils.converters.string_converter import StringConverter
+from xcrawler.pythonutils.types.instance_resolver import InstanceResolver
+from xcrawler.pythonutils.converters.string_converter import StringConverter
 
 
 class ObjectConverter:

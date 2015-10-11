@@ -6,7 +6,7 @@ from lxml.etree import Element
 from xcrawler.core.extractor.extractor_xpath import ExtractorXPath
 from xcrawler.collections.fallback_list import FallbackList
 from xcrawler.collections.collection_factory import CollectionFactory
-from xcrawler.utils.converters.string_converter import StringConverter
+from xcrawler.pythonutils.converters.string_converter import StringConverter
 
 
 class TestExtractorXPath(unittest.TestCase):

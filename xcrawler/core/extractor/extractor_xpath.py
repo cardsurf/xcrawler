@@ -1,5 +1,5 @@
 
-from xcrawler.utils.converters.string_converter import StringConverter
+from xcrawler.pythonutils.converters.string_converter import StringConverter
 from xcrawler.collections.collection_factory import CollectionFactory
 
 

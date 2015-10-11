@@ -2,8 +2,8 @@
 import unittest
 import mock
 
-from xcrawler.utils.sorters.dictionary_sorter import DictionarySorter
-from xcrawler.utils.sorters.variables_sorter import VariablesSorter
+from xcrawler.pythonutils.sorters.dictionary_sorter import DictionarySorter
+from xcrawler.pythonutils.sorters.variables_sorter import VariablesSorter
 
 
 class TestVariablesSorter(unittest.TestCase):

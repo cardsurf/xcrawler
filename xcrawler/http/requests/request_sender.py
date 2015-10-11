@@ -4,7 +4,7 @@ try:
 except ImportError:
     from urllib.request import urlopen
 
-from xcrawler.utils.converters.string_converter import StringConverter
+from xcrawler.pythonutils.converters.string_converter import StringConverter
 
 
 class RequestSender:
