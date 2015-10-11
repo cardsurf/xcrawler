@@ -7,7 +7,7 @@ except ImportError:
 from xcrawler.pythonutils.converters.string_converter import StringConverter
 
 
-class RequestSender:
+class RequestSender(object):
     """Fetches a web page as an Element object.
 
     """

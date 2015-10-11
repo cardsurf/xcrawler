@@ -10,7 +10,6 @@ class ItemProcessor(threading.Thread):
     """A thread that processes data extracted from web pages.
     
     """
-    
     def __init__(self, config, items_queue):
         threading.Thread.__init__(self)
         self.config = config

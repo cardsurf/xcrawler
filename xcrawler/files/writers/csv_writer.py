@@ -1,7 +1,7 @@
 
 import csv
 
-class CsvWriterFactory:
+class CsvWriterFactory(object):
     """Creates an instance of the csv.writer class.
 
     """

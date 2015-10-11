@@ -3,7 +3,7 @@ from xcrawler.threads.page_processor import PageProcessor
 from xcrawler.threads.item_processor import ItemProcessor
 
 
-class ThreadFactory:
+class ThreadFactory(object):
     """Creates a thread.
 
     """

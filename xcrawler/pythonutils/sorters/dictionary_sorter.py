@@ -1,6 +1,6 @@
 
 
-class DictionarySorter:
+class DictionarySorter(object):
     """Sorts keys and values of a dictionary.
 
     """

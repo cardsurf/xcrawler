@@ -2,7 +2,7 @@
 from xcrawler.collections.fallback_list import FallbackList
 
 
-class CollectionFactory:
+class CollectionFactory(object):
     """Creates a collection of the specified type.
 
     """

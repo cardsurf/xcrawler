@@ -2,7 +2,7 @@
 from sys import version_info
 
 
-class PythonInfo:
+class PythonInfo(object):
     """Gets information about the version of Python.
 
     """

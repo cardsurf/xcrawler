@@ -9,7 +9,6 @@ class PageScraper(object):
         `extract`: returns data extracted from a web page.
         `visit`: returns next Pages to be visited.
     """
-
     def __init__(self,
                  object_converter=ObjectConverter()):
         self.object_converter = object_converter

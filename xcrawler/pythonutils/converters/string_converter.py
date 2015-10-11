@@ -4,7 +4,7 @@ from xcrawler.pythonutils.types.instance_resolver import InstanceResolver
 from xcrawler.http.requests.html_parser import HtmlParserFactory
 
 
-class StringConverter:
+class StringConverter(object):
     """Converts a string to a specified type.
 
     """

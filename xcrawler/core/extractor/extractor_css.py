@@ -5,7 +5,7 @@ from xcrawler.core.extractor.css_selector import CSSSelectorFactory
 from xcrawler.collections.collection_factory import CollectionFactory
 
 
-class ExtractorCss:
+class ExtractorCss(object):
     """Extracts data from an instance of an Element object with CSS selectors.
 
     Attributes:
@@ -14,7 +14,6 @@ class ExtractorCss:
         collection_factory (CollectionFactory): creates a collection of the specified type.
         string_converter (StringConverter): converts a string to a specified type.
     """
-
     def __init__(self,
                  root_element=None,
                  cssselector_factory=CSSSelectorFactory(),

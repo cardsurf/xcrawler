@@ -6,14 +6,13 @@ from xcrawler.core.crawler.config import Config
 from xcrawler.threads.work_executor import WorkExecutorFactory
 
 
-class XCrawler:
+class XCrawler(object):
     """A multi-threaded web crawler.
     
     Attributes:
         start_pages (list[Page]): the start Pages to be visited by a crawler.
         config (Config): the configuration of a crawler.
     """
-    
     def __init__(self,
                  start_pages,
                  config=Config(),

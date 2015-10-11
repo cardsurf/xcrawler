@@ -2,7 +2,7 @@
 import abc
 
 
-class ObjectWriter:
+class ObjectWriter(object):
     """A base class for writing objects to a file in a specified format.
 
     """

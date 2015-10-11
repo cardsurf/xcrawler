@@ -7,11 +7,10 @@ except ImportError:
 from xcrawler.threads.thread_factory import ThreadFactory
 
 
-class WorkExecutor:
+class WorkExecutor(object):
     """Manages a process of visiting web pages.
     
     """
-    
     def __init__(self,
                  config,
                  page_queue=queue.Queue(),
@@ -56,7 +55,7 @@ class WorkExecutor:
 
 
 
-class WorkExecutorFactory:
+class WorkExecutorFactory(object):
     """Creates an instance of the WorkExecutor class.
 
     """

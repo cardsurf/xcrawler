@@ -2,7 +2,7 @@
 import re
 
 
-class UrlValidator:
+class UrlValidator(object):
     """Validates if a string is a valid part of an url.
 
     """

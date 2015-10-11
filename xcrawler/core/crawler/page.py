@@ -24,7 +24,6 @@ class Page(object):
         extractor (Extractor): extracts data from an Element object.
         request (urllib.Request): the request send to a web server to fetch a web page.
     """
-    
     def __init__(self,
                  url,
                  page_scraper,

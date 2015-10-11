@@ -3,7 +3,7 @@ from xcrawler.pythonutils.converters.string_converter import StringConverter
 from xcrawler.collections.collection_factory import CollectionFactory
 
 
-class ExtractorXPath:
+class ExtractorXPath(object):
     """Extracts data from an instance of an Element object with XPath expressions.
 
     Attributes:
@@ -11,7 +11,6 @@ class ExtractorXPath:
         collection_factory (CollectionFactory): creates a collection of the specified type.
         string_converter(StringConverter): converts a string to an unicode string.
     """
-
     def __init__(self,
                  root_element=None,
                  collection_factory=CollectionFactory(),

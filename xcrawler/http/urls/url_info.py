@@ -2,11 +2,10 @@
 from xcrawler.http.urls.url_splitter import UrlSplitter
 
 
-class UrlInfo:
+class UrlInfo(object):
     """Gets information about an url.
 
     """
-
     def __init__(self,
                  url_splitter=UrlSplitter()):
         self.url_splitter = url_splitter

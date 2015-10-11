@@ -6,7 +6,7 @@ from xcrawler.compatibility.object_converter.object_converter_python2 import Obj
 from xcrawler.compatibility.object_converter.object_converter_python3 import ObjectConverterPython3
 
 
-class CompatibilityFactory:
+class CompatibilityFactory(object):
     """Creates an object depending on the version of Python.
 
     """

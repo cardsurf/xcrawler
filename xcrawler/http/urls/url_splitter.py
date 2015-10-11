@@ -5,7 +5,7 @@ except ImportError:
     from urllib.parse import urlparse
 
 
-class UrlSplitter:
+class UrlSplitter(object):
     """Splits an url into smaller parts.
 
     """

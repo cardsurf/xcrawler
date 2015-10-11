@@ -2,7 +2,7 @@
 from six import string_types, binary_type, text_type
 
 
-class InstanceResolver:
+class InstanceResolver(object):
     """Determines if an object is an instance of a specified type.
 
     """

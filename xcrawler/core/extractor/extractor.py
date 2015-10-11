@@ -1,6 +1,6 @@
 
 
-class Extractor:
+class Extractor(object):
     """Extracts data from an instance of an Element object.
 
     Attributes:
@@ -8,7 +8,6 @@ class Extractor:
         extractor_xpath (ExtractorXPath): extracts data from an Element object with XPath expressions.
         extractor_css (ExtractorCss): extracts data from an Element object with CSS selectors.
     """
-
     def __init__(self,
                  root_element=None,
                  extractor_xpath=None,

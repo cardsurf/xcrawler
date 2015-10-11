@@ -8,7 +8,7 @@ from xcrawler.http.urls.url_formatter import UrlFormatter
 from xcrawler.http.urls.url_splitter import UrlSplitter
 
 
-class UrlJoiner:
+class UrlJoiner(object):
     """Replaces missing parts of the second url with the parts of the first url.
 
     """

@@ -2,7 +2,7 @@
 from xcrawler.http.urls.url_validator import UrlValidator
 
 
-class UrlFormatter:
+class UrlFormatter(object):
     """Formats an url string.
 
     """

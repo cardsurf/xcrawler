@@ -2,7 +2,7 @@
 from lxml.cssselect import CSSSelector
 
 
-class CSSSelectorFactory:
+class CSSSelectorFactory(object):
     """Creates an instance of the CSSSelector class.
 
     """

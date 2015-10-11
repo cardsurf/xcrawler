@@ -5,7 +5,7 @@ from xcrawler.files.writers.object_writer_factory import ObjectWriterFactory
 from xcrawler.files.filepaths.filepath_splitter import FilePathSplitter
 
 
-class ItemWriter:
+class ItemWriter(object):
     """Writes data extracted from web pages to an output file.
     
     """
@@ -34,7 +34,7 @@ class ItemWriter:
 
 
 
-class ItemWriterFactory:
+class ItemWriterFactory(object):
     """Creates an instance of the ItemWriter class.
 
     """

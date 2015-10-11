@@ -2,7 +2,7 @@
 from lxml.etree import HTMLParser
 
 
-class HtmlParserFactory:
+class HtmlParserFactory(object):
     """Creates an instance of the HTMLParser class.
 
     """

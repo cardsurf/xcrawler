@@ -5,7 +5,7 @@ except ImportError:
     from urllib.request import Request
 
 
-class RequestFactory:
+class RequestFactory(object):
     """Creates a request sent to a web server.
 
     """

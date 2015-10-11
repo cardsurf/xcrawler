@@ -4,11 +4,10 @@ from xcrawler.core.extractor.extractor_css import ExtractorCss
 from xcrawler.core.extractor.extractor_xpath import ExtractorXPath
 
 
-class ExtractorFactory:
+class ExtractorFactory(object):
     """Creates an extractor.
 
     """
-
     def __init__(self):
         pass
 

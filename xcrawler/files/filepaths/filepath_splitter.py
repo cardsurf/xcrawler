@@ -2,11 +2,10 @@
 import os
 
 
-class FilePathSplitter:
+class FilePathSplitter(object):
     """Splits a path to a file into smaller parts.
 
     """
-
     def __init__(self):
         pass
 
