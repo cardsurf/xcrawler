@@ -46,13 +46,17 @@ class TestStringConverter(unittest.TestCase):
         result = self.string_converter.convert_to_unicode_string(mock_string)
         self.assertEquals(result, u"mock")
 
-    def test_list_convert_string_to_byte_string_utf8(self):
+    @mock.patch.object(StringConverter, 'convert_to_byte_string_utf8')
+    def test_list_convert_string_to_byte_string_utf8(self, mock_convert_to_byte_string_utf8):
         list_strings = ["mock1", b"mock2", u"mock3"]
+        mock_convert_to_byte_string_utf8.side_effect = [b"mock1", b"mock2", b"mock3"]
         result = self.string_converter.list_convert_to_byte_string_utf8(list_strings)
         self.assertEquals(result, [b"mock1", b"mock2", b"mock3"])
 
-    def test_list_convert_string_to_unicode_string(self):
+    @mock.patch.object(StringConverter, 'convert_to_unicode_string')
+    def test_list_convert_string_to_unicode_string(self, mock_convert_to_unicode_string):
         list_strings = ["mock1", b"mock2", u"mock3"]
+        mock_convert_to_unicode_string.side_effect = [u"mock1", u"mock2", u"mock3"]
         result = self.string_converter.list_convert_to_unicode_string(list_strings)
         self.assertEquals(result, [u"mock1", u"mock2", u"mock3"])
 
