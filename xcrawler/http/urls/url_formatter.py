@@ -23,6 +23,3 @@ class UrlFormatter:
         if self.url_validator.is_domain(first_part_url):
             url = self.protocol_domain_separator + url
         return url
-
-    def list_format_to_parsable_url(self, urls):
-        return [self.format_to_parsable_url(url) for url in urls]

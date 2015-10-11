@@ -25,14 +25,3 @@ class TestUrlFormatter(unittest.TestCase):
         result = self.url_formatter.add_protocol_domain_separator(mock_url)
         self.assertEquals(result, "//test.com/link/to/example_page.html")
 
-    @mock.patch.object(UrlFormatter, 'format_to_parsable_url')
-    def test_list_format_to_parsable_url(self, mock_format_to_parsable_url):
-        mock_url1 = "/test.com/link/to/example_page.html"
-        mock_url2 = "test.com/link/to/example_page.html"
-        mock_urls = [mock_url1, mock_url2]
-        mock_format_to_parsable_url.return_value = "//test.com/link/to/example_page.html"
-        result = self.url_formatter.list_format_to_parsable_url(mock_urls)
-        self.assertEquals(result, ["//test.com/link/to/example_page.html", "//test.com/link/to/example_page.html"])
-
-
-
