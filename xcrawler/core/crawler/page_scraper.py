@@ -1,5 +1,5 @@
 
-from xcrawler.compatibility.compatibility_factory import CompatibilityFactory
+from xcrawler.utils.converters.object_converter import ObjectConverter
 
 
 class PageScraper(object):
@@ -11,8 +11,8 @@ class PageScraper(object):
     """
 
     def __init__(self,
-                 compatiblity_factory=CompatibilityFactory()):
-        self.object_converter = compatiblity_factory.create_compatible_object_converter()
+                 object_converter=ObjectConverter()):
+        self.object_converter = object_converter
 
     def extract(self, page):
         """

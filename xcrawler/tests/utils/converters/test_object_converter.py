@@ -37,13 +37,13 @@ class TestObjectConverter(unittest.TestCase):
 
     def test_convert_to_string_argument_object(self):
         mock_object = mock_factory.create_mock_object_with_str("mock_object")
-        self.object_converter.instance_resolver.is_byte_string.return_value = False
+        self.object_converter.instance_resolver.is_string.return_value = False
         result = self.object_converter.convert_to_string(mock_object)
         self.assertEquals(result, "mock_object")
 
-    def test_convert_to_string_argument_byte_string(self):
-        mock_object = b"mock object"
-        self.object_converter.instance_resolver.is_byte_string.return_value = True
+    def test_convert_to_string_argument_string(self):
+        mock_object = "mock object"
+        self.object_converter.instance_resolver.is_string.return_value = True
         result = self.object_converter.convert_to_string(mock_object)
         self.assertEquals(result, mock_object)
 

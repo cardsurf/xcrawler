@@ -4,16 +4,14 @@ import mock
 
 from xcrawler.core.crawler.page_scraper import PageScraper
 from xcrawler.core.crawler.page import Page
-from xcrawler.compatibility.compatibility_factory import CompatibilityFactory
-from xcrawler.compatibility.object_converter.compatible_object_converter import CompatibleObjectConverter
+from xcrawler.utils.converters.object_converter import ObjectConverter
 
 
 class TestPageScraper(unittest.TestCase):
 
     def setUp(self):
-        compatibility_factory = mock.create_autospec(CompatibilityFactory).return_value
-        self.page_scraper = PageScraper(compatibility_factory)
-        self.page_scraper.object_converter = mock.create_autospec(CompatibleObjectConverter).return_value
+        object_converter = mock.create_autospec(ObjectConverter).return_value
+        self.page_scraper = PageScraper(object_converter)
 
     def test_extract(self):
         mock_page = mock.create_autospec(Page).return_value
