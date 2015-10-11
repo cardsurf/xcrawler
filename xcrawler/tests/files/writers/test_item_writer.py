@@ -1,5 +1,5 @@
-
 import unittest
+
 import mock
 
 from xcrawler.files.writers.item_writer import ItemWriter
@@ -7,7 +7,7 @@ from xcrawler.files.writers.object_writer import ObjectWriter
 from xcrawler.files.writers.object_writer_csv import ObjectWriterCsv
 from xcrawler.files.writers.item_writer import ItemWriterFactory
 from xcrawler.files.writers.object_writer_factory import ObjectWriterFactory
-from xcrawler.utils.filepaths.filepath_splitter import FilePathSplitter
+from xcrawler.files.filepaths.filepath_splitter import FilePathSplitter
 
 
 class TestItemWriter(unittest.TestCase):

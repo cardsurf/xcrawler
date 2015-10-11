@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from xcrawler.files.writers.object_writer_factory import ObjectWriterFactory
-from xcrawler.utils.filepaths.filepath_splitter import FilePathSplitter
+from xcrawler.files.filepaths.filepath_splitter import FilePathSplitter
 
 
 class ItemWriter:
