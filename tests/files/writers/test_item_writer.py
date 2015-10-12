@@ -65,7 +65,7 @@ class TestItemWriterFactory(unittest.TestCase):
     def test_create_item_writer_based_on_file_extension_csv(self, mock_create_item_writer_csv):
         mock_file_name = "mock.csv"
         self.item_writer_factory.filepath_splitter.get_file_extension.return_value = ".csv"
-        mock_item_writer = mock.Mock()
+        mock_item_writer = mock.create_autospec(ItemWriter).return_value
         mock_create_item_writer_csv.return_value = mock_item_writer
         result = self.item_writer_factory.create_item_writer_based_on_file_extension(mock_file_name)
         self.assertEquals(result, mock_item_writer)
