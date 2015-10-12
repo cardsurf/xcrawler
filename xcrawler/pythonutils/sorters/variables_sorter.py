@@ -9,13 +9,13 @@ class VariablesSorter(object):
     def __init__(self, dictionary_sorter=DictionarySorter()):
         self.dictionary_sorter = dictionary_sorter
 
-    def get_list_of_variable_names_sorted_by_name(self, o):
-        variables = vars(o)
+    def get_list_of_variable_names_sorted_by_name(self, instance_object):
+        variables = vars(instance_object)
         names = self.dictionary_sorter.get_list_of_keys_sorted_by_name(variables)
         return names
 
-    def get_list_of_variable_values_sorted_by_name(self, o):
-        variables = vars(o)
+    def get_list_of_variable_values_sorted_by_name(self, instance_object):
+        variables = vars(instance_object)
         values = self.dictionary_sorter.get_list_of_values_sorted_by_keys(variables)
         return values
 
