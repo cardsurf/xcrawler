@@ -13,32 +13,32 @@ class ObjectConverter(object):
         self.string_converter = string_converter
         self.instance_resolver = instance_resolver
 
-    def convert_to_byte_string_utf8(self, o):
-        string = self.convert_to_string(o)
+    def convert_to_byte_string_utf8(self, instance_object):
+        string = self.convert_to_string(instance_object)
         byte_string_utf8 = self.string_converter.convert_to_byte_string_utf8(string)
         return byte_string_utf8
 
-    def convert_to_unicode_string(self, o):
-        string = self.convert_to_string(o)
+    def convert_to_unicode_string(self, instance_object):
+        string = self.convert_to_string(instance_object)
         unicode_string = self.string_converter.convert_to_unicode_string(string)
         return unicode_string
 
-    def convert_to_string(self, o):
-        if not self.instance_resolver.is_string(o):
-            o = str(o)
-        return o
+    def convert_to_string(self, instance_object):
+        if not self.instance_resolver.is_string(instance_object):
+            instance_object = str(instance_object)
+        return instance_object
 
-    def convert_to_list_if_single_object(self, o):
-        if isinstance(o, list):
-            return o
-        return [o]
+    def convert_to_list_if_single_object(self, instance_object):
+        if isinstance(instance_object, list):
+            return instance_object
+        return [instance_object]
 
     def list_convert_to_byte_string_utf8(self, list_objects):
-        return [self.convert_to_byte_string_utf8(o) for o in list_objects]
+        return [self.convert_to_byte_string_utf8(instance_object) for instance_object in list_objects]
 
     def list_convert_to_unicode_string(self, list_objects):
-        return [self.convert_to_unicode_string(o) for o in list_objects]
+        return [self.convert_to_unicode_string(instance_object) for instance_object in list_objects]
 
     def list_convert_to_string(self, list_objects):
-        return [self.convert_to_string(o) for o in list_objects]
+        return [self.convert_to_string(instance_object) for instance_object in list_objects]
 
