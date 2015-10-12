@@ -8,12 +8,28 @@ Features
 * Extract web page data using XPath expressions or CSS selectors
 * Extract urls from a web page and visit extracted urls
 * Write extracted data to an output file
+* Supports Python 2 and Python 3
 
 Installation
 ------------
-#. Install Python 2.7
-#. Install lxml library: ``pip install lxml``
-#. Install xcrawler:  ``pip install xcrawler``
+::
+
+    pip install xcrawler
+
+| 
+| When installing ``lxml`` library on Windows you may encounter ``Microsoft Visual C++ is required`` error.
+| To install ``lxml`` library on Windows:
+#. Download and install Microsoft Windows SDK:
+
+   * For Python 2.7: `Microsoft Windows SDK for .NET Framework 3.5 SP1 <http://www.microsoft.com/en-us/download/confirmation.aspx?id=8279>`_ 
+   * For Python 3.4+: `Microsoft Windows SDK for .NET Framework 4.0 <http://www.microsoft.com/en-us/download/confirmation.aspx?id=3138>`_ 
+
+#. Open the Start menu, search for "SDK" and open Windows SDK Command Prompt
+#. Install ``lxml``
+
+::
+
+    set STATICBUILD=true && pip install lxml
 
 Usage
 -----
@@ -92,21 +108,16 @@ CSS Example
 
 Documentation
 --------------
-| For more information about xcrawler see the source code and Python Docstrings:
-| 
-* `xcrawler core <https://github.com/cardsurf/xcrawler/tree/master/xcrawler/core/>`_
-* `xcrawler threads <https://github.com/cardsurf/xcrawler/tree/master/xcrawler/threads/>`_
-* `xcrawler files <https://github.com/cardsurf/xcrawler/tree/master/xcrawler/files/>`_
-
-The documentation can also be accessed at runtime with Python's built-in ``help`` function:
+| For more information about xcrawler see the source code and Python Docstrings: `source code <https://github.com/cardsurf/xcrawler/tree/master/xcrawler/crawler/>`_
+| The documentation can also be accessed at runtime with Python's built-in ``help`` function:
 
 .. code:: python
 
     >>> import xcrawler
     >>> help(xcrawler.Config)
-        # Information about Config
+        # Information about the Config class
     >>> help(xcrawler.PageScraper.extract)
-        # Information about extract method of PageScraper
+        # Information about the extract method of the PageScraper class
 
 Licence
 -------
