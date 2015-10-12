@@ -2,6 +2,10 @@ import unittest
 
 import mock
 from lxml.etree import Element
+try:
+    from urllib2 import Request
+except ImportError:
+    from urllib.request import Request
 
 from tests.mock import mock_factory
 from xcrawler.core.crawler.page import Page
@@ -22,6 +26,7 @@ class TestPage(unittest.TestCase):
         self.page = Page(url, scraper, request_factory, extractor_factory, url_joiner)
         self.page.content = mock.create_autospec(Element).return_value
         self.page.extractor = mock.create_autospec(Extractor).return_value
+        self.page.request = mock.create_autospec(Request).return_value
 
     def test_set_content(self):
         mock_content = mock.create_autospec(Element).return_value

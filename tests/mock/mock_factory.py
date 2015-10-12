@@ -5,6 +5,10 @@ from xcrawler.core.crawler.page import Page
 from xcrawler.core.crawler.page_scraper import PageScraper
 from xcrawler.core.crawler.crawler import XCrawler
 from xcrawler.collections.fallback_list import FallbackList
+try:
+    from urllib2 import Request
+except ImportError:
+    from urllib.request import Request
 
 
 def create_mock_config():
@@ -19,6 +23,8 @@ def create_mock_config():
 
 def create_mock_page():
     mock_page = mock.create_autospec(Page)
+    mock_page.url = "http://test.com/link/to/example_page.html"
+    mock_page.request = mock.create_autospec(Request)
     return mock_page
 
 
