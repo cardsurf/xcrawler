@@ -108,7 +108,7 @@ CSS Example
 
 Documentation
 --------------
-| For more information about xcrawler see the source code and Python Docstrings: `source code <https://github.com/cardsurf/xcrawler/tree/master/xcrawler/crawler/>`_
+| For more information about xcrawler see the source code and Python Docstrings: `source code <https://github.com/cardsurf/xcrawler/tree/master/xcrawler/core/>`_
 | The documentation can also be accessed at runtime with Python's built-in ``help`` function:
 
 .. code:: python
