@@ -73,7 +73,7 @@ class TestPage(unittest.TestCase):
 
     @mock.patch.object(Page, 'to_url')
     def test_to_urls(self, mock_to_url):
-        self.page.domain_name = "http://test.com"
+        self.page.url = "http://test.com/page/url.html"
         links = ["http://test.com/link/to/example_page.html", "link/to/example_page.html", "/link/to/example_page.html"]
         mock_to_url.return_value = "http://test.com/link/to/example_page.html"
         result = self.page.to_urls(links)
