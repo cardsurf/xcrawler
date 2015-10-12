@@ -21,15 +21,15 @@ Installation
 | To install ``lxml`` library on Windows:
 #. Download and install Microsoft Windows SDK:
 
-   * For Python 2.7: `Microsoft Windows SDK for .NET Framework 3.5 SP1 <http://www.microsoft.com/en-us/download/confirmation.aspx?id=8279>`_ 
-   * For Python 3.4+: `Microsoft Windows SDK for .NET Framework 4.0 <http://www.microsoft.com/en-us/download/confirmation.aspx?id=3138>`_ 
+   * For Python 2.7: `Microsoft Windows SDK for .NET Framework 3.5 SP1 <http://www.microsoft.com/en-us/download/confirmation.aspx?id=8279>`_
+   * For Python 3.4: `Microsoft Windows SDK for .NET Framework 4.0 <http://www.microsoft.com/en-us/download/confirmation.aspx?id=3138>`_
 
 #. Open the Start menu, search for "SDK" and open Windows SDK Command Prompt
 #. Install ``lxml``
 
 ::
 
-    set STATICBUILD=true && pip install lxml
+    setenv /x86 /release && set STATICBUILD=true && pip install lxml
 
 Usage
 -----
