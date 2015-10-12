@@ -6,7 +6,8 @@ class VariablesSorter(object):
     """Sorts variable names and values of an object.
 
     """
-    def __init__(self, dictionary_sorter=DictionarySorter()):
+    def __init__(self,
+                 dictionary_sorter=DictionarySorter()):
         self.dictionary_sorter = dictionary_sorter
 
     def get_list_of_variable_names_sorted_by_name(self, instance_object):
