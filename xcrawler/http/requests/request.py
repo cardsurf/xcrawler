@@ -9,7 +9,6 @@ class RequestFactory(object):
     """Creates a request sent to a web server.
 
     """
-
     def __init__(self):
         pass
 

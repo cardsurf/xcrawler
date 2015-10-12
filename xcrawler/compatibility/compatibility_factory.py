@@ -10,7 +10,8 @@ class CompatibilityFactory(object):
     """Creates an object depending on the version of Python.
 
     """
-    def __init__(self, python_info=PythonInfo()):
+    def __init__(self,
+                 python_info=PythonInfo()):
         self.python_info = python_info
 
     def create_compatible_write_opener(self):

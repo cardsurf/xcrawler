@@ -9,7 +9,8 @@ class ItemWriter(object):
     """Writes data extracted from web pages to an output file.
     
     """
-    def __init__(self, object_writer):
+    def __init__(self,
+                 object_writer):
         self.__no_items_written_to_file = True
         self.output_file_name = ""
         self.output_file = None
