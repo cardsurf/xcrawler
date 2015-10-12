@@ -49,11 +49,11 @@ class TestExtractorCss(unittest.TestCase):
 
     @mock.patch('xcrawler.core.extractor.extractor_css.etree')
     def test_convert_elements_to_text(self, mock_etree_module):
-        mock_root_element1 = mock.create_autospec(Element).return_value
-        mock_root_element1.__str__ = "<a href='url1'>mock_text</a>"
-        mock_root_element2 = mock.create_autospec(Element).return_value
-        mock_root_element2.__str__ = "<a href='url2'>mock_text</a>"
-        mock_list_elements = mock_factory.create_mock_fallback_list([mock_root_element1, mock_root_element2])
+        mock_element1 = mock.create_autospec(Element).return_value
+        mock_element1.__str__ = "<a href='url1'>mock_text</a>"
+        mock_element2 = mock.create_autospec(Element).return_value
+        mock_element2.__str__ = "<a href='url2'>mock_text</a>"
+        mock_list_elements = mock_factory.create_mock_fallback_list([mock_element1, mock_element2])
         mock_etree_module.tostring.return_value = "mock_text"
         result = self.extractor_css.convert_elements_to_text(mock_list_elements)
         self.assertEquals(result, ["mock_text", "mock_text"])
@@ -72,11 +72,11 @@ class TestExtractorCss(unittest.TestCase):
         self.assertEquals(result, ["url1", "url2"])
 
     def test_convert_elements_to_attribute(self):
-        mock_root_element1 = mock.create_autospec(Element).return_value
-        mock_root_element1.attrib = {"text": "text1", "href": "url1"}
-        mock_root_element2 = mock.create_autospec(Element).return_value
-        mock_root_element2.attrib = {"text": "text2", "href": "url2"}
-        mock_result = mock_factory.create_mock_fallback_list([mock_root_element1, mock_root_element2])
+        mock_element1 = mock.create_autospec(Element).return_value
+        mock_element1.attrib = {"text": "text1", "href": "url1"}
+        mock_element2 = mock.create_autospec(Element).return_value
+        mock_element2.attrib = {"text": "text2", "href": "url2"}
+        mock_result = mock_factory.create_mock_fallback_list([mock_element1, mock_element2])
         mock_attribute_name = "href"
         result = self.extractor_css.convert_elements_to_attribute(mock_result, mock_attribute_name)
         self.assertEquals(result, ["url1", "url2"])
