@@ -22,8 +22,8 @@ Installation
 
 #. Download and install Microsoft Windows SDK:
 
-   * For Python 2.6, 2.7, 3.0, 3.1, 3.2: `Microsoft Windows SDK for .NET Framework 3.5 SP1 <http://www.microsoft.com/en-us/download/confirmation.aspx?id=8279>`_
-   * For Python 3.3, 3.4: `Microsoft Windows SDK for .NET Framework 4.0 <http://www.microsoft.com/en-us/download/confirmation.aspx?id=3138>`_
+   * For Python 2.6, 2.7, 3.0, 3.1, 3.2: `Microsoft Windows SDK for .NET Framework 3.5 SP1 <http://www.microsoft.com/en-us/download/confirmation.aspx?id=3138>`_
+   * For Python 3.3, 3.4: `Microsoft Windows SDK for .NET Framework 4.0 <http://www.microsoft.com/en-us/download/confirmation.aspx?id=8279>`_
 
 #. Click the Start Menu, search for and open the command prompt:
 
