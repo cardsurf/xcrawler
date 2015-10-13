@@ -19,6 +19,7 @@ Installation
 | 
 | When installing ``lxml`` library on Windows you may encounter ``Microsoft Visual C++ is required`` errors.
 | To install ``lxml`` library on Windows:
+
 #. Download and install Microsoft Windows SDK:
 
    * For Python 2.6, 2.7, 3.0, 3.1, 3.2: `Microsoft Windows SDK for .NET Framework 3.5 SP1 <http://www.microsoft.com/en-us/download/confirmation.aspx?id=8279>`_
@@ -43,13 +44,14 @@ Usage
 | ``visit`` returns next Pages to be visited
 | 
 | A crawler can be configured before crawling web pages. A user can configure such settings of the crawler as:
-* the number of threads used to visit web pages
-* the name of an output file
-* the request timeout
+| * the number of threads used to visit web pages
+| * the name of an output file
+| * the request timeout
 | To run the crawler call:
 | ``crawler.run()``
 | 
 | Examples how to use xcrawler can be found at: https://github.com/cardsurf/xcrawler/tree/master/examples
+| 
 
 XPath Example
 -------------
