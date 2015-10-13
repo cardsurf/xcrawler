@@ -24,10 +24,10 @@ Installation
    * For Python 2.6, 2.7, 3.0, 3.1, 3.2: `Microsoft Windows SDK for .NET Framework 3.5 SP1 <http://www.microsoft.com/en-us/download/confirmation.aspx?id=8279>`_
    * For Python 3.3, 3.4: `Microsoft Windows SDK for .NET Framework 4.0 <http://www.microsoft.com/en-us/download/confirmation.aspx?id=3138>`_
 
-#. Click the Start Menu, then All Programs, then:
+#. Click the Start Menu, search for and open the command prompt:
 
-   * For Python 2.6, 2.7, 3.0, 3.1, 3.2: Microsoft Windows SDK v7.0 and open ``CMD Shell``
-   * For Python 3.3, 3.4: Microsoft Windows SDK v7.1 and open ``Windows SDK 7.1 Command Prompt``
+   * For Python 2.6, 2.7, 3.0, 3.1, 3.2: ``CMD Shell``
+   * For Python 3.3, 3.4: ``Windows SDK 7.1 Command Prompt``
 
 #. Install ``lxml``
 
