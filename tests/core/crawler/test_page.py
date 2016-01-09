@@ -83,7 +83,7 @@ class TestPage(unittest.TestCase):
         mock_request = mock.create_autospec(Request).return_value
         mock_file_binary = "This is 1 line of example_file.txt. \n This is 2 line of example_file.txt"
         self.page.request_factory.create_request.return_value = mock_request
-        self.page.request_sender.send_binary.return_value = mock_file_binary
+        self.page.request_sender.get_binary.return_value = mock_file_binary
         result = self.page.file(mock_url)
         self.assertEquals(result, mock_file_binary)
 

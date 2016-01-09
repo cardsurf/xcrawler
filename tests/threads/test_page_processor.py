@@ -16,7 +16,6 @@ except ImportError:
 from tests.mock import mock_factory
 from xcrawler.threads.page_processor import PageProcessor
 from xcrawler.http.requests.request_sender import RequestSender
-from xcrawler.core.crawler.page import Page
 
 
 class TestPageProcessor(unittest.TestCase):
@@ -37,7 +36,7 @@ class TestPageProcessor(unittest.TestCase):
     @mock.patch.object(PageProcessor, 'put_extracted_items_in_queue')
     @mock.patch.object(PageProcessor, 'put_extracted_pages_in_queue')
     def test_process_page(self, mock_put_extracted_pages_in_queue, mock_put_extracted_items_in_queue):
-        self.page_processor.request_sender.send.return_value = "<html><br>Page title</br></html>"
+        self.page_processor.request_sender.get_element.return_value = "<html><br>Page title</br></html>"
         mock_page = mock_factory.create_mock_page()
         mock_page.url = "http://test.com/link/to/example_page.html"
         self.page_processor.process_page(mock_page)

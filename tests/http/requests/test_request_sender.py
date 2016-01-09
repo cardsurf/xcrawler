@@ -21,23 +21,21 @@ class TestRequestSender(unittest.TestCase):
         self.request_sender = RequestSender(string_converter)
 
     @mock.patch('xcrawler.http.requests.request_sender.urlopen')
-    def test_send_binary(self, mock_urlopen):
+    def test_get_binary(self, mock_urlopen):
         mock_request = mock.create_autospec(Request).return_value
         mock_file_content = mock.Mock()
         mock_string_content = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
         mock_urlopen.return_value = mock_file_content
         mock_file_content.read.return_value = mock_string_content
-        result = self.request_sender.send_binary(mock_request)
+        result = self.request_sender.get_binary(mock_request)
         self.assertEquals(result, mock_string_content)
 
-    @mock.patch('xcrawler.http.requests.request_sender.urlopen')
-    def test_send(self, mock_urlopen):
+    @mock.patch.object(RequestSender, 'get_binary')
+    def test_get_element(self, mock_get_binary):
         mock_request = mock.create_autospec(Request).return_value
-        mock_file_content = mock.Mock()
         mock_string_content = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
         mock_element_content = mock.create_autospec(Element).return_value
-        mock_urlopen.return_value = mock_file_content
-        mock_file_content.read.return_value = mock_string_content
+        mock_get_binary.return_value = mock_string_content
         self.request_sender.string_converter.convert_to_tree_elements.return_value = mock_element_content
-        result = self.request_sender.send(mock_request)
+        result = self.request_sender.get_element(mock_request)
         self.assertEquals(result, mock_element_content)

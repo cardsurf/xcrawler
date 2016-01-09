@@ -98,7 +98,7 @@ class Page(object):
         :returns: a string that represents a binary file content
         """
         request = self.request_factory.create_request(url)
-        file_binary = self.request_sender.send_binary(request)
+        file_binary = self.request_sender.get_binary(request)
         return file_binary
 
     def to_urls(self, links):

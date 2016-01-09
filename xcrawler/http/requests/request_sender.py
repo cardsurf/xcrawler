@@ -15,14 +15,13 @@ class RequestSender(object):
                  string_converter=StringConverter()):
         self.string_converter = string_converter
 
-    def send_binary(self, request, request_timeout=5):
+    def get_binary(self, request, request_timeout=5):
         file_content = urlopen(request, timeout=request_timeout)
         string_content = file_content.read()
         return string_content
 
-    def send(self, request, request_timeout=5):
-        file_content = urlopen(request, timeout=request_timeout)
-        string_content = file_content.read()
+    def get_element(self, request, request_timeout=5):
+        string_content = self.get_binary(request, request_timeout)
         element_content = self.string_converter.convert_to_tree_elements(string_content)
         return element_content
 

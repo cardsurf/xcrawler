@@ -40,7 +40,7 @@ class PageProcessor(threading.Thread):
         
     def process_page(self, page):
         try:
-            page.content = self.request_sender.send(page.request, self.config.request_timeout)
+            page.content = self.request_sender.get_element(page.request, self.config.request_timeout)
             self.put_extracted_items_in_queue(page)
             self.put_extracted_pages_in_queue(page)  
         except URLError as exception:
