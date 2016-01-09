@@ -16,11 +16,15 @@ class TestStringConverter(unittest.TestCase):
         converter_factory = mock.create_autospec(HtmlParserFactory).return_value
         self.string_converter = StringConverter(instance_resolver, converter_factory)
 
-    @mock.patch.object(StringConverter, 'convert_to_unicode_string')
-    def test_convert_to_byte_string_utf8(self, mock_convert_to_unicode_string):
-        mock_string = "mock"
-        mock_unicode_string = u"mock"
-        mock_convert_to_unicode_string.return_value = mock_unicode_string
+    def test_convert_to_byte_string_utf8_argument_byte_string(self):
+        mock_string = b"mock"
+        self.string_converter.instance_resolver.is_byte_string.return_value = True
+        result = self.string_converter.convert_to_byte_string_utf8(mock_string)
+        self.assertEquals(result, b"mock")
+
+    def test_convert_to_byte_string_utf8_argument_unicode_string(self):
+        mock_string = u"mock"
+        self.string_converter.instance_resolver.is_byte_string.return_value = False
         result = self.string_converter.convert_to_byte_string_utf8(mock_string)
         self.assertEquals(result, b"mock")
 
@@ -29,6 +33,12 @@ class TestStringConverter(unittest.TestCase):
         self.string_converter.instance_resolver.is_unicode_string.return_value = True
         result = self.string_converter.convert_to_unicode_string(mock_string)
         self.assertEquals(result, mock_string)
+
+    def test_convert_to_unicode_string_argument_byte_string_utf8(self):
+        mock_string = b"mock"
+        self.string_converter.instance_resolver.is_unicode_string.return_value = False
+        result = self.string_converter.convert_to_unicode_string(mock_string)
+        self.assertEquals(result, u"mock")
 
     @mock.patch('xcrawler.pythonutils.converters.string_converter.HTML')
     def test_convert_to_tree_elements(self, mock_html_function):
@@ -39,12 +49,6 @@ class TestStringConverter(unittest.TestCase):
         mock_html_function.return_value = mock_tree_elements
         result = self.string_converter.convert_to_tree_elements(mock_html_string)
         self.assertEquals(result, mock_tree_elements)
-
-    def test_convert_to_unicode_string_argument_byte_string_utf8(self):
-        mock_string = b"mock"
-        self.string_converter.instance_resolver.is_unicode_string.return_value = False
-        result = self.string_converter.convert_to_unicode_string(mock_string)
-        self.assertEquals(result, u"mock")
 
     @mock.patch.object(StringConverter, 'convert_to_byte_string_utf8')
     def test_list_convert_string_to_byte_string_utf8(self, mock_convert_to_byte_string_utf8):

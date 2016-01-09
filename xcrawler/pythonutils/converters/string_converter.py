@@ -15,8 +15,9 @@ class StringConverter(object):
         self.html_parser_factory = html_parser_factory
 
     def convert_to_byte_string_utf8(self, string):
-        unicode_string = self.convert_to_unicode_string(string)
-        byte_string_utf8 = unicode_string.encode("utf-8")
+        if self.instance_resolver.is_byte_string(string):
+            return string
+        byte_string_utf8 = string.encode("utf-8")
         return byte_string_utf8
 
     def convert_to_unicode_string(self, string):
