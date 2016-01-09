@@ -11,6 +11,7 @@ from lxml import etree
 from xcrawler.http.urls.url_joiner import UrlJoiner
 from xcrawler.core.extractor.extractor_factory import ExtractorFactory
 from xcrawler.http.requests.request import RequestFactory
+from xcrawler.http.requests.request_sender import RequestSender
 
 
 class Page(object):
@@ -29,14 +30,17 @@ class Page(object):
                  page_scraper,
                  request_factory=RequestFactory(),
                  extractor_factory=ExtractorFactory(),
-                 url_joiner=UrlJoiner()):
-        self.url = url   
+                 url_joiner=UrlJoiner(),
+                 request_sender=RequestSender()):
+        self.url = url
         self.scraper = page_scraper
         self._content = None
         self.extractor = None
-        self.request = request_factory.create_request(self.url)
+        self.request_factory = request_factory
+        self.request = self.request_factory.create_request(self.url)
         self.extractor_factory = extractor_factory
         self.url_joiner = url_joiner
+        self.request_sender = request_sender
 
     @property
     def content(self):
@@ -87,6 +91,15 @@ class Page(object):
         """
         result = self.extractor.css_attr(path, attribute_name)
         return result
+
+    def file(self, url):
+        """
+        :param url: the url of a file to download
+        :returns: a string that represents a binary file content
+        """
+        request = self.request_factory.create_request(url)
+        file_binary = self.request_sender.send_binary(request)
+        return file_binary
 
     def to_urls(self, links):
         """

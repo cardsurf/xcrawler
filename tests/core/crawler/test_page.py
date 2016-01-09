@@ -13,6 +13,7 @@ from xcrawler.core.extractor.extractor_factory import ExtractorFactory
 from xcrawler.http.requests.request import RequestFactory
 from xcrawler.core.extractor.extractor import Extractor
 from xcrawler.http.urls.url_joiner import UrlJoiner
+from xcrawler.http.requests.request_sender import RequestSender
 
 
 class TestPage(unittest.TestCase):
@@ -23,7 +24,8 @@ class TestPage(unittest.TestCase):
         request_factory = mock.create_autospec(RequestFactory).return_value
         extractor_factory = mock.create_autospec(ExtractorFactory).return_value
         url_joiner = mock.create_autospec(UrlJoiner).return_value
-        self.page = Page(url, scraper, request_factory, extractor_factory, url_joiner)
+        request_sender = mock.create_autospec(RequestSender).return_value
+        self.page = Page(url, scraper, request_factory, extractor_factory, url_joiner, request_sender)
         self.page.content = mock.create_autospec(Element).return_value
         self.page.extractor = mock.create_autospec(Extractor).return_value
         self.page.request = mock.create_autospec(Request).return_value
@@ -75,6 +77,15 @@ class TestPage(unittest.TestCase):
         self.page.extractor.css_attr.return_value = mock_factory.create_mock_fallback_list(["url1", "url2"])
         result = self.page.css_attr(mock_path, mock_attribute_name)
         self.assertEquals(result, ["url1", "url2"])
+
+    def test_file(self):
+        mock_url = "http://test.com/files/example_file.txt"
+        mock_request = mock.create_autospec(Request).return_value
+        mock_file_binary = "This is 1 line of example_file.txt. \n This is 2 line of example_file.txt"
+        self.page.request_factory.create_request.return_value = mock_request
+        self.page.request_sender.send_binary.return_value = mock_file_binary
+        result = self.page.file(mock_url)
+        self.assertEquals(result, mock_file_binary)
 
     @mock.patch.object(Page, 'to_url')
     def test_to_urls(self, mock_to_url):

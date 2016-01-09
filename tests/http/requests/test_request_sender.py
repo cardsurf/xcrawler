@@ -21,6 +21,16 @@ class TestRequestSender(unittest.TestCase):
         self.request_sender = RequestSender(string_converter)
 
     @mock.patch('xcrawler.http.requests.request_sender.urlopen')
+    def test_send_binary(self, mock_urlopen):
+        mock_request = mock.create_autospec(Request).return_value
+        mock_file_content = mock.Mock()
+        mock_string_content = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
+        mock_urlopen.return_value = mock_file_content
+        mock_file_content.read.return_value = mock_string_content
+        result = self.request_sender.send_binary(mock_request)
+        self.assertEquals(result, mock_string_content)
+
+    @mock.patch('xcrawler.http.requests.request_sender.urlopen')
     def test_send(self, mock_urlopen):
         mock_request = mock.create_autospec(Request).return_value
         mock_file_content = mock.Mock()
