@@ -13,9 +13,6 @@ class ObjectWriterCsv(ObjectWriter):
     """Writes objects to a .csv file."
 
     """
-    CSV_WRITER_NULL_BYTE = b"\x00"
-    CSV_WRITER_NULL_BYTE_PLACEHOLDER = b"CsvNullByte"
-
     def __init__(self,
                  file_opener=CompatibleWriteOpener(),
                  object_converter=CompatibleObjectConverter(),
@@ -51,15 +48,8 @@ class ObjectWriterCsv(ObjectWriter):
 
     def write_variables(self, instance_object):
         values = self.variables_sorter.get_list_of_variable_values_sorted_by_name(instance_object)
-        strings = self.object_converter.list_convert_to_string(values)
-        strings = self.replace_null_byte_with_placeholder(strings)
-        self.write(strings)
-
-    def replace_null_byte_with_placeholder(self, list_strings):
-        for i, string in enumerate(list_strings):
-            list_strings[i] = string.replace(ObjectWriterCsv.CSV_WRITER_NULL_BYTE,
-                                             ObjectWriterCsv.CSV_WRITER_NULL_BYTE_PLACEHOLDER)
-        return list_strings
+        values = self.object_converter.list_convert_to_string(values)
+        self.write(values)
 
     def write(self, list_strings):
         self.writer.writerow(list_strings)

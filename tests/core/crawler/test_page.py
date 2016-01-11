@@ -81,7 +81,7 @@ class TestPage(unittest.TestCase):
     def test_file(self):
         mock_url = "http://test.com/files/example_file.txt"
         mock_text = "The first line.\n The second line."
-        mock_base64 = "IlRoZSBmaXJzdCBsaW5lLlxuIFRoZSBzZWNvbmQgbGluZS4i\n"
+        mock_base64 = "IlRoZSBmaXJzdCBsaW5lLlxuIFRoZSBzZWNvbmQgbGluZS4i"
         mock_request = mock.create_autospec(Request).return_value
         self.page.request_factory.create_request.return_value = mock_request
         self.page.request_sender.get_base64.return_value = mock_base64

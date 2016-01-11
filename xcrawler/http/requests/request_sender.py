@@ -3,6 +3,7 @@ try:
     from urllib2 import urlopen
 except ImportError:
     from urllib.request import urlopen
+import base64
 
 from xcrawler.pythonutils.converters.string_converter import StringConverter
 
@@ -22,7 +23,7 @@ class RequestSender(object):
 
     def get_base64(self, request, request_timeout=5):
         string_content = self.get_binary(request, request_timeout)
-        base64_content = string_content.encode('base64')
+        base64_content = base64.b64encode(string_content)
         return base64_content
 
     def get_element(self, request, request_timeout=5):

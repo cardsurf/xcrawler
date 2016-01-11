@@ -73,21 +73,13 @@ class TestObjectWriterCsv(unittest.TestCase):
         mock_write_variables.assert_called_once_with(mock_object)
 
     @mock.patch.object(ObjectWriterCsv, 'write')
-    @mock.patch.object(ObjectWriterCsv, 'replace_null_byte_with_placeholder')
-    def test_write_variable_values(self, replace_null_byte_with_placeholder, mock_write):
+    def test_write_variable_values(self, mock_write):
         mock_object = mock.Mock()
         mock_object_variables = { "width": 800, "height": 600, "title": b"mock\x00title" }
         self.object_writer_csv.variables_sorter.get_list_of_variable_values_sorted_by_name.return_value = [600, b"mock\x00title", 800]
         self.object_writer_csv.object_converter.list_convert_to_string.return_value = ["600", b"mock\x00title", "800"]
-        replace_null_byte_with_placeholder.return_value = ["600", b"mockCsvNullBytetitle", "800"]
         self.object_writer_csv.write_variables(mock_object)
-        mock_write.assert_called_once_with(replace_null_byte_with_placeholder.return_value)
-
-    def test_replace_null_byte_with_placeholder(self):
-        mock_null_byte_string = [b"60\x000", b"mock\x00 title", "800"]
-        mock_string = [b"60CsvNullByte0", b"mockCsvNullByte title", "800"]
-        result = self.object_writer_csv.replace_null_byte_with_placeholder(mock_null_byte_string)
-        self.assertEquals(result, mock_string)
+        mock_write.assert_called_once_with(self.object_writer_csv.object_converter.list_convert_to_string.return_value)
 
     def test_write(self):
         mock_list_string = ["600", "mock title", "800"]

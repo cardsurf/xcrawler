@@ -1,6 +1,7 @@
 
 import unittest
 import mock
+
 from lxml.etree import Element
 try:
     from urllib2 import Request
@@ -30,11 +31,13 @@ class TestRequestSender(unittest.TestCase):
         result = self.request_sender.get_binary(mock_request)
         self.assertEquals(result, mock_string_content)
 
+    @mock.patch('xcrawler.http.requests.request_sender.base64')
     @mock.patch.object(RequestSender, 'get_binary')
-    def test_get_base64(self, mock_get_binary):
+    def test_get_base64(self, mock_get_binary, mock_base64):
         mock_request = mock.create_autospec(Request).return_value
         mock_string_content = "<html><a href='url1'>text1</a></html>"
-        mock_base64_content = "PGh0bWw+PGEgaHJlZj0ndXJsMSc+dGV4dDE8L2E+PC9odG1sPg==\n"
+        mock_base64_content = "PGh0bWw+PGEgaHJlZj0ndXJsMSc+dGV4dDE8L2E+PC9odG1sPg=="
+        mock_base64.b64encode.return_value = mock_base64_content
         mock_get_binary.return_value = mock_string_content
         result = self.request_sender.get_base64(mock_request)
         self.assertEquals(result, mock_base64_content)
