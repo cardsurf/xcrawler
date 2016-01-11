@@ -95,11 +95,11 @@ class Page(object):
     def file(self, url):
         """
         :param url: the url of a file to download
-        :returns: a string that represents a binary file content
+        :returns: a base64 string that represents a file content
         """
         request = self.request_factory.create_request(url)
-        file_binary = self.request_sender.get_binary(request)
-        return file_binary
+        file_base64 = self.request_sender.get_base64(request)
+        return file_base64
 
     def to_urls(self, links):
         """

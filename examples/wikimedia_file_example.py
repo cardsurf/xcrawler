@@ -6,7 +6,7 @@ class WikimediaItem:
     def __init__(self):
         self.name = None
         self.format = None
-        self.binary = None
+        self.base64 = None
 
 
 class WikimediaScraper(PageScraper):
@@ -15,7 +15,7 @@ class WikimediaScraper(PageScraper):
         item = WikimediaItem()
         item.name = url.split("/")[-1]
         item.format = url.split(".")[-1]
-        item.binary = page.file(url)
+        item.base64 = page.file(url)
         return item
 
 

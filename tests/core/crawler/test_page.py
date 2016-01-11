@@ -80,12 +80,13 @@ class TestPage(unittest.TestCase):
 
     def test_file(self):
         mock_url = "http://test.com/files/example_file.txt"
+        mock_text = "The first line.\n The second line."
+        mock_base64 = "IlRoZSBmaXJzdCBsaW5lLlxuIFRoZSBzZWNvbmQgbGluZS4i\n"
         mock_request = mock.create_autospec(Request).return_value
-        mock_file_binary = "This is 1 line of example_file.txt. \n This is 2 line of example_file.txt"
         self.page.request_factory.create_request.return_value = mock_request
-        self.page.request_sender.get_binary.return_value = mock_file_binary
+        self.page.request_sender.get_base64.return_value = mock_base64
         result = self.page.file(mock_url)
-        self.assertEquals(result, mock_file_binary)
+        self.assertEquals(result, mock_base64)
 
     @mock.patch.object(Page, 'to_url')
     def test_to_urls(self, mock_to_url):

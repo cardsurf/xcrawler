@@ -1,7 +1,7 @@
 
 
 class WriteOpener(object):
-    """A class with methods for opening a file in a write mode.
+    """Opens a file in a write mode.
 
     """
     def __init__(self):

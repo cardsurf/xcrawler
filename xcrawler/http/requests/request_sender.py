@@ -20,6 +20,11 @@ class RequestSender(object):
         string_content = file_content.read()
         return string_content
 
+    def get_base64(self, request, request_timeout=5):
+        string_content = self.get_binary(request, request_timeout)
+        base64_content = string_content.encode('base64')
+        return base64_content
+
     def get_element(self, request, request_timeout=5):
         string_content = self.get_binary(request, request_timeout)
         element_content = self.string_converter.convert_to_tree_elements(string_content)
