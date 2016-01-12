@@ -1,14 +1,6 @@
 
-from __future__ import print_function
 import threading
-import socket
 import time
-try:
-    from urllib2 import URLError
-    from httplib import BadStatusLine
-except ImportError:
-    from urllib.error import URLError
-    from http.client import BadStatusLine
 
 from xcrawler.http.requests.request_sender import RequestSender
 
@@ -39,36 +31,10 @@ class PageProcessor(threading.Thread):
         time.sleep(self.config.fetch_delay)
         
     def process_page(self, page):
-        try:
-            page.content = self.request_sender.get_element(page.request, self.config.request_timeout)
-            self.put_extracted_items_in_queue(page)
-            self.put_extracted_pages_in_queue(page)  
-        except URLError as exception:
-            self.handle_url_error_exception(page, exception)
-        except BadStatusLine as exception:
-            self.handle_bad_status_line_exception(page, exception)
-        except socket.timeout as exception:
-            self.handle_socket_timeout_exception(page, exception)
-        except BaseException as exception:
-            self.handle_base_exception(page, exception)
-            raise
+        page.content = self.request_sender.get_element(page.request, self.config.request_timeout)
+        self.put_extracted_items_in_queue(page)
+        self.put_extracted_pages_in_queue(page)
 
-    def handle_url_error_exception(self, page, exception):
-        print("URLError exception while processing page: " + page.url)
-        print("URLError exception reason: " + str(exception.reason))         
-              
-    def handle_bad_status_line_exception(self, page, exception):
-        print("BadStatusLine exception while processing page: " + page.url)
-        print("BadStatusLine exception unknown code status: " + str(exception.message))
-        
-    def handle_socket_timeout_exception(self, page, exception):
-        print("socket.timeout exception while processing page: " + page.url)
-        print("socket.timeout exception message: " + str(exception))    
-
-    def handle_base_exception(self, page, exception):
-        print("Exception while processing page: " + page.url)
-        print("Exception message: " + str(exception))    
-        
     def put_extracted_pages_in_queue(self, page):
         extracted_pages = page.extract_pages()
         for page in extracted_pages:
