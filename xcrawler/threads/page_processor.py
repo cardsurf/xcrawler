@@ -31,7 +31,7 @@ class PageProcessor(threading.Thread):
         time.sleep(self.config.fetch_delay)
         
     def process_page(self, page):
-        page.content = self.request_sender.get_element(page.request, self.config.request_timeout)
+        page.content = self.request_sender.get_element(page.request)
         self.put_extracted_items_in_queue(page)
         self.put_extracted_pages_in_queue(page)
 

@@ -16,7 +16,7 @@ class RequestSender(object):
         self.string_converter = string_converter
         self.session = session
 
-    def get_binary(self, request, request_timeout=5):
+    def get_binary(self, request):
         string_content = ""
         try:
             prepared_request = self.session.prepare_request(request)
@@ -43,13 +43,13 @@ class RequestSender(object):
         print("An exception occurred while sending request: " + request.url)
         print(exception.__class__.__name__ + " exception: " + str(exception.message))
 
-    def get_base64(self, request, request_timeout=5):
-        string_content = self.get_binary(request, request_timeout)
+    def get_base64(self, request):
+        string_content = self.get_binary(request)
         base64_content = base64.b64encode(string_content)
         return base64_content
 
-    def get_element(self, request, request_timeout=5):
-        string_content = self.get_binary(request, request_timeout)
+    def get_element(self, request):
+        string_content = self.get_binary(request)
         element_content = self.string_converter.convert_to_tree_elements(string_content)
         return element_content
 

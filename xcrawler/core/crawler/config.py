@@ -8,7 +8,6 @@ class Config(object):
         number_of_threads (int): the number of threads used to fetch web pages.
         fetch_delay (float): idle time of a thread in seconds after receiving a response from a server
             and before sending a next request to a server.
-        request_timeout (float): maximum time in seconds to receive a response from a server.
     """
     
     OUTPUT_MODE_FILE = 'FILE'
@@ -20,8 +19,7 @@ class Config(object):
         self.__output_mode = Config.OUTPUT_MODE_FILE
         self.number_of_threads = 3
         self.fetch_delay = 0
-        self.request_timeout = 5
-     
+
     @property
     def output_mode(self):
         return self.__output_mode

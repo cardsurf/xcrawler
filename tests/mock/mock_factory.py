@@ -16,7 +16,6 @@ def create_mock_config():
     mock_config.output_mode = Config.OUTPUT_MODE_PRINT
     mock_config.number_of_threads = 3
     mock_config.fetch_delay = 0
-    mock_config.request_timeout = 5
     return mock_config
 
 
