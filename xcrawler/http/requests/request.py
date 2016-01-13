@@ -11,5 +11,4 @@ class RequestFactory(object):
 
     def create_request(self, method, url):
         request = Request(method, url)
-        request.headers = {'User-Agent': "Urllib Browser"}
         return request
