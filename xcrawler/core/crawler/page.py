@@ -23,7 +23,7 @@ class Page(object):
         content (Element): the content of a web page represented as an Element object.
             More information about an Element object: http://effbot.org/zone/element.htm
         extractor (Extractor): extracts data from an Element object.
-        request (urllib.Request): the request send to a web server to fetch a web page.
+        request (requests.Requests): the request send to a web server to fetch a web page.
     """
     def __init__(self,
                  url,
@@ -37,7 +37,7 @@ class Page(object):
         self._content = None
         self.extractor = None
         self.request_factory = request_factory
-        self.request = self.request_factory.create_request(self.url)
+        self.request = self.request_factory.create_request('GET', self.url)
         self.extractor_factory = extractor_factory
         self.url_joiner = url_joiner
         self.request_sender = request_sender
@@ -97,7 +97,7 @@ class Page(object):
         :param url: the url of a file to download
         :returns: a base64 string that represents a file content
         """
-        request = self.request_factory.create_request(url)
+        request = self.request_factory.create_request('GET', url)
         file_base64 = self.request_sender.get_base64(request)
         return file_base64
 

@@ -1,11 +1,9 @@
-import unittest
 
+import unittest
 import mock
+
 from lxml.etree import Element
-try:
-    from urllib2 import Request
-except ImportError:
-    from urllib.request import Request
+from requests import Request
 
 from tests.mock import mock_factory
 from xcrawler.core.crawler.page import Page

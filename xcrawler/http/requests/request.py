@@ -1,8 +1,5 @@
 
-try:
-    from urllib2 import Request
-except ImportError:
-    from urllib.request import Request
+from requests import Request
 
 
 class RequestFactory(object):
@@ -12,7 +9,7 @@ class RequestFactory(object):
     def __init__(self):
         pass
 
-    def create_request(self, url):
-        request = Request(url)
-        request.http_header = {'User-Agent': "Urllib Browser"}
+    def create_request(self, method, url):
+        request = Request(method, url)
+        request.headers = {'User-Agent': "Urllib Browser"}
         return request

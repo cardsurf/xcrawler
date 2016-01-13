@@ -1,14 +1,13 @@
+
 import mock
+
+from requests import Request
 
 from xcrawler.core.crawler.config import Config
 from xcrawler.core.crawler.page import Page
 from xcrawler.core.crawler.page_scraper import PageScraper
 from xcrawler.core.crawler.crawler import XCrawler
 from xcrawler.collections.fallback_list import FallbackList
-try:
-    from urllib2 import Request
-except ImportError:
-    from urllib.request import Request
 
 
 def create_mock_config():

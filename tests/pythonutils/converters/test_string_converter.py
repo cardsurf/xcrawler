@@ -7,6 +7,7 @@ from lxml.etree import Element
 from xcrawler.pythonutils.converters.string_converter import StringConverter
 from xcrawler.pythonutils.types.instance_resolver import InstanceResolver
 from xcrawler.http.requests.html_parser import HtmlParserFactory
+from xcrawler.core.extractor.element import ElementFactory
 
 
 class TestStringConverter(unittest.TestCase):
@@ -14,7 +15,8 @@ class TestStringConverter(unittest.TestCase):
     def setUp(self):
         instance_resolver = mock.create_autospec(InstanceResolver).return_value
         converter_factory = mock.create_autospec(HtmlParserFactory).return_value
-        self.string_converter = StringConverter(instance_resolver, converter_factory)
+        element_factory = mock.create_autospec(ElementFactory).return_value
+        self.string_converter = StringConverter(instance_resolver, converter_factory, element_factory)
 
     def test_convert_to_byte_string_utf8_argument_byte_string(self):
         mock_string = b"mock"
@@ -41,12 +43,19 @@ class TestStringConverter(unittest.TestCase):
         self.assertEquals(result, u"mock")
 
     @mock.patch('xcrawler.pythonutils.converters.string_converter.HTML')
-    def test_convert_to_tree_elements(self, mock_html_function):
+    def test_convert_to_tree_elements_html_string(self, mock_html_function):
         mock_html_string = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
         mock_unicode_parser = mock.create_autospec(HTMLParser).return_value
         mock_tree_elements = mock.create_autospec(Element).return_value
         self.string_converter.html_parser_factory.create_html_parser_unicode.return_value = mock_unicode_parser
         mock_html_function.return_value = mock_tree_elements
+        result = self.string_converter.convert_to_tree_elements(mock_html_string)
+        self.assertEquals(result, mock_tree_elements)
+
+    def test_convert_to_tree_elements_empty_string(self):
+        mock_html_string = ""
+        mock_tree_elements = mock.create_autospec(Element).return_value
+        self.string_converter.element_factory.create_element.return_value = mock_tree_elements
         result = self.string_converter.convert_to_tree_elements(mock_html_string)
         self.assertEquals(result, mock_tree_elements)
 
