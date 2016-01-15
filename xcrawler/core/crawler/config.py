@@ -11,8 +11,9 @@ class Config(object):
         number_of_threads (int): the number of threads used to fetch web pages.
         fetch_delay (float): idle time of a thread in seconds after receiving a response from a server
             and before sending a next request to a server.
-        request_timeout (float): maximum time in seconds to receive a response after established connection
-            to a server.
+        request_timeout (float, float): a tuple with two elements
+            (maximum time in seconds to connect to a server,
+             maximum time in seconds to wait for a response from a server)
         session (requests.Session): a session that specifies shared parameters of requests sent to a server.
     """
     

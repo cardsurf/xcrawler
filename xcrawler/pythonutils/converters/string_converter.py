@@ -30,7 +30,7 @@ class StringConverter(object):
         return unicode_string
 
     def convert_to_tree_elements(self, html_string):
-        tree_elements = self.element_factory.create_element("Root")
+        tree_elements = self.element_factory.create_element("Empty")
         if len(html_string) > 0:
             unicode_parser = self.html_parser_factory.create_html_parser_unicode()
             tree_elements = HTML(html_string, parser=unicode_parser)
