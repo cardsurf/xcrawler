@@ -19,6 +19,7 @@ class PageProcessor(threading.Thread):
         self.page_queue = page_queue
         self.items_queue = items_queue
         self.request_sender = request_sender
+        self.request_sender.session = self.config.session
 
     def run(self):
         while True:
@@ -31,6 +32,7 @@ class PageProcessor(threading.Thread):
         time.sleep(self.config.fetch_delay)
         
     def process_page(self, page):
+        page.request_sender.session = self.config.session
         page.content = self.request_sender.get_element(page.request)
         self.put_extracted_items_in_queue(page)
         self.put_extracted_pages_in_queue(page)

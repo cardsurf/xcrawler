@@ -23,7 +23,7 @@ class Page(object):
         content (Element): the content of a web page represented as an Element object.
             More information about an Element object: http://effbot.org/zone/element.htm
         extractor (Extractor): extracts data from an Element object.
-        request (requests.Requests): the request send to a web server to fetch a web page.
+        request (requests.Request): the request send to a web server to fetch a web page.
     """
     def __init__(self,
                  url,

@@ -1,4 +1,7 @@
 
+from requests import Session
+
+
 class Config(object):
     """A configuration of a crawler.
     
@@ -8,6 +11,7 @@ class Config(object):
         number_of_threads (int): the number of threads used to fetch web pages.
         fetch_delay (float): idle time of a thread in seconds after receiving a response from a server
             and before sending a next request to a server.
+        session (requests.Session): a session that specifies shared parameters of requests sent to a server.
     """
     
     OUTPUT_MODE_FILE = 'FILE'
@@ -19,6 +23,7 @@ class Config(object):
         self.__output_mode = Config.OUTPUT_MODE_FILE
         self.number_of_threads = 3
         self.fetch_delay = 0
+        self.session = Session()
 
     @property
     def output_mode(self):

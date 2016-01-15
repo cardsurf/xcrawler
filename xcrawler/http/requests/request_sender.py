@@ -20,7 +20,12 @@ class RequestSender(object):
         string_content = ""
         try:
             prepared_request = self.session.prepare_request(request)
-            response = self.session.send(prepared_request)
+            response = self.session.send(prepared_request,
+                                         stream=self.session.stream,
+                                         verify=self.session.verify,
+                                         proxies=self.session.proxies,
+                                         cert=self.session.cert,
+                                         timeout=self.session.timeout)
             string_content = response.content
         except exceptions.ConnectionError as exception:
             self.handle_request_exception(request, exception)
@@ -35,7 +40,7 @@ class RequestSender(object):
         except exceptions.RequestException as exception:
             self.handle_request_exception(request, exception)
         except BaseException as exception:
-            self.handle_base_exception(request, exception)
+            self.handle_request_exception(request, exception)
             raise
         return string_content
 
