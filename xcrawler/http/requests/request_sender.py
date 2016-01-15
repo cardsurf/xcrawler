@@ -12,9 +12,11 @@ class RequestSender(object):
     """
     def __init__(self,
                  string_converter=StringConverter(),
-                 session=Session()):
+                 session=Session(),
+                 timeout=5):
         self.string_converter = string_converter
         self.session = session
+        self.timeout = timeout
 
     def get_binary(self, request):
         string_content = ""
@@ -25,7 +27,7 @@ class RequestSender(object):
                                          verify=self.session.verify,
                                          proxies=self.session.proxies,
                                          cert=self.session.cert,
-                                         timeout=self.session.timeout)
+                                         timeout=self.timeout)
             string_content = response.content
         except exceptions.ConnectionError as exception:
             self.handle_request_exception(request, exception)
