@@ -13,7 +13,7 @@ class RequestSender(object):
     def __init__(self,
                  string_converter=StringConverter(),
                  session=Session(),
-                 timeout=5):
+                 timeout=(5, 5)):
         self.string_converter = string_converter
         self.session = session
         self.timeout = timeout
