@@ -26,7 +26,7 @@ class Config(object):
         self.__output_mode = Config.OUTPUT_MODE_FILE
         self.number_of_threads = 3
         self.fetch_delay = 0
-        self.request_timeout = 5
+        self.request_timeout = (5, 5)
         self.session = Session()
 
     @property
