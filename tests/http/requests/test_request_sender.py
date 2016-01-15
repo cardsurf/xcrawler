@@ -10,6 +10,7 @@ except ImportError:
     import builtins
 
 
+from tests.mock import mock_factory
 from xcrawler.http.requests.request_sender import RequestSender
 from xcrawler.pythonutils.converters.string_converter import StringConverter
 
@@ -18,8 +19,9 @@ class TestRequestSender(unittest.TestCase):
 
     def setUp(self):
         string_converter = mock.create_autospec(StringConverter).return_value
-        session = mock.create_autospec(Session).return_value
-        self.request_sender = RequestSender(string_converter, session)
+        session = mock_factory.create_mock_session()
+        timeout = (5, 5)
+        self.request_sender = RequestSender(string_converter, session, timeout)
 
     def test_get_binary(self):
         mock_request = mock.create_autospec(Request).return_value

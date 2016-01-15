@@ -1,13 +1,14 @@
 
 import mock
 
-from requests import Request
+from requests import Request, Session
 
 from xcrawler.core.crawler.config import Config
 from xcrawler.core.crawler.page import Page
 from xcrawler.core.crawler.page_scraper import PageScraper
 from xcrawler.core.crawler.crawler import XCrawler
 from xcrawler.collections.fallback_list import FallbackList
+from xcrawler.http.requests.request_sender import RequestSender
 
 
 def create_mock_config():
@@ -16,6 +17,8 @@ def create_mock_config():
     mock_config.output_mode = Config.OUTPUT_MODE_PRINT
     mock_config.number_of_threads = 3
     mock_config.fetch_delay = 0
+    mock_config.request_timeout = (5, 5)
+    mock_config.session = mock.create_autospec(Session).return_value
     return mock_config
 
 
@@ -23,6 +26,7 @@ def create_mock_page():
     mock_page = mock.create_autospec(Page)
     mock_page.url = "http://test.com/link/to/example_page.html"
     mock_page.request = mock.create_autospec(Request)
+    mock_page.request_sender = mock.create_autospec(RequestSender)
     return mock_page
 
 
@@ -50,6 +54,15 @@ def create_mock_page_scrapers(number_mock_scrapers):
     for _ in range(0, number_mock_scrapers):
         mock_scrapers.append(mock.create_autospec(PageScraper))
     return mock_scrapers
+
+
+def create_mock_session():
+    session = mock.create_autospec(Session).return_value
+    session.stream = True
+    session.proxies = { "http": "http://mockproxy.com/" }
+    session.verify = True
+    session.cert = ("example.cert", "example.key")
+    return session
 
 
 def create_mock_fallback_list(list_elements):
