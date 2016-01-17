@@ -62,15 +62,13 @@ XPath Example
 
     class Scraper(PageScraper):
         def extract(self, page):
-            related_questions = page.xpath("//div[@class='module sidebar-related']//a[@class='question-hyperlink']/text()")
-            return related_questions
+            topics = page.xpath("//a[@class='question-hyperlink']/text()")
+            return topics
 
 
     start_pages = [ Page("http://stackoverflow.com/questions/16622802/center-image-within-div", Scraper()) ]
     crawler = XCrawler(start_pages)
-
     crawler.config.output_file_name = "stackoverflow_example_crawler_output.csv"
-    crawler.config.number_of_threads = 3
     crawler.run()
 
 CSS Example
@@ -107,9 +105,76 @@ CSS Example
 
     start_pages = [ Page("http://stackoverflow.com/questions?sort=votes", UrlsScraper()) ]
     crawler = XCrawler(start_pages)
-
     crawler.config.output_file_name = "stackoverflow_css_crawler_output.csv"
     crawler.config.number_of_threads = 3
+    crawler.run()
+
+
+File Example
+-------------
+.. code:: python
+
+    from xcrawler import XCrawler, Page, PageScraper
+
+
+    class WikimediaItem:
+        def __init__(self):
+            self.name = None
+            self.base64 = None
+
+
+    class WikimediaScraper(PageScraper):
+        def extract(self, page):
+            url = page.xpath("//div[@class='fullImageLink']/a/@href")[0]
+            item = WikimediaItem()
+            item.name = url.split("/")[-1]
+            item.base64 = page.file(url)
+            return item
+
+
+    start_pages = [ Page("https://commons.wikimedia.org/wiki/File:Records.svg", WikimediaScraper()) ]
+    crawler = XCrawler(start_pages)
+    crawler.config.output_file_name = "wikimedia_file_example_output.csv"
+    crawler.run()
+
+Session Example
+-------------
+.. code:: python
+
+    from xcrawler import XCrawler, Page, PageScraper
+    from requests.auth import HTTPBasicAuth
+
+
+    class Scraper(PageScraper):
+        def extract(self, page):
+            return page.__str__()
+
+
+    start_pages = [ Page("http://192.168.1.1/", Scraper()) ]
+    crawler = XCrawler(start_pages)
+    crawler.config.output_file_name = "router_session_example_output.csv"
+    crawler.config.session.headers = {"User-Agent": "Custom User Agent",
+                                      "Accept-Language": "fr"}
+    crawler.config.session.auth = HTTPBasicAuth('admin', 'admin')
+    crawler.run()
+
+Request Example
+-------------
+.. code:: python
+
+    from xcrawler import XCrawler, Page, PageScraper
+
+
+    class Scraper(PageScraper):
+        def extract(self, page):
+            return page.__str__()
+
+
+    start_page = Page("http://192.168.5.5", Scraper())
+    start_page.request.cookies = {"theme": "classic"}
+    crawler = XCrawler([start_page])
+    crawler.config.request_timeout = (5, 5)
+    crawler.config.output_file_name = "router_request_example_output.csv"
     crawler.run()
 
 Documentation
