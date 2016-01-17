@@ -7,10 +7,10 @@ Features
 * Use multiple threads to visit web pages
 * Extract web page data using XPath expressions or CSS selectors
 * Extract urls from a web page and visit extracted urls
-* Write extracted data to an output file
-* Download files from the urls
 * Set HTTP session parameters such as: cookies, SSL certificates, proxies
 * Set HTTP request parameters such as: header, body, authentication
+* Write extracted data to an output file
+* Download files from the urls
 * Supports Python 2 and Python 3
 
 Installation
@@ -112,7 +112,6 @@ CSS Example
     crawler.config.number_of_threads = 3
     crawler.run()
 
-
 File Example
 -------------
 .. code:: python
@@ -141,7 +140,7 @@ File Example
     crawler.run()
 
 Session Example
--------------
+----------------
 .. code:: python
 
     from xcrawler import XCrawler, Page, PageScraper
@@ -162,7 +161,7 @@ Session Example
     crawler.run()
 
 Request Example
--------------
+----------------
 .. code:: python
 
     from xcrawler import XCrawler, Page, PageScraper
