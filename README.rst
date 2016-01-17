@@ -8,6 +8,9 @@ Features
 * Extract web page data using XPath expressions or CSS selectors
 * Extract urls from a web page and visit extracted urls
 * Write extracted data to an output file
+* Download files from the urls
+* Set HTTP session parameters such as: cookies, SSL certificates, proxies
+* Set HTTP request parameters such as: header, body, authentication
 * Supports Python 2 and Python 3
 
 Installation
