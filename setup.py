@@ -6,7 +6,7 @@ with open('README.rst') as readme_file:
 setup(name='xcrawler',
       packages=find_packages(),
       install_requires=['lxml', 'cssselect', 'six', 'requests>=2.4.0'],
-      version='1.2.0',
+      version='1.3.0',
       description='A multi-threaded, open source web crawler',
       long_description=long_description,
       url='https://github.com/cardsurf/xcrawler',
