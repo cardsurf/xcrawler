@@ -5,7 +5,6 @@ from xcrawler import XCrawler, Page, PageScraper
 class WikimediaItem:
     def __init__(self):
         self.name = None
-        self.format = None
         self.base64 = None
 
 
@@ -14,7 +13,6 @@ class WikimediaScraper(PageScraper):
         url = page.xpath("//div[@class='fullImageLink']/a/@href")[0]
         item = WikimediaItem()
         item.name = url.split("/")[-1]
-        item.format = url.split(".")[-1]
         item.base64 = page.file(url)
         return item
 
