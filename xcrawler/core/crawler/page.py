@@ -95,7 +95,7 @@ class Page(object):
     def file(self, url):
         """
         :param url: the url of a file to download
-        :returns: a base64 string that represents a file content
+        :returns: a base64 string that represents the file
         """
         request = self.request_factory.create_request('GET', url)
         file_base64 = self.request_sender.get_base64(request)
