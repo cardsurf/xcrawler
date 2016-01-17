@@ -1,5 +1,13 @@
 # Changelog
 
+### Version 1.3.0
+Added setting HTTP session parameters such as: cookies, SSL certificates, proxies
+Added setting HTTP request parameters such as: header, body, authentication
+Added support for file download
+Added requests library to project requirements
+Modified type of the timeout attribute in the Config class to a tuple: (connect timeout, read timeout)
+Added examples: file download, settings session parameters and setting requests parameters
+
 ### Version 1.2.0
 Added support for Python 3  
 Improved converting links to absolute urls  
