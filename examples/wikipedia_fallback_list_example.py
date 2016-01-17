@@ -41,4 +41,3 @@ crawler = XCrawler(start_pages)
 crawler.config.output_file_name = "wikipedia_fallback_list_example_output.csv"
 crawler.run()
 
-

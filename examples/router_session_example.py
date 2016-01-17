@@ -15,3 +15,4 @@ crawler.config.session.headers = {"User-Agent": "Custom User Agent",
                                   "Accept-Language": "fr"}
 crawler.config.session.auth = HTTPBasicAuth('admin', 'admin')
 crawler.run()
+

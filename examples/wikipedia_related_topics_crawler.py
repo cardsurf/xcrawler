@@ -27,4 +27,3 @@ crawler = XCrawler(start_pages)
 crawler.config.output_file_name = "wikipedia_related_topics_crawler_output.csv"
 crawler.run()
 
-
