@@ -8,7 +8,7 @@ class WikimediaItem:
         self.base64 = None
 
 
-class WikimediaScraper(PageScraper):
+class FileScraper(PageScraper):
     def extract(self, page):
         url = page.xpath("//div[@class='fullImageLink']/a/@href")[0]
         item = WikimediaItem()
@@ -17,7 +17,7 @@ class WikimediaScraper(PageScraper):
         return item
 
 
-start_pages = [ Page("https://commons.wikimedia.org/wiki/File:Records.svg", WikimediaScraper()) ]
+start_pages = [ Page("https://commons.wikimedia.org/wiki/File:Records.svg", FileScraper()) ]
 crawler = XCrawler(start_pages)
 crawler.config.output_file_name = "wikimedia_file_example_output.csv"
 crawler.run()
