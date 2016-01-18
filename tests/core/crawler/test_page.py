@@ -7,9 +7,11 @@ from requests import Request
 
 from tests.mock import mock_factory
 from xcrawler.core.crawler.page import Page
-from xcrawler.core.extractor.extractor_factory import ExtractorFactory
 from xcrawler.http.requests.request import RequestFactory
+from xcrawler.core.extractor.extractor_factory import ExtractorFactory
 from xcrawler.core.extractor.extractor import Extractor
+from xcrawler.compatibility.compatibility_factory import CompatibilityFactory
+from xcrawler.compatibility.string_converter.compatible_string_converter import CompatibleStringConverter
 from xcrawler.http.urls.url_joiner import UrlJoiner
 from xcrawler.http.requests.request_sender import RequestSender
 
@@ -23,10 +25,13 @@ class TestPage(unittest.TestCase):
         extractor_factory = mock.create_autospec(ExtractorFactory).return_value
         url_joiner = mock.create_autospec(UrlJoiner).return_value
         request_sender = mock.create_autospec(RequestSender).return_value
-        self.page = Page(url, scraper, request_factory, extractor_factory, url_joiner, request_sender)
+        compatibility_factory = mock.create_autospec(CompatibilityFactory).return_value
+        self.page = Page(url, scraper, request_factory, extractor_factory, url_joiner, request_sender,
+                         compatibility_factory)
         self.page.content = mock.create_autospec(Element).return_value
-        self.page.extractor = mock.create_autospec(Extractor).return_value
         self.page.request = mock.create_autospec(Request).return_value
+        self.page.extractor = mock.create_autospec(Extractor).return_value
+        self.page.string_converter = mock.create_autospec(CompatibleStringConverter).return_value
 
     def test_set_content(self):
         mock_content = mock.create_autospec(Element).return_value
@@ -105,8 +110,16 @@ class TestPage(unittest.TestCase):
         self.assertEquals(result, "http://test.com/link/to/example_page.html")
 
     @mock.patch('xcrawler.core.crawler.page.etree')
-    def test_str(self, mock_etree_module):
-        mock_etree_module.tostring.return_value = "<html><br>Page title</br></html>"
+    def test_str_python2(self, mock_etree_module):
+        mock_etree_module.tostring.return_value = b"<html><br>Page title</br></html>"
+        self.page.string_converter.convert_to_string.return_value = b"<html><br>Page title</br></html>"
         result = self.page.__str__()
-        self.assertEquals(result, mock_etree_module.tostring.return_value)
+        self.assertEquals(type(result), type(self.page.string_converter.convert_to_string.return_value))
+
+    @mock.patch('xcrawler.core.crawler.page.etree')
+    def test_str_python3(self, mock_etree_module):
+        mock_etree_module.tostring.return_value = b"<html><br>Page title</br></html>"
+        self.page.string_converter.convert_to_string.return_value = u"<html><br>Page title</br></html>"
+        result = self.page.__str__()
+        self.assertEquals(type(result), type(self.page.string_converter.convert_to_string.return_value))
 

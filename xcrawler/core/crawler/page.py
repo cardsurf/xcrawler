@@ -8,9 +8,10 @@ except ImportError:
     from urllib.parse import urlparse
 from lxml import etree
 
-from xcrawler.http.urls.url_joiner import UrlJoiner
-from xcrawler.core.extractor.extractor_factory import ExtractorFactory
 from xcrawler.http.requests.request import RequestFactory
+from xcrawler.core.extractor.extractor_factory import ExtractorFactory
+from xcrawler.compatibility.compatibility_factory import CompatibilityFactory
+from xcrawler.http.urls.url_joiner import UrlJoiner
 from xcrawler.http.requests.request_sender import RequestSender
 
 
@@ -31,7 +32,8 @@ class Page(object):
                  request_factory=RequestFactory(),
                  extractor_factory=ExtractorFactory(),
                  url_joiner=UrlJoiner(),
-                 request_sender=RequestSender()):
+                 request_sender=RequestSender(),
+                 compatibility_factory=CompatibilityFactory()):
         self.url = url
         self.scraper = page_scraper
         self._content = None
@@ -41,6 +43,7 @@ class Page(object):
         self.extractor_factory = extractor_factory
         self.url_joiner = url_joiner
         self.request_sender = request_sender
+        self.string_converter = compatibility_factory.create_compatible_string_converter()
 
     @property
     def content(self):
@@ -125,5 +128,7 @@ class Page(object):
         return url
 
     def __str__(self):
-        return etree.tostring(self.content)
+        string = etree.tostring(self.content)
+        string = self.string_converter.convert_to_string(string)
+        return string
 
