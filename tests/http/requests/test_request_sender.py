@@ -57,7 +57,7 @@ class TestRequestSender(unittest.TestCase):
         mock_request = mock.create_autospec(Request).return_value
         mock_request.url = "htt;//mockurl.mock"
         mock_exception = mock.create_autospec(exceptions.ConnectionError).return_value
-        mock_exception.message = "DNS failure"
+        mock_exception.__str__.return_value = "DNS failure"
         self.request_sender.handle_request_exception(mock_request, mock_exception)
         self.assertEquals(mock_print_function.call_count, 2)
 
@@ -66,7 +66,7 @@ class TestRequestSender(unittest.TestCase):
         mock_request = mock.create_autospec(Request).return_value
         mock_request.url = "http://mockurl.mock"
         mock_exception = mock.create_autospec(exceptions.HTTPError).return_value
-        mock_exception.message = "Invalid HTTP respons"
+        mock_exception.__str__.return_value = "Invalid HTTP respons"
         self.request_sender.handle_request_exception(mock_request, mock_exception)
         self.assertEquals(mock_print_function.call_count, 2)
 
@@ -75,7 +75,7 @@ class TestRequestSender(unittest.TestCase):
         mock_request = mock.create_autospec(Request).return_value
         mock_request.url = "htt;//mockurl.mock"
         mock_exception = mock.create_autospec(exceptions.URLRequired).return_value
-        mock_exception.message = "Invalid url"
+        mock_exception.__str__.return_value = "Invalid url"
         self.request_sender.handle_request_exception(mock_request, mock_exception)
         self.assertEquals(mock_print_function.call_count, 2)
 
@@ -84,7 +84,7 @@ class TestRequestSender(unittest.TestCase):
         mock_request = mock.create_autospec(Request).return_value
         mock_request.url = "htt;//mockurl.mock"
         mock_exception = mock.create_autospec(exceptions.TooManyRedirects).return_value
-        mock_exception.message = "Number of maximum redirections exceeded"
+        mock_exception.__str__.return_value = "Number of maximum redirections exceeded"
         self.request_sender.handle_request_exception(mock_request, mock_exception)
         self.assertEquals(mock_print_function.call_count, 2)
 
@@ -93,7 +93,7 @@ class TestRequestSender(unittest.TestCase):
         mock_request = mock.create_autospec(Request).return_value
         mock_request.url = "http://mockurl.mock"
         mock_exception = mock.create_autospec(exceptions.Timeout).return_value
-        mock_exception.message = "Timeout reached"
+        mock_exception.__str__.return_value = "Timeout reached"
         self.request_sender.handle_request_exception(mock_request, mock_exception)
         self.assertEquals(mock_print_function.call_count, 2)
 
@@ -102,7 +102,7 @@ class TestRequestSender(unittest.TestCase):
         mock_request = mock.create_autospec(Request).return_value
         mock_request.url = "http://mockurl.mock"
         mock_exception = mock.create_autospec(exceptions.RequestException).return_value
-        mock_exception.message = "RequestException exception message"
+        mock_exception.__str__.return_value = "RequestException exception message"
         self.request_sender.handle_request_exception(mock_request, mock_exception)
         self.assertEquals(mock_print_function.call_count, 2)
 
@@ -111,6 +111,6 @@ class TestRequestSender(unittest.TestCase):
         mock_request = mock.create_autospec(Request).return_value
         mock_request.url = "http://mockurl.mock"
         mock_exception = mock.create_autospec(BaseException).return_value
-        mock_exception.message = "BaseException message"
+        mock_exception.__str__.return_value = "BaseException message"
         self.request_sender.handle_request_exception(mock_request, mock_exception)
         self.assertEquals(mock_print_function.call_count, 2)

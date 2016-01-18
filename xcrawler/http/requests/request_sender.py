@@ -48,7 +48,7 @@ class RequestSender(object):
 
     def handle_request_exception(self, request, exception):
         print("An exception occurred while sending request: " + request.url)
-        print(exception.__class__.__name__ + " exception: " + str(exception.message))
+        print(exception.__class__.__name__ + " exception: " + exception.__str__())
 
     def get_base64(self, request):
         string_content = self.get_binary(request)
