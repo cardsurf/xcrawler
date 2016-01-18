@@ -42,6 +42,38 @@ class TestStringConverter(unittest.TestCase):
         result = self.string_converter.convert_to_unicode_string(mock_string)
         self.assertEquals(result, u"mock")
 
+    @mock.patch.object(StringConverter, 'convert_to_byte_string_utf8')
+    def test_try_convert_to_byte_string_utf8_argument_byte_string(self, mock_convert_to_byte_string_utf8):
+        mock_string = b"mock"
+        mock_byte_string_utf8 = b"mock"
+        mock_convert_to_byte_string_utf8.return_value = mock_byte_string_utf8
+        result = self.string_converter.try_convert_to_byte_string_utf8(mock_string)
+        self.assertEquals(result, mock_byte_string_utf8)
+
+    @mock.patch.object(StringConverter, 'convert_to_byte_string_utf8')
+    def test_try_convert_to_byte_string_utf8_argument_unicode_string(self, mock_convert_to_byte_string_utf8):
+        mock_string = u"mock"
+        mock_byte_string_utf8 = b"mock"
+        mock_convert_to_byte_string_utf8.return_value = mock_byte_string_utf8
+        result = self.string_converter.try_convert_to_byte_string_utf8(mock_string)
+        self.assertEquals(result, mock_byte_string_utf8)
+
+    @mock.patch.object(StringConverter, 'convert_to_unicode_string')
+    def test_try_convert_to_unicode_string_argument_byte_string(self, mock_convert_to_unicode_string):
+        mock_string = b"mock"
+        mock_unicode_string = u"mock"
+        mock_convert_to_unicode_string.return_value = mock_unicode_string
+        result = self.string_converter.try_convert_to_unicode_string(mock_string)
+        self.assertEquals(result, mock_unicode_string)
+
+    @mock.patch.object(StringConverter, 'convert_to_unicode_string')
+    def test_try_convert_to_unicode_string_argument_unicode_string(self, mock_convert_to_unicode_string):
+        mock_string = u"mock"
+        mock_unicode_string = u"mock"
+        mock_convert_to_unicode_string.return_value = mock_unicode_string
+        result = self.string_converter.try_convert_to_unicode_string(mock_string)
+        self.assertEquals(result, mock_unicode_string)
+
     @mock.patch('xcrawler.pythonutils.converters.string_converter.HTML')
     def test_convert_to_tree_elements_html_string(self, mock_html_function):
         mock_html_string = "<html><a href='url1'>text1</a><a href='url2'>text2</a></html>"
