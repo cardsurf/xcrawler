@@ -10,14 +10,14 @@ class TestInstanceResolver(unittest.TestCase):
     def setUp(self):
         self.type_resolver = InstanceResolver()
 
-    def test_is_string_argument_non_string(self):
+    def test_is_string_python_version_argument_non_string(self):
         mock_object = mock.Mock()
-        result = self.type_resolver.is_string(mock_object)
+        result = self.type_resolver.is_string_python_version(mock_object)
         self.assertEquals(result, False)
 
-    def test_is_string_argument_string(self):
+    def test_is_string_python_version_argument_string(self):
         mock_object = "mock"
-        result = self.type_resolver.is_string(mock_object)
+        result = self.type_resolver.is_string_python_version(mock_object)
         self.assertEquals(result, True)
 
     def test_is_byte_string_argument_non_byte_string(self):

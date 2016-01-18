@@ -44,16 +44,16 @@ class TestObjectWriterCsv(unittest.TestCase):
 
     def test_write_headers_string_argument(self):
         mock_string = "mock"
-        self.object_writer_csv.instance_resolver.is_string.return_value = True
+        self.object_writer_csv.instance_resolver.is_string_python_version.return_value = True
         self.object_writer_csv.write_headers(mock_string)
-        self.object_writer_csv.instance_resolver.is_string.assert_called_once_with(mock_string)
+        self.object_writer_csv.instance_resolver.is_string_python_version.assert_called_once_with(mock_string)
 
     @mock.patch.object(ObjectWriterCsv, 'write')
     def test_write_headers_object_argument(self, mock_write):
         mock_object = mock.Mock()
         mock_object_variables = { "width": 800, "height": 600, "title": "mock title" }
         mock_names = ["height", "mock title", "width"]
-        self.object_writer_csv.instance_resolver.is_string.return_value = False
+        self.object_writer_csv.instance_resolver.is_string_python_version.return_value = False
         self.object_writer_csv.variables_sorter.get_list_of_variable_names_sorted_by_name.return_value = ["height", "mock title", "width"]
         self.object_writer_csv.write_headers(mock_object)
         mock_write.assert_called_once_with(mock_names)
@@ -61,14 +61,14 @@ class TestObjectWriterCsv(unittest.TestCase):
     @mock.patch.object(ObjectWriterCsv, 'write')
     def test_write_object_string_argument(self, mock_write):
         mock_object = "Mock string"
-        self.object_writer_csv.instance_resolver.is_string.return_value = True
+        self.object_writer_csv.instance_resolver.is_string_python_version.return_value = True
         self.object_writer_csv.write_object(mock_object)
         mock_write.assert_called_once_with([mock_object])
 
     @mock.patch.object(ObjectWriterCsv, 'write_variables')
     def test_write_object_non_string_argument(self, mock_write_variables):
         mock_object = mock.Mock()
-        self.object_writer_csv.instance_resolver.is_string.return_value = False
+        self.object_writer_csv.instance_resolver.is_string_python_version.return_value = False
         self.object_writer_csv.write_object(mock_object)
         mock_write_variables.assert_called_once_with(mock_object)
 

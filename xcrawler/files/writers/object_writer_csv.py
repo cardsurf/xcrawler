@@ -36,12 +36,12 @@ class ObjectWriterCsv(ObjectWriter):
         return output_file
 
     def write_headers(self, instance_object):
-        if not self.instance_resolver.is_string(instance_object):
+        if not self.instance_resolver.is_string_python_version(instance_object):
             headers = self.variables_sorter.get_list_of_variable_names_sorted_by_name(instance_object)
             self.write(headers)
 
     def write_object(self, instance_object):
-        if self.instance_resolver.is_string(instance_object):
+        if self.instance_resolver.is_string_python_version(instance_object):
             self.write([instance_object])
         else:
             self.write_variables(instance_object)

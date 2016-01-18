@@ -24,7 +24,7 @@ class ObjectConverter(object):
         return unicode_string
 
     def convert_to_string(self, instance_object):
-        if not self.instance_resolver.is_string(instance_object):
+        if not self.instance_resolver.is_string_python_version(instance_object):
             instance_object = str(instance_object)
         return instance_object
 

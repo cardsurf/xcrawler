@@ -6,7 +6,7 @@ class InstanceResolver(object):
     """Determines if an object is an instance of a specified type.
 
     """
-    def is_string(self, o):
+    def is_string_python_version(self, o):
         return isinstance(o, string_types)
 
     def is_byte_string(self, o):
