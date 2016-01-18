@@ -4,6 +4,8 @@ from xcrawler.compatibility.write_opener.write_opener_python2 import WriteOpener
 from xcrawler.compatibility.write_opener.write_opener_python3 import WriteOpenerPython3
 from xcrawler.compatibility.object_converter.object_converter_python2 import ObjectConverterPython2
 from xcrawler.compatibility.object_converter.object_converter_python3 import ObjectConverterPython3
+from xcrawler.compatibility.string_converter.string_converter_python2 import StringConverterPython2
+from xcrawler.compatibility.string_converter.string_converter_python3 import StringConverterPython3
 
 
 class CompatibilityFactory(object):
@@ -25,3 +27,10 @@ class CompatibilityFactory(object):
             return ObjectConverterPython2()
         else:
             return ObjectConverterPython3()
+
+    def create_compatible_string_converter(self):
+        if self.python_info.is_python2():
+            return StringConverterPython2()
+        else:
+            return StringConverterPython3()
+
