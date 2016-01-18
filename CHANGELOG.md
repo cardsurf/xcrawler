@@ -1,13 +1,13 @@
 # Changelog
 
 ### Version 1.3.0
-Added setting HTTP session parameters such as: cookies, SSL certificates, proxies
-Added setting HTTP request parameters such as: header, body, authentication
-Added support for file download
-Added requests library to project requirements
-Modified type of the timeout attribute of the Config class to a tuple: (connect timeout, read timeout)
-The __str__ method of the Page class returns unicode string in Python 3
-Added examples: file download, setting session parameters and setting request parameters
+Added setting HTTP session parameters such as: cookies, SSL certificates, proxies  
+Added setting HTTP request parameters such as: header, body, authentication  
+Added support for file download  
+Added requests library to project requirements  
+Modified type of the timeout attribute of the Config class to a tuple: (connect timeout, read timeout)  
+The __str__ method of the Page class returns unicode string in Python 3  
+Added examples: file download, setting session parameters and setting request parameters  
 
 ### Version 1.2.0
 Added support for Python 3  
