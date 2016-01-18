@@ -42,6 +42,13 @@ class TestStringConverter(unittest.TestCase):
         result = self.string_converter.convert_to_unicode_string(mock_string)
         self.assertEquals(result, u"mock")
 
+    def test_convert_to_tree_elements_empty_string(self):
+        mock_html_string = ""
+        mock_tree_elements = mock.create_autospec(Element).return_value
+        self.string_converter.element_factory.create_element.return_value = mock_tree_elements
+        result = self.string_converter.convert_to_tree_elements(mock_html_string)
+        self.assertEquals(result, mock_tree_elements)
+
     @mock.patch.object(StringConverter, 'convert_to_byte_string_utf8')
     def test_try_convert_to_byte_string_utf8_argument_byte_string(self, mock_convert_to_byte_string_utf8):
         mock_string = b"mock"
@@ -81,13 +88,6 @@ class TestStringConverter(unittest.TestCase):
         mock_tree_elements = mock.create_autospec(Element).return_value
         self.string_converter.html_parser_factory.create_html_parser_unicode.return_value = mock_unicode_parser
         mock_html_function.return_value = mock_tree_elements
-        result = self.string_converter.convert_to_tree_elements(mock_html_string)
-        self.assertEquals(result, mock_tree_elements)
-
-    def test_convert_to_tree_elements_empty_string(self):
-        mock_html_string = ""
-        mock_tree_elements = mock.create_autospec(Element).return_value
-        self.string_converter.element_factory.create_element.return_value = mock_tree_elements
         result = self.string_converter.convert_to_tree_elements(mock_html_string)
         self.assertEquals(result, mock_tree_elements)
 

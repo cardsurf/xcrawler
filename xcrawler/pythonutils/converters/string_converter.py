@@ -29,6 +29,13 @@ class StringConverter(object):
         unicode_string = string.decode('utf8')
         return unicode_string
 
+    def convert_to_tree_elements(self, html_string):
+        tree_elements = self.element_factory.create_element("Empty")
+        if len(html_string) > 0:
+            unicode_parser = self.html_parser_factory.create_html_parser_unicode()
+            tree_elements = HTML(html_string, parser=unicode_parser)
+        return tree_elements
+
     def try_convert_to_byte_string_utf8(self, string):
         try:
             string = self.convert_to_byte_string_utf8(string)
@@ -42,13 +49,6 @@ class StringConverter(object):
         except UnicodeDecodeError:
             return string
         return string
-
-    def convert_to_tree_elements(self, html_string):
-        tree_elements = self.element_factory.create_element("Empty")
-        if len(html_string) > 0:
-            unicode_parser = self.html_parser_factory.create_html_parser_unicode()
-            tree_elements = HTML(html_string, parser=unicode_parser)
-        return tree_elements
 
     def list_convert_to_unicode_string(self, list_strings):
         return [self.convert_to_unicode_string(s) for s in list_strings]
