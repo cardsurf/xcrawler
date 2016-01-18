@@ -40,14 +40,14 @@ class StringConverter(object):
         try:
             string = self.convert_to_byte_string_utf8(string)
         except UnicodeEncodeError:
-            return string
+            pass
         return string
 
     def try_convert_to_unicode_string(self, string):
         try:
             string = self.convert_to_unicode_string(string)
         except UnicodeDecodeError:
-            return string
+            pass
         return string
 
     def list_convert_to_unicode_string(self, list_strings):
